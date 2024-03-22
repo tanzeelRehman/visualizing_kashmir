@@ -6,6 +6,7 @@ class GetAssignedAssets {
     required this.assets,
     required this.totalAssetsAssigned,
   });
+
   late final String message;
   late final int statusCode;
   late final User user;

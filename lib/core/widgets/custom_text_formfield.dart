@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 
+// ignore: must_be_immutable
 class CustomTextFormField extends StatefulWidget {
   final TextEditingController controller;
   final FocusNode? focusNode;
@@ -19,7 +20,7 @@ class CustomTextFormField extends StatefulWidget {
   Function()? ontapped;
   bool readonly;
   CustomTextFormField(
-      {Key? key,
+      {super.key,
       required this.controller,
       this.hintText = "Input here",
       this.height = 55,
@@ -34,8 +35,7 @@ class CustomTextFormField extends StatefulWidget {
       this.ontapped,
       this.readonly = false,
       this.textInputType = TextInputType.text,
-      this.textInputAction = TextInputAction.next})
-      : super(key: key);
+      this.textInputAction = TextInputAction.next});
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -56,8 +56,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         obscureText: widget.obsecure,
         readOnly: widget.readonly,
         obscuringCharacter: "*",
-        style: AppTheme.heading1
-            .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w400),
+        style: Theme.of(context).textTheme.bodyMedium,
         cursorColor: Colors.grey,
         onChanged: widget.onChanged ?? (value) {},
         controller: widget.controller,
@@ -67,8 +66,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             hintText: widget.hintText,
             contentPadding:
                 widget.contentPadding ?? EdgeInsets.symmetric(vertical: 15.sp),
-            hintStyle: AppTheme.subtitle1
-                .copyWith(fontSize: 15.sp, fontWeight: FontWeight.normal),
+            hintStyle: Theme.of(context).textTheme.bodyMedium,
             prefixIcon: widget.prefixIcon,
             suffixIcon: widget.isPassword
                 ? IconButton(
@@ -78,7 +76,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                       });
                     }),
                     icon: Icon(
-                      color: AppTheme.primaryColor,
+                      color: Theme.of(context).primaryColor,
                       widget.obsecure ? Icons.visibility_off : Icons.visibility,
                     ),
                   )

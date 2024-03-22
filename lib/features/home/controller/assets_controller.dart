@@ -1,11 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:visualizing_kashmir/core/theme/app_theme.dart';
-
 class AssetsController extends GetxController {
-
   //* Widget State variables
   List<Map> addNewAssetsRecordData = [];
 
@@ -13,7 +9,6 @@ class AssetsController extends GetxController {
   var addAssetsWidgetList = <Widget>[];
 
   //! Business logic
- 
 
   void handleError(String failure) {
     Get.snackbar(
@@ -38,51 +33,4 @@ class AssetsController extends GetxController {
   }
 
   //- CONSTANT DATA --------------------------------------------------------------------------------->
-
-  List<PopupMenuItem<String>> assetsList = [
-    PopupMenuItem(
-      value: 'Laptop',
-      child: Text(
-        "Laptop",
-        style: AppTheme.subtitle1.copyWith(color: Colors.white),
-      ),
-    ),
-    PopupMenuItem(
-      value: 'Mobile',
-      child: Text(
-        "Mobile",
-        style: AppTheme.subtitle1.copyWith(color: Colors.white),
-      ),
-    ),
-    PopupMenuItem(
-      value: 'Internet Device',
-      child: Text(
-        "Internet Device",
-        style: AppTheme.subtitle1.copyWith(color: Colors.white),
-      ),
-    ),
-  ];
-  List<PopupMenuItem<String>> locationList = [
-    PopupMenuItem(
-      value: 'Islamabad',
-      child: Text(
-        "Islamabad",
-        style: AppTheme.subtitle1.copyWith(color: Colors.white),
-      ),
-    ),
-    PopupMenuItem(
-      value: 'lahore',
-      child: Text(
-        "Lahore",
-        style: AppTheme.subtitle1.copyWith(color: Colors.white),
-      ),
-    ),
-    PopupMenuItem(
-      value: 'Karachi',
-      child: Text(
-        "Karachi",
-        style: AppTheme.subtitle1.copyWith(color: Colors.white),
-      ),
-    ),
-  ];
 }

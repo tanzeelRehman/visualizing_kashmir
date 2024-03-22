@@ -1,31 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:visualizing_kashmir/core/theme/app_theme.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class PrimaryContinueButton extends StatelessWidget {
   String text;
   Function() ontap;
   double? width;
+  bool isWhite;
   PrimaryContinueButton({
-    Key? key,
+    super.key,
     this.width,
     required this.text,
     required this.ontap,
-  }) : super(key: key);
+    required this.isWhite,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: ontap,
       child: SizedBox(
-        height: 50,
+        height: 50.h,
         width: width ?? double.infinity,
         child: Container(
-          decoration: AppTheme.roundedContainerDecoration
-              .copyWith(color: AppTheme.primaryColor),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.r),
+              color: isWhite ? Get.theme.canvasColor : Get.theme.primaryColor),
           alignment: Alignment.center,
           child: Text(
             text,
-            style: const TextStyle(color: Colors.white, fontSize: 20),
+            style: TextStyle(
+                color: isWhite ? Get.theme.primaryColor : Get.theme.canvasColor,
+                fontSize: 20.sp),
           ),
         ),
       ),

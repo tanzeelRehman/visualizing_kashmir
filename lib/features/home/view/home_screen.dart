@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 import 'package:logger/logger.dart';
-import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -32,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.scaffoldBackgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
@@ -122,10 +120,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Row titlebar() {
     return Row(
       children: [
-        Column(
+        const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(
+            SizedBox(
               height: 10,
             ),
           ],
@@ -135,18 +133,6 @@ class _HomeScreenState extends State<HomeScreen> {
           onTap: () {
             //    Get.toNamed(AppPages.assignSeatPage);
           },
-          child: Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(17.r),
-              color: AppTheme.primaryColor.withOpacity(.3),
-            ),
-            child: Icon(
-              Icons.chair,
-              color: AppTheme.primaryColor,
-            ),
-          ),
         ),
       ],
     );

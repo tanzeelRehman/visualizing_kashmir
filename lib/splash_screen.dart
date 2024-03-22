@@ -1,7 +1,9 @@
-
 import 'package:flutter/material.dart';
-import 'package:visualizing_kashmir/core/constants/app_assets.dart';
-import 'package:visualizing_kashmir/core/theme/app_theme.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import 'package:visualizing_kashmir/core/constants/app_pages.dart';
+import 'package:visualizing_kashmir/core/widgets/primary_continuebutton.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -22,15 +24,26 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.scaffoldBackgroundColor,
-      body: Center(
-        child: SizedBox(
-            height: 200,
-            child: Image.asset(
-              AppAssets.aislogo,
-              fit: BoxFit.contain,
-            )),
-      ),
-    );
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              color: Get.theme.canvasColor,
+              height: Get.height * 0.5,
+            ),
+            PrimaryContinueButton(
+              width: Get.width * 0.85,
+              text: "Proceed",
+              ontap: () {
+                Get.toNamed(AppPages.languagePage);
+              },
+              isWhite: true,
+            ),
+            SizedBox(
+              height: 10.h,
+            )
+          ],
+        ));
   }
 }

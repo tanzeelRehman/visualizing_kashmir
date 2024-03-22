@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:visualizing_kashmir/core/globle/globle.dart';
-import 'package:visualizing_kashmir/core/theme/app_theme.dart';
+
 import 'package:visualizing_kashmir/core/widgets/Custom%20Routes/widget_extentions.dart';
 
 import 'Custom Routes/Popups/show_pop_up.dart';
 
+// ignore: must_be_immutable
 class CustomDropDownField extends StatefulWidget {
   CustomDropDownField(
-      {Key? key,
+      {super.key,
       required this.controller,
       required this.hintText,
       this.icon,
@@ -38,8 +39,7 @@ class CustomDropDownField extends StatefulWidget {
       this.typingTextColor,
       this.putTitleInRow = false,
       this.passwordIcon,
-      this.fillColor})
-      : super(key: key);
+      this.fillColor});
   final String? title;
 
   /// used when putTile in row is true
@@ -239,7 +239,7 @@ class _CustomDropDownFieldState extends State<CustomDropDownField> {
                           //     borderSide:
                           //         const BorderSide(color: Colors.red, width: 2)),
                           hintText: widget.hintText,
-                          hintStyle: AppTheme.subtitle1,
+                          hintStyle: Theme.of(context).textTheme.bodyMedium,
                           //  TextStyle(
                           //   fontWeight: FontWeight.normal,
                           //   color:
@@ -294,12 +294,11 @@ class _CustomDropDownFieldState extends State<CustomDropDownField> {
 
 class PopupListView extends StatefulWidget {
   const PopupListView(
-      {Key? key,
+      {super.key,
       this.dropdownValues,
       required this.shouldIncludeSearchBar,
       this.size,
-      required this.onValueSelect})
-      : super(key: key);
+      required this.onValueSelect});
   final bool shouldIncludeSearchBar;
   final List<String>? dropdownValues;
   final Size? size;
@@ -381,7 +380,7 @@ class _PopupListViewState extends State<PopupListView> {
                       border: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                       ),
-                      hintStyle: AppTheme.subtitle1),
+                      hintStyle: Theme.of(context).textTheme.bodyMedium),
                   onChanged: (value) {
                     search(value);
                   },
@@ -409,7 +408,7 @@ class _PopupListViewState extends State<PopupListView> {
                       child: ListTile(
                           title: Text(
                             searchedValues![index],
-                            style: AppTheme.subtitle1,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           onTap: () =>
                               // Navigator.pop(context, searchedValues![index]),

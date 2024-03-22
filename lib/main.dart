@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:visualizing_kashmir/core/constants/app_pages.dart';
 
 import 'package:visualizing_kashmir/core/globle/globle.dart';
+import 'package:visualizing_kashmir/core/theme/app_theme.dart';
+import 'package:visualizing_kashmir/features/Language/view/language_page.dart';
 import 'package:visualizing_kashmir/features/home/view/home_screen.dart';
+import 'package:visualizing_kashmir/splash_screen.dart';
 import 'dependency_container.dart' as di;
 
 void main() async {
@@ -13,8 +17,6 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -23,18 +25,18 @@ class MyApp extends StatelessWidget {
         return GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: GetMaterialApp(
+            theme: AppTheme.lightTheme,
             navigatorKey: navigatorKeyGlobal,
             debugShowCheckedModeBanner: false,
             title: 'Visualizing Kashmir',
+            initialRoute: AppPages.splashPage,
             getPages: [
-              // GetPage(
-              //     name: AppPages.splashPage, page: () => const SplashScreen()),
-              // GetPage(
-              //     name: AppPages.loginPage, page: () => const SignInScreen()),
-              // GetPage(name: AppPages.homePage, page: () => HomeScreen()),
-              // GetPage(
-              //     name: AppPages.assignSeatPage,
-              //     page: () => const AssignSeatPage()),
+              GetPage(
+                  name: AppPages.splashPage, page: () => const SplashScreen()),
+              GetPage(
+                name: AppPages.languagePage,
+                page: () => const LanguagePage(),
+              ),
             ],
             home: const HomeScreen(),
           ),

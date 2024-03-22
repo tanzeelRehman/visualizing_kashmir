@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:visualizing_kashmir/core/theme/app_theme.dart';
+
 import 'package:visualizing_kashmir/core/widgets/custom_line.dart';
 
+// ignore: must_be_immutable
 class CustomAppBar extends StatelessWidget {
   CustomAppBar(
-      {Key? key,
+      {super.key,
       this.screeData,
       required this.title,
       this.leading,
       this.subTitle,
       this.trailing,
       this.backgroundColor,
-      this.onBack})
-      : super(key: key);
+      this.onBack});
 
   MediaQueryData? screeData;
   final String title;
@@ -57,10 +57,6 @@ class CustomAppBar extends StatelessWidget {
                               color: Colors.white,
                               size: 15,
                             )),
-                  ),
-                  Text(
-                    title,
-                    style: AppTheme.heading1.copyWith(color: Colors.white),
                   ),
                   SizedBox(height: 25.w),
                 ],

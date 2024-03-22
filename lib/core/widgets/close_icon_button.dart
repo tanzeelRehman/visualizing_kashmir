@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// ignore: must_be_immutable
 class CloseIconButton extends StatelessWidget {
   Color? bgColor;
   Function()? ontap;
-  CloseIconButton({Key? key, this.bgColor = Colors.black, this.ontap, iconSize})
-      : super(key: key);
+  CloseIconButton(
+      {super.key, this.bgColor = Colors.black, this.ontap, iconSize});
 
   double? iconSize = 16.sp;
   @override
