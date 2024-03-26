@@ -37,6 +37,10 @@ class MyApp extends StatelessWidget {
                 name: AppPages.languagePage,
                 page: () => const LanguagePage(),
               ),
+              GetPage(
+                name: AppPages.homePage,
+                page: () => const HomeScreen(),
+              ),
             ],
             home: const HomeScreen(),
           ),

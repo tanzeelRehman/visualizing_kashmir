@@ -39,8 +39,8 @@ class selectLanguageCard extends StatelessWidget {
                       }),
                   Text(
                     name,
-                    style: Get.theme.textTheme.titleMedium!
-                        .copyWith(color: Get.theme.primaryColor),
+                    style: Get.theme.textTheme.titleMedium!.copyWith(
+                        color: Get.theme.primaryColor, fontSize: 20.sp),
                   )
                 ],
               ),

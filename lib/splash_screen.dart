@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
               width: Get.width * 0.85,
               text: "Proceed",
               ontap: () {
-                Get.toNamed(AppPages.languagePage);
+                Get.toNamed(AppPages.homePage);
               },
               isWhite: true,
             ),
