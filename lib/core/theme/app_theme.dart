@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   //* Light Theme ========================================================>
@@ -10,22 +11,22 @@ class AppTheme {
       cardColor: const Color(0xfff5e0e0),
       primaryColor: const Color(0xffcf0000),
       textTheme: TextTheme(
-          titleMedium: TextStyle(
-              fontSize: 25.sp,
-              fontWeight: FontWeight.bold,
-              color: Colors.black),
-          titleSmall: TextStyle(
-              fontSize: 15.sp,
-              color: Colors.black,
+          titleMedium: GoogleFonts.outfit().copyWith(
+              color: const Color(0xff424242),
+              fontSize: 22.sp,
               fontWeight: FontWeight.bold),
-          bodyMedium: TextStyle(
+          titleSmall: GoogleFonts.outfit().copyWith(
+              color: const Color(0xff424242),
+              fontSize: 18.sp,
+              fontWeight: FontWeight.bold),
+          bodyMedium: GoogleFonts.outfit().copyWith(
+              color: const Color(0xff6d6d6d),
               fontSize: 15.sp,
-              fontWeight: FontWeight.normal,
-              color: Colors.black54),
-          bodySmall: TextStyle(
+              fontWeight: FontWeight.normal),
+          bodySmall: GoogleFonts.outfit().copyWith(
+              color: const Color(0xff6d6d6d),
               fontSize: 13.sp,
-              fontWeight: FontWeight.normal,
-              color: Colors.black54)));
+              fontWeight: FontWeight.normal)));
 
   //? Const Decoration ========================================================>
   //?<!------------------------------------------------------------------------>
@@ -37,6 +38,14 @@ class AppTheme {
       color: Colors.white);
   static BoxDecoration roundedContainerWithoutShadowDecoration = BoxDecoration(
       borderRadius: BorderRadius.circular(10), color: const Color(0xfff5e0e0));
+
+  static BoxDecoration roundedContainerDecorationwithLessShadows =
+      BoxDecoration(boxShadow: [
+    BoxShadow(
+        color: const Color(0xffefc6c6).withOpacity(.3),
+        blurRadius: 5,
+        offset: const Offset(1, 1))
+  ], borderRadius: BorderRadius.circular(15), color: Colors.white);
 
   // static BoxDecoration primaryButtonDecoration = BoxDecoration(
   //     color: AppTheme.primaryColor, borderRadius: BorderRadius.circular(30));

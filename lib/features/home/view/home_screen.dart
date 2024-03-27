@@ -1,9 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-
 import 'package:logger/logger.dart';
+
+import 'package:visualizing_kashmir/core/constants/app_assets.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
+import 'package:visualizing_kashmir/features/home/view/widgets/image_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,11 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    call();
-  }
-
-  void call() async {
-    Logger().i("CALLING SHIT");
   }
 
   @override
@@ -47,102 +49,79 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 15.h,
               ),
-              Container(
-                width: Get.width,
-                padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 15.h),
-                decoration: AppTheme.roundedContainerWithoutShadowDecoration,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: Get.width * 0.5,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+              //* Scrollable content start  -------------------------->
+              SizedBox(
+                height: Get.height * 0.68,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      donateCard(),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      temperatureAndMap(),
+                      SizedBox(
+                        height: 25.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Help us with our cause!",
-                            style: Get.textTheme.titleMedium,
+                          optionCard(
+                            title: "History",
+                            pngPath: AppAssets.historyPng,
+                            ontap: () {},
                           ),
-                          SizedBox(
-                            height: 15.h,
-                          ),
-                          donateButton(),
-                          SizedBox(
-                            height: 15.h,
-                          ),
-                          Text(
-                            "Subscribe!",
-                            style: Get.textTheme.titleSmall!.copyWith(
-                              color: Get.theme.primaryColor,
-                            ),
+                          optionCard(
+                            title: "Articles",
+                            pngPath: AppAssets.articlesPng,
+                            ontap: () {},
                           ),
                         ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
-              Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Kashmir",
-                        style: Get.textTheme.titleMedium,
-                      ),
-                      Text(
-                        "Saturday, 17 July",
-                        style: Get.textTheme.titleSmall!
-                            .copyWith(color: Get.theme.primaryColor),
                       ),
                       SizedBox(
                         height: 15.h,
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            height: 40.h,
-                            width: 35.w,
-                            decoration: AppTheme.roundedContainerDecoration
-                                .copyWith(color: Colors.white),
-                            child: const Icon(Icons.telegram),
+                          optionCard(
+                            title: "Reports",
+                            pngPath: AppAssets.reportsPng,
+                            ontap: () {},
                           ),
-                          SizedBox(
-                            width: 8.w,
+                          optionCard(
+                            title: "Know Your \nHeros",
+                            pngPath: AppAssets.heroesPng,
+                            ontap: () {},
                           ),
-                          Text(
-                            '12 Celsius',
-                            style: Get.textTheme.bodyMedium,
-                          )
                         ],
                       ),
                       SizedBox(
-                        height: 12.h,
+                        height: 25.h,
                       ),
-                      Row(
-                        children: [
-                          Container(
-                            height: 40.h,
-                            width: 35.w,
-                            decoration: AppTheme.roundedContainerDecoration
-                                .copyWith(color: Colors.white),
-                            child: const Icon(Icons.telegram),
-                          ),
-                          SizedBox(
-                            width: 8.w,
-                          ),
-                          Text(
-                            '02:23 PM',
-                            style: Get.textTheme.bodyMedium,
-                          )
-                        ],
-                      ),
+                      historyCard()
                     ],
-                  )
-                ],
+                  ),
+                ),
+              ),
+              //! Scrollable content End  -------------------------->
+              Padding(
+                padding: EdgeInsets.only(top: 10.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                          "Reach us at",
+                          style: Get.textTheme.bodySmall!.copyWith(
+                              color: Get.theme.primaryColor,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               )
             ],
           ),
@@ -151,8 +130,236 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  //* <---------- WIDGETS --------------------------------------->
-//* ==============================================================
+//* <---------- WIDGETS ------------------------------------------->
+//* ================================================================
+
+  Container donateCard() {
+    return Container(
+      width: Get.width,
+      padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 10.h),
+      decoration: AppTheme.roundedContainerWithoutShadowDecoration
+          .copyWith(borderRadius: BorderRadius.circular(25.r)),
+      child: Row(
+        children: [
+          SizedBox(
+            width: Get.width * 0.5,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Help us with our cause!",
+                  style: Get.textTheme.titleMedium,
+                ),
+                SizedBox(
+                  height: 8.h,
+                ),
+                donateButton(),
+                SizedBox(
+                  height: 15.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 20.sp),
+                  child: Text(
+                    "Subscribe!",
+                    style: Get.textTheme.titleSmall!.copyWith(
+                        color: Get.theme.primaryColor, fontSize: 15.sp),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Container historyCard() {
+    return Container(
+      //  height: 120.h,
+      width: Get.width * 0.85,
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.h),
+      decoration: AppTheme.roundedContainerDecorationwithLessShadows
+          .copyWith(color: Colors.white),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Today in History",
+                style: Get.textTheme.titleSmall,
+              ),
+              Image.asset(AppAssets.historyClockPng)
+            ],
+          ),
+          SizedBox(
+            height: 7.h,
+          ),
+          Text(
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+            style: Get.textTheme.bodySmall,
+          ),
+          SizedBox(
+            height: 7.h,
+          ),
+          Text(
+            "Sept 27, 1897 - Constitutional Reforms",
+            style: Get.textTheme.bodySmall!.copyWith(
+                color: Get.theme.primaryColor, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget optionCard(
+      {required String title,
+      required String pngPath,
+      required Function() ontap}) {
+    return GestureDetector(
+      onTap: ontap,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(25.r),
+        child: Stack(
+          children: [
+            Container(
+              decoration: AppTheme.roundedContainerWithoutShadowDecoration
+                  .copyWith(borderRadius: BorderRadius.circular(25.r)),
+              height: 150.h,
+              width: 150.w,
+              padding: EdgeInsets.only(top: 10.sp, left: 12.sp),
+              child: Text(
+                title,
+                style: Get.textTheme.titleSmall,
+              ),
+            ),
+            Positioned(
+              right: -20,
+              bottom: -20,
+              child: Container(
+                decoration: AppTheme.roundedContainerWithoutShadowDecoration
+                    .copyWith(
+                        borderRadius: BorderRadius.circular(25.r),
+                        color: const Color(0xffefc6c6)),
+                height: 110.h,
+                width: 110.w,
+                child: Image.asset(
+                  pngPath,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Row temperatureAndMap() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Kashmir",
+              style: Get.textTheme.titleMedium,
+            ),
+            Text(
+              "Saturday, 17 July",
+              style: Get.textTheme.titleSmall!
+                  .copyWith(color: Get.theme.primaryColor, fontSize: 15.sp),
+            ),
+            SizedBox(
+              height: 15.h,
+            ),
+            Row(
+              children: [
+                Container(
+                  height: 40.h,
+                  width: 35.w,
+                  decoration: AppTheme.roundedContainerDecoration
+                      .copyWith(color: Colors.white),
+                  child: Image.asset(AppAssets.temperaturePng),
+                ),
+                SizedBox(
+                  width: 8.w,
+                ),
+                Text(
+                  '12 Celsius',
+                  style: Get.textTheme.bodyMedium,
+                )
+              ],
+            ),
+            SizedBox(
+              height: 12.h,
+            ),
+            Row(
+              children: [
+                Container(
+                  height: 40.h,
+                  width: 35.w,
+                  decoration: AppTheme.roundedContainerDecoration
+                      .copyWith(color: Colors.white),
+                  child: Image.asset(AppAssets.timePng),
+                ),
+                SizedBox(
+                  width: 8.w,
+                ),
+                Text(
+                  '02:23 PM',
+                  style: Get.textTheme.bodyMedium,
+                )
+              ],
+            ),
+          ],
+        ),
+        Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: Container(
+                margin: EdgeInsets.only(right: 5.5.sp),
+                decoration: AppTheme.roundedContainerDecoration,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15.r),
+                  child: Image.asset(
+                      fit: BoxFit.cover,
+                      height: 150.h,
+                      width: 150.w,
+                      AppAssets.mapPng),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 10,
+              right: 10,
+              child: GestureDetector(
+                onTap: () {
+                  showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (_) => const ImageDialog(
+                            imagePath: AppAssets.mapPng,
+                          ));
+                },
+                child: CircleAvatar(
+                  backgroundColor: Get.theme.primaryColor,
+                  radius: 15.r,
+                  child: Icon(
+                    Icons.zoom_out_map,
+                    size: 15.sp,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+      ],
+    );
+  }
 
   Row homeNavBar() {
     return Row(
@@ -163,7 +370,14 @@ class _HomeScreenState extends State<HomeScreen> {
           width: 40.w,
           decoration:
               AppTheme.roundedContainerDecoration.copyWith(color: Colors.white),
-          child: const Icon(Icons.language_rounded),
+          child: IconButton(
+              iconSize: 55,
+              onPressed: () {},
+              icon: SvgPicture.asset(
+                width: 55.w,
+                height: 55.h,
+                AppAssets.language,
+              )),
         ),
         Text(
           "Home",
@@ -181,7 +395,7 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: EdgeInsets.symmetric(horizontal: 8.w),
       width: MediaQuery.of(context).size.width,
       decoration: AppTheme.roundedContainerWithoutShadowDecoration
-          .copyWith(color: Get.theme.cardColor),
+          .copyWith(color: const Color(0xffefc6c6)),
       child: Row(
         children: [
           Container(
