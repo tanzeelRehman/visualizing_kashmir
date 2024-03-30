@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 
 // ignore: must_be_immutable
@@ -45,11 +46,12 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 55.h,
+      height: widget.height,
       width: widget.width,
       alignment: Alignment.center,
-      //  padding: EdgeInsets.symmetric(horizontal: 8.sp),
-      decoration: AppTheme.roundedContainerDecoration,
+      padding: EdgeInsets.only(left: 8.sp),
+      decoration: AppTheme.roundedContainerDecorationwithLessShadows
+          .copyWith(color: Colors.white),
       child: TextFormField(
         textInputAction: widget.textInputAction,
         onTap: widget.ontapped,
@@ -57,7 +59,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         readOnly: widget.readonly,
         obscuringCharacter: "*",
         style: Theme.of(context).textTheme.bodyMedium,
-        cursorColor: Colors.grey,
+        cursorColor: Get.theme.primaryColor,
         onChanged: widget.onChanged ?? (value) {},
         controller: widget.controller,
         keyboardType: widget.textInputType,
@@ -66,7 +68,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             hintText: widget.hintText,
             contentPadding:
                 widget.contentPadding ?? EdgeInsets.symmetric(vertical: 15.sp),
-            hintStyle: Theme.of(context).textTheme.bodyMedium,
+            hintStyle: Theme.of(context).textTheme.bodySmall,
             prefixIcon: widget.prefixIcon,
             suffixIcon: widget.isPassword
                 ? IconButton(

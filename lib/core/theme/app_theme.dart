@@ -47,6 +47,19 @@ class AppTheme {
         offset: const Offset(1, 1))
   ], borderRadius: BorderRadius.circular(15), color: Colors.white);
 
+  static BoxDecoration roundedContainerDecorationwithDarkLessShadows =
+      BoxDecoration(boxShadow: [
+    BoxShadow(
+        color: const Color(0xff6d6d6d).withOpacity(.3),
+        blurRadius: 5,
+        offset: const Offset(1, 1))
+  ], borderRadius: BorderRadius.circular(15), color: Colors.white);
+
+  static BoxDecoration searchCardDecoration = BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(12.r)),
+      border:
+          Border.all(color: const Color(0xff6d6d6d).withOpacity(.2), width: .5),
+      color: Colors.white);
   // static BoxDecoration primaryButtonDecoration = BoxDecoration(
   //     color: AppTheme.primaryColor, borderRadius: BorderRadius.circular(30));
 }

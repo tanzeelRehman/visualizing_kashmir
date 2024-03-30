@@ -7,6 +7,7 @@ class PrimaryContinueButton extends StatelessWidget {
   String text;
   Function() ontap;
   double? width;
+  double? height;
   bool isWhite;
   PrimaryContinueButton({
     super.key,

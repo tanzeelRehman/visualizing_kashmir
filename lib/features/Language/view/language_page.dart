@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:visualizing_kashmir/core/constants/app_pages.dart';
 import 'package:visualizing_kashmir/core/widgets/primary_continuebutton.dart';
 
 import 'package:visualizing_kashmir/features/Language/view/widgets/select_Language_card.dart';
@@ -15,7 +16,7 @@ class LanguagePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Text(
-            "Select Language",
+            "Select_Language".tr,
             style: Get.theme.textTheme.titleMedium,
           ),
           const Row(
@@ -28,7 +29,9 @@ class LanguagePage extends StatelessWidget {
           ),
           PrimaryContinueButton(
             text: "Conform",
-            ontap: () {},
+            ontap: () {
+              Get.toNamed(AppPages.homePage);
+            },
             isWhite: false,
             width: Get.width * 0.85,
           )

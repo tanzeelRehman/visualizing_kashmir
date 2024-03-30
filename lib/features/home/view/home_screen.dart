@@ -9,6 +9,8 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
+import 'package:visualizing_kashmir/core/constants/app_pages.dart';
+import 'package:visualizing_kashmir/core/constants/search_enum.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 import 'package:visualizing_kashmir/features/home/view/widgets/image_dialog.dart';
 
@@ -67,14 +69,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           optionCard(
-                            title: "History",
+                            title: "History".tr,
                             pngPath: AppAssets.historyPng,
-                            ontap: () {},
+                            ontap: () {
+                              Get.toNamed(AppPages.searchPage,
+                                  arguments: SearchType.History.name);
+                            },
                           ),
                           optionCard(
-                            title: "Articles",
+                            title: "Articles".tr,
                             pngPath: AppAssets.articlesPng,
-                            ontap: () {},
+                            ontap: () {
+                              Get.toNamed(AppPages.searchPage,
+                                  arguments: SearchType.Articles.name);
+                            },
                           ),
                         ],
                       ),
@@ -85,14 +93,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           optionCard(
-                            title: "Reports",
+                            title: "Reports".tr,
                             pngPath: AppAssets.reportsPng,
-                            ontap: () {},
+                            ontap: () {
+                              Get.toNamed(AppPages.searchPage,
+                                  arguments: SearchType.Reports.name);
+                            },
                           ),
                           optionCard(
-                            title: "Know Your \nHeros",
+                            title: "Know_Your_Heros".tr,
                             pngPath: AppAssets.heroesPng,
-                            ontap: () {},
+                            ontap: () {
+                              Get.toNamed(AppPages.searchPage,
+                                  arguments: SearchType.Know_Your_Heros.name);
+                            },
                           ),
                         ],
                       ),
@@ -113,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Column(
                       children: [
                         Text(
-                          "Reach us at",
+                          "Reach_us_at".tr,
                           style: Get.textTheme.bodySmall!.copyWith(
                               color: Get.theme.primaryColor,
                               fontWeight: FontWeight.bold),
@@ -147,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Help us with our cause!",
+                  "Help_us".tr,
                   style: Get.textTheme.titleMedium,
                 ),
                 SizedBox(
@@ -160,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: EdgeInsets.only(left: 20.sp),
                   child: Text(
-                    "Subscribe!",
+                    "subscribe".tr,
                     style: Get.textTheme.titleSmall!.copyWith(
                         color: Get.theme.primaryColor, fontSize: 15.sp),
                   ),
@@ -187,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Today in History",
+                "Today_in_history".tr,
                 style: Get.textTheme.titleSmall,
               ),
               Image.asset(AppAssets.historyClockPng)
@@ -228,7 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   .copyWith(borderRadius: BorderRadius.circular(25.r)),
               height: 150.h,
               width: 150.w,
-              padding: EdgeInsets.only(top: 10.sp, left: 12.sp),
+              padding: EdgeInsets.only(top: 10.sp, left: 12.sp, right: 8.sp),
               child: Text(
                 title,
                 style: Get.textTheme.titleSmall,
@@ -259,61 +273,64 @@ class _HomeScreenState extends State<HomeScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Kashmir",
-              style: Get.textTheme.titleMedium,
-            ),
-            Text(
-              "Saturday, 17 July",
-              style: Get.textTheme.titleSmall!
-                  .copyWith(color: Get.theme.primaryColor, fontSize: 15.sp),
-            ),
-            SizedBox(
-              height: 15.h,
-            ),
-            Row(
-              children: [
-                Container(
-                  height: 40.h,
-                  width: 35.w,
-                  decoration: AppTheme.roundedContainerDecoration
-                      .copyWith(color: Colors.white),
-                  child: Image.asset(AppAssets.temperaturePng),
-                ),
-                SizedBox(
-                  width: 8.w,
-                ),
-                Text(
-                  '12 Celsius',
-                  style: Get.textTheme.bodyMedium,
-                )
-              ],
-            ),
-            SizedBox(
-              height: 12.h,
-            ),
-            Row(
-              children: [
-                Container(
-                  height: 40.h,
-                  width: 35.w,
-                  decoration: AppTheme.roundedContainerDecoration
-                      .copyWith(color: Colors.white),
-                  child: Image.asset(AppAssets.timePng),
-                ),
-                SizedBox(
-                  width: 8.w,
-                ),
-                Text(
-                  '02:23 PM',
-                  style: Get.textTheme.bodyMedium,
-                )
-              ],
-            ),
-          ],
+        Padding(
+          padding: EdgeInsets.only(right: 6.sp),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Kashmir".tr,
+                style: Get.textTheme.titleMedium,
+              ),
+              Text(
+                "Saturday, 17 July",
+                style: Get.textTheme.titleSmall!
+                    .copyWith(color: Get.theme.primaryColor, fontSize: 15.sp),
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              Row(
+                children: [
+                  Container(
+                    height: 40.h,
+                    width: 35.w,
+                    decoration: AppTheme.roundedContainerDecoration
+                        .copyWith(color: Colors.white),
+                    child: Image.asset(AppAssets.temperaturePng),
+                  ),
+                  SizedBox(
+                    width: 8.w,
+                  ),
+                  Text(
+                    '12 Celsius',
+                    style: Get.textTheme.bodyMedium,
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 12.h,
+              ),
+              Row(
+                children: [
+                  Container(
+                    height: 40.h,
+                    width: 35.w,
+                    decoration: AppTheme.roundedContainerDecoration
+                        .copyWith(color: Colors.white),
+                    child: Image.asset(AppAssets.timePng),
+                  ),
+                  SizedBox(
+                    width: 8.w,
+                  ),
+                  Text(
+                    '02:23 PM',
+                    style: Get.textTheme.bodyMedium,
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
         Stack(
           children: [
@@ -380,7 +397,7 @@ class _HomeScreenState extends State<HomeScreen> {
               )),
         ),
         Text(
-          "Home",
+          "Home".tr,
           style: Get.theme.textTheme.titleMedium!.copyWith(
               color: Get.theme.primaryColor,
               decoration: TextDecoration.underline),
@@ -430,7 +447,7 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Text(
-            "Donate",
+            "donate".tr,
             style: Get.textTheme.bodyMedium!.copyWith(color: Colors.black),
           ),
           const Icon(

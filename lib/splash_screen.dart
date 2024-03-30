@@ -34,9 +34,9 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             PrimaryContinueButton(
               width: Get.width * 0.85,
-              text: "Proceed",
+              text: "Proceed".tr,
               ontap: () {
-                Get.toNamed(AppPages.homePage);
+                Get.toNamed(AppPages.languagePage);
               },
               isWhite: true,
             ),

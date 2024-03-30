@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 
 import 'package:visualizing_kashmir/core/widgets/custom_line.dart';
 
@@ -29,44 +30,39 @@ class CustomAppBar extends StatelessWidget {
     return ColoredBox(
       color: backgroundColor ?? Colors.transparent,
       child: SizedBox(
-        width: screeData == null
-            ? MediaQuery.of(context).size.width
-            : screeData!.size.width,
-        height: 85.h,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 15.sp, right: 15.sp, top: 20.sp),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5),
-                    child: GestureDetector(
-                        onTap: () {
-                          Get.back();
-                          if (onBack != null) {
-                            onBack!();
-                          }
-                        },
-                        child: leading ??
-                            const Icon(
-                              Icons.arrow_back_ios,
-                              color: Colors.white,
-                              size: 15,
-                            )),
-                  ),
-                  SizedBox(height: 25.w),
-                ],
-              ),
+          width: screeData == null
+              ? MediaQuery.of(context).size.width
+              : screeData!.size.width,
+          height: 120.h,
+          child: Padding(
+            padding: EdgeInsets.only(left: 12.w, right: 12.w, top: 10.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height: 45.h,
+                  width: 40.w,
+                  decoration: AppTheme.roundedContainerDecoration
+                      .copyWith(color: Colors.white),
+                  child: IconButton(
+                      iconSize: 55,
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: Icon(
+                        Icons.arrow_back,
+                        size: 25.sp,
+                      )),
+                ),
+                Text(
+                  title.tr,
+                  style: Get.theme.textTheme.titleMedium!.copyWith(
+                      color: Get.theme.primaryColor,
+                      decoration: TextDecoration.underline),
+                ),
+              ],
             ),
-            SizedBox(height: 20.h),
-            const CustomLine()
-          ],
-        ),
-      ),
+          )),
     );
   }
 }

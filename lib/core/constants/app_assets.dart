@@ -25,4 +25,5 @@ class AppAssets {
   static const reportsPng = 'assets/images/png/Reports.png';
   static const temperaturePng = 'assets/images/png/Temperature.png';
   static const timePng = 'assets/images/png/Time.png';
+  static const bookCover = 'assets/images/png/book.jpg';
 }

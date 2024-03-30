@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:visualizing_kashmir/core/constants/app_pages.dart';
 
 import 'package:visualizing_kashmir/core/globle/globle.dart';
+import 'package:visualizing_kashmir/core/language/languages.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 import 'package:visualizing_kashmir/features/Language/view/language_page.dart';
 import 'package:visualizing_kashmir/features/home/view/home_screen.dart';
+import 'package:visualizing_kashmir/features/search/view/search_screens.dart';
 import 'package:visualizing_kashmir/splash_screen.dart';
 import 'dependency_container.dart' as di;
 
@@ -25,6 +27,8 @@ class MyApp extends StatelessWidget {
         return GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: GetMaterialApp(
+            translations: Languages(),
+            locale: const Locale('en', 'US'),
             theme: AppTheme.lightTheme,
             navigatorKey: navigatorKeyGlobal,
             debugShowCheckedModeBanner: false,
@@ -40,6 +44,10 @@ class MyApp extends StatelessWidget {
               GetPage(
                 name: AppPages.homePage,
                 page: () => const HomeScreen(),
+              ),
+              GetPage(
+                name: AppPages.searchPage,
+                page: () => const SearchScreen(),
               ),
             ],
             home: const HomeScreen(),
