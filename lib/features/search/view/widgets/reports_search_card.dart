@@ -55,7 +55,7 @@ class ReportsSearchCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Text(
-                                  "Read More",
+                                  "Read_more".tr,
                                   style: Get.textTheme.bodySmall!.copyWith(
                                       color: Get.theme.primaryColor,
                                       fontWeight: FontWeight.bold,

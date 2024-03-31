@@ -9,6 +9,7 @@ import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 import 'package:visualizing_kashmir/features/Language/view/language_page.dart';
 import 'package:visualizing_kashmir/features/home/view/home_screen.dart';
 import 'package:visualizing_kashmir/features/search/view/search_screens.dart';
+import 'package:visualizing_kashmir/features/videoAudioDetails/views/video_audio_details.dart';
 import 'package:visualizing_kashmir/splash_screen.dart';
 import 'dependency_container.dart' as di;
 
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
             navigatorKey: navigatorKeyGlobal,
             debugShowCheckedModeBanner: false,
             title: 'Visualizing Kashmir',
-            initialRoute: AppPages.splashPage,
+            initialRoute: AppPages.videoAudioPage,
             getPages: [
               GetPage(
                   name: AppPages.splashPage, page: () => const SplashScreen()),
@@ -47,7 +48,11 @@ class MyApp extends StatelessWidget {
               ),
               GetPage(
                 name: AppPages.searchPage,
-                page: () => const SearchScreen(),
+                page: () => SearchScreen(),
+              ),
+              GetPage(
+                name: AppPages.videoAudioPage,
+                page: () => const VideoAudioDetails(),
               ),
             ],
             home: const HomeScreen(),

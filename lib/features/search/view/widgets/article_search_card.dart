@@ -46,7 +46,7 @@ class ArticleSearchCard extends StatelessWidget {
                         height: 8.h,
                       ),
                       Text(
-                        "Read Article",
+                        "Read_article".tr,
                         style: Get.textTheme.bodySmall!.copyWith(
                             color: Get.theme.primaryColor,
                             fontWeight: FontWeight.bold,

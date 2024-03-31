@@ -53,7 +53,7 @@ class HistorySearchCard extends StatelessWidget {
                     height: 8.h,
                   ),
                   PrimaryContinueSmallButton(
-                    title: "Open",
+                    title: "Open".tr,
                     isNext: false,
                     ontap: () {},
                   )

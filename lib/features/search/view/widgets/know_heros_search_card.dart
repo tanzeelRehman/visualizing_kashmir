@@ -55,7 +55,7 @@ class KnowHerosSearchCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             PrimaryContinueSmallButton(
-                                title: "Read More",
+                                title: "Read_more".tr,
                                 padding: EdgeInsets.symmetric(
                                     vertical: 8.h, horizontal: 10.w),
                                 ontap: () {},

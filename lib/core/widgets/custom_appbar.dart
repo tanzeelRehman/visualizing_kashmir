@@ -15,6 +15,7 @@ class CustomAppBar extends StatelessWidget {
       this.subTitle,
       this.trailing,
       this.backgroundColor,
+      this.focusNode,
       this.onBack});
 
   MediaQueryData? screeData;
@@ -24,6 +25,7 @@ class CustomAppBar extends StatelessWidget {
   String? subTitle;
   Color? backgroundColor;
   Function? onBack;
+  FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,8 @@ class CustomAppBar extends StatelessWidget {
               : screeData!.size.width,
           height: 120.h,
           child: Padding(
-            padding: EdgeInsets.only(left: 12.w, right: 12.w, top: 10.h),
+            padding:
+                EdgeInsetsDirectional.only(start: 12.w, end: 12.w, top: 10.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -46,7 +49,13 @@ class CustomAppBar extends StatelessWidget {
                       .copyWith(color: Colors.white),
                   child: IconButton(
                       iconSize: 55,
-                      onPressed: () {
+                      onPressed: () async {
+                        if (focusNode != null) {
+                          focusNode!.unfocus();
+                          await Future.delayed(
+                              const Duration(milliseconds: 200));
+                        }
+
                         Get.back();
                       },
                       icon: Icon(

@@ -10,6 +10,7 @@ class AppTheme {
       canvasColor: Colors.white,
       cardColor: const Color(0xfff5e0e0),
       primaryColor: const Color(0xffcf0000),
+      primaryColorDark: const Color(0xff282a41),
       textTheme: TextTheme(
           titleMedium: GoogleFonts.outfit().copyWith(
               color: const Color(0xff424242),
