@@ -26,4 +26,7 @@ class AppAssets {
   static const temperaturePng = 'assets/images/png/Temperature.png';
   static const timePng = 'assets/images/png/Time.png';
   static const bookCover = 'assets/images/png/book.jpg';
+  static const geelani = 'assets/images/png/gelani.png';
+  static const geelani2 = 'assets/images/png/gelani2.png';
+  static const headLine = 'assets/images/png/headline.png';
 }

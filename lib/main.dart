@@ -6,9 +6,13 @@ import 'package:visualizing_kashmir/core/constants/app_pages.dart';
 import 'package:visualizing_kashmir/core/globle/globle.dart';
 import 'package:visualizing_kashmir/core/language/languages.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
+import 'package:visualizing_kashmir/features/Headline/views/headline_screen.dart';
+import 'package:visualizing_kashmir/features/Hero/view/know_your_hero_detail.dart';
 import 'package:visualizing_kashmir/features/Language/view/language_page.dart';
 import 'package:visualizing_kashmir/features/home/view/home_screen.dart';
 import 'package:visualizing_kashmir/features/search/view/search_screens.dart';
+import 'package:visualizing_kashmir/features/textDetails/view/text_details_screen.dart';
+import 'package:visualizing_kashmir/features/todayHistory/views/today_in_history_screen.dart';
 import 'package:visualizing_kashmir/features/videoAudioDetails/views/video_audio_details.dart';
 import 'package:visualizing_kashmir/splash_screen.dart';
 import 'dependency_container.dart' as di;
@@ -34,7 +38,7 @@ class MyApp extends StatelessWidget {
             navigatorKey: navigatorKeyGlobal,
             debugShowCheckedModeBanner: false,
             title: 'Visualizing Kashmir',
-            initialRoute: AppPages.videoAudioPage,
+            initialRoute: AppPages.todayInHistoryPage,
             getPages: [
               GetPage(
                   name: AppPages.splashPage, page: () => const SplashScreen()),
@@ -53,6 +57,22 @@ class MyApp extends StatelessWidget {
               GetPage(
                 name: AppPages.videoAudioPage,
                 page: () => const VideoAudioDetails(),
+              ),
+              GetPage(
+                name: AppPages.knowYourHeroPage,
+                page: () => const KnowYourHeroDetail(),
+              ),
+              GetPage(
+                name: AppPages.textDetailsPage,
+                page: () => const TextDetailsScreen(),
+              ),
+              GetPage(
+                name: AppPages.headLinePage,
+                page: () => const HeadLineScreen(),
+              ),
+              GetPage(
+                name: AppPages.todayInHistoryPage,
+                page: () => const TodayInHistory(),
               ),
             ],
             home: const HomeScreen(),
