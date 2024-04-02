@@ -9,6 +9,7 @@ import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 import 'package:visualizing_kashmir/features/Headline/views/headline_screen.dart';
 import 'package:visualizing_kashmir/features/Hero/view/know_your_hero_detail.dart';
 import 'package:visualizing_kashmir/features/Language/view/language_page.dart';
+import 'package:visualizing_kashmir/features/Quiz/view/quiz_screen.dart';
 import 'package:visualizing_kashmir/features/home/view/home_screen.dart';
 import 'package:visualizing_kashmir/features/search/view/search_screens.dart';
 import 'package:visualizing_kashmir/features/textDetails/view/text_details_screen.dart';
@@ -33,12 +34,12 @@ class MyApp extends StatelessWidget {
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: GetMaterialApp(
             translations: Languages(),
-            locale: const Locale('en', 'US'),
+            locale: const Locale('ur', 'PK'),
             theme: AppTheme.lightTheme,
             navigatorKey: navigatorKeyGlobal,
             debugShowCheckedModeBanner: false,
             title: 'Visualizing Kashmir',
-            initialRoute: AppPages.todayInHistoryPage,
+            initialRoute: AppPages.textDetailsPage,
             getPages: [
               GetPage(
                   name: AppPages.splashPage, page: () => const SplashScreen()),
@@ -73,6 +74,10 @@ class MyApp extends StatelessWidget {
               GetPage(
                 name: AppPages.todayInHistoryPage,
                 page: () => const TodayInHistory(),
+              ),
+              GetPage(
+                name: AppPages.quizPage,
+                page: () => const QuizScreen(),
               ),
             ],
             home: const HomeScreen(),

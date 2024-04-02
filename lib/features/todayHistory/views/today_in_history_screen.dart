@@ -28,41 +28,47 @@ class TodayInHistory extends StatelessWidget {
         appBar: getPreferedSizeAppbar(
           "",
         ),
-        body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 5.h),
-          child: SingleChildScrollView(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              SizedBox(
-                height: Get.height * 0.3,
-                width: Get.width,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12.r),
-                  child: Image.asset(
-                    AppAssets.historyBookPng,
-                    fit: BoxFit.fitHeight,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
-              Text(
-                "Today_in_history".tr,
-                style: Get.textTheme.titleSmall,
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
-              Text(
-                "Lorem ipsum dolor sit amet consectetur. Vulputate scelerisque risus viverra vitae at amet. At pretium consequat blandit sit cras dictum non lorem. Ac turpis ornare fringilla faucibus sodales mi erat viverra odio. Nunc gravida mauris proin sed consectetur mauris orci risus ut. Porta adipiscing sit aenean turpis at. Lectus et maecenas imperdiet arcu neque ut etiam lectus sed. In semper tellus cras dolor. Consectetur sit tempor tincidunt lorem id. Fringilla hac neque dolor ut neque odio ipsum.",
-                style: Get.textTheme.bodySmall,
-              ),
-              Text(
-                "Lorem ipsum dolor sit amet consectetur. Vulputate scelerisque risus viverra vitae at amet. At pretium consequat blandit sit cras dictum non lorem. Ac turpis ornare fringilla faucibus sodales mi erat viverra odio. Nunc gravida mauris proin sed consectetur mauris orci risus ut. Porta adipiscing sit aenean turpis at. Lectus et maecenas imperdiet arcu neque ut etiam lectus sed. In semper tellus cras dolor. Consectetur sit tempor tincidunt lorem id. Fringilla hac neque dolor ut neque odio ipsum.",
-                style: Get.textTheme.bodySmall,
-              ),
-            ]),
+        body: Directionality(
+          textDirection: Directionality.of(context) == TextDirection.rtl
+              ? TextDirection.ltr
+              : TextDirection.rtl,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 5.h),
+            child: SingleChildScrollView(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: Get.height * 0.3,
+                      width: Get.width,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12.r),
+                        child: Image.asset(
+                          AppAssets.historyBookPng,
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    Text(
+                      "Today_in_history".tr,
+                      style: Get.textTheme.titleSmall,
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    Text(
+                      "Lorem ipsum dolor sit amet consectetur. Vulputate scelerisque risus viverra vitae at amet. At pretium consequat blandit sit cras dictum non lorem. Ac turpis ornare fringilla faucibus sodales mi erat viverra odio. Nunc gravida mauris proin sed consectetur mauris orci risus ut. Porta adipiscing sit aenean turpis at. Lectus et maecenas imperdiet arcu neque ut etiam lectus sed. In semper tellus cras dolor. Consectetur sit tempor tincidunt lorem id. Fringilla hac neque dolor ut neque odio ipsum.",
+                      style: Get.textTheme.bodySmall,
+                    ),
+                    Text(
+                      "Lorem ipsum dolor sit amet consectetur. Vulputate scelerisque risus viverra vitae at amet. At pretium consequat blandit sit cras dictum non lorem. Ac turpis ornare fringilla faucibus sodales mi erat viverra odio. Nunc gravida mauris proin sed consectetur mauris orci risus ut. Porta adipiscing sit aenean turpis at. Lectus et maecenas imperdiet arcu neque ut etiam lectus sed. In semper tellus cras dolor. Consectetur sit tempor tincidunt lorem id. Fringilla hac neque dolor ut neque odio ipsum.",
+                      style: Get.textTheme.bodySmall,
+                    ),
+                  ]),
+            ),
           ),
         ));
   }

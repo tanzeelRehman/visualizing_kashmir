@@ -91,7 +91,7 @@ class Languages extends Translations {
           'Open_book': 'کتاب کھولیں',
           'Audios': 'آڈیوز',
           'Videos': 'ویڈیوز',
-          'Documents': 'دستاویزات',
+          'PDF': 'دستاویزات',
           'Read_Online': 'آن لائن پڑھیں',
           'Download': 'ڈاؤن لوڈ کریں',
           'Read_article': 'مضمون پڑھیں',

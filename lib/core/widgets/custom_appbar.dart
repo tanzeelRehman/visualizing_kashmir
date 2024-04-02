@@ -29,49 +29,54 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ColoredBox(
-      color: backgroundColor ?? Colors.transparent,
-      child: SizedBox(
-          width: screeData == null
-              ? MediaQuery.of(context).size.width
-              : screeData!.size.width,
-          height: 120.h,
-          child: Padding(
-            padding:
-                EdgeInsetsDirectional.only(start: 12.w, end: 12.w, top: 10.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  height: 45.h,
-                  width: 40.w,
-                  decoration: AppTheme.roundedContainerDecoration
-                      .copyWith(color: Colors.white),
-                  child: IconButton(
-                      iconSize: 55,
-                      onPressed: () async {
-                        if (focusNode != null) {
-                          focusNode!.unfocus();
-                          await Future.delayed(
-                              const Duration(milliseconds: 200));
-                        }
+    return Directionality(
+      textDirection: Directionality.of(context) == TextDirection.rtl
+          ? TextDirection.ltr
+          : TextDirection.rtl,
+      child: ColoredBox(
+        color: backgroundColor ?? Colors.transparent,
+        child: SizedBox(
+            width: screeData == null
+                ? MediaQuery.of(context).size.width
+                : screeData!.size.width,
+            height: 120.h,
+            child: Padding(
+              padding:
+                  EdgeInsetsDirectional.only(start: 12.w, end: 12.w, top: 10.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 45.h,
+                    width: 40.w,
+                    decoration: AppTheme.roundedContainerDecoration
+                        .copyWith(color: Colors.white),
+                    child: IconButton(
+                        iconSize: 55,
+                        onPressed: () async {
+                          if (focusNode != null) {
+                            focusNode!.unfocus();
+                            await Future.delayed(
+                                const Duration(milliseconds: 200));
+                          }
 
-                        Get.back();
-                      },
-                      icon: Icon(
-                        Icons.arrow_back,
-                        size: 25.sp,
-                      )),
-                ),
-                Text(
-                  title.tr,
-                  style: Get.theme.textTheme.titleMedium!.copyWith(
-                      color: Get.theme.primaryColor,
-                      decoration: TextDecoration.underline),
-                ),
-              ],
-            ),
-          )),
+                          Get.back();
+                        },
+                        icon: Icon(
+                          Icons.arrow_back,
+                          size: 25.sp,
+                        )),
+                  ),
+                  Text(
+                    title.tr,
+                    style: Get.theme.textTheme.titleMedium!.copyWith(
+                        color: Get.theme.primaryColor,
+                        decoration: TextDecoration.underline),
+                  ),
+                ],
+              ),
+            )),
+      ),
     );
   }
 }

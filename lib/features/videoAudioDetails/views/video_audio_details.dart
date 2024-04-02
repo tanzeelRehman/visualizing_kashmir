@@ -28,150 +28,155 @@ class VideoAudioDetails extends StatelessWidget {
     return Scaffold(
         backgroundColor: Get.theme.primaryColorDark,
         resizeToAvoidBottomInset: false,
-        body: Stack(
-          children: [
-            SafeArea(
-              child: Column(children: [
-                SizedBox(
-                  height: 25.h,
-                ),
-                backButton(),
-                SizedBox(
-                  height: 35.h,
-                ),
-                const Spacer(),
-                Container(
-                  color: Get.theme.scaffoldBackgroundColor,
-                  height: Get.height * 0.64,
-                  width: Get.width,
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 35.h,
-                      ),
-                      Text(
-                        "Title here",
-                        style: Get.textTheme.titleSmall,
-                      ),
-                      Text(
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                        style: Get.textTheme.bodySmall,
-                      ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      //! TABS WIDGET START HERE ------------------------------->
-                      //!=======================================================>
-                      DefaultTabController(
-                        length: 3,
-                        child: Column(
-                          children: [
-                            TabBar(
-                              indicatorWeight: 2,
-                              labelStyle: Get.textTheme.bodySmall!
-                                  .copyWith(fontWeight: FontWeight.bold),
-                              indicatorColor: Get.theme.primaryColor,
-                              dividerColor: Colors.transparent,
-                              unselectedLabelStyle: Get.textTheme.bodySmall,
-                              indicatorSize: TabBarIndicatorSize.label,
-                              tabs: const [
-                                Tab(
-                                  text: "Audios",
-                                ),
-                                Tab(text: "Videos"),
-                                Tab(text: "PDF"),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 8.h,
-                            ),
-                            SizedBox(
-                              height: Get.height * 0.35,
-                              child: TabBarView(
-                                children: [
-                                  //* Audio Widget =============================
-                                  ListView.builder(
-                                    itemCount: 8,
-                                    itemBuilder: (context, index) {
-                                      return const AudioPlayWidget();
-                                    },
+        body: Directionality(
+          textDirection: Directionality.of(context) == TextDirection.rtl
+              ? TextDirection.ltr
+              : TextDirection.rtl,
+          child: Stack(
+            children: [
+              SafeArea(
+                child: Column(children: [
+                  SizedBox(
+                    height: 25.h,
+                  ),
+                  backButton(),
+                  SizedBox(
+                    height: 35.h,
+                  ),
+                  const Spacer(),
+                  Container(
+                    color: Get.theme.scaffoldBackgroundColor,
+                    height: Get.height * 0.64,
+                    width: Get.width,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 35.h,
+                        ),
+                        Text(
+                          "Title here",
+                          style: Get.textTheme.titleSmall,
+                        ),
+                        Text(
+                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                          style: Get.textTheme.bodySmall,
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        //! TABS WIDGET START HERE ------------------------------->
+                        //!=======================================================>
+                        DefaultTabController(
+                          length: 3,
+                          child: Column(
+                            children: [
+                              TabBar(
+                                indicatorWeight: 2,
+                                labelStyle: Get.textTheme.bodySmall!
+                                    .copyWith(fontWeight: FontWeight.bold),
+                                indicatorColor: Get.theme.primaryColor,
+                                dividerColor: Colors.transparent,
+                                unselectedLabelStyle: Get.textTheme.bodySmall,
+                                indicatorSize: TabBarIndicatorSize.label,
+                                tabs: [
+                                  Tab(
+                                    text: "Audios".tr,
                                   ),
-                                  //* Video Widget =============================
-                                  ListView.builder(
-                                    itemCount: 8,
-                                    itemBuilder: (context, index) {
-                                      return const VideoPlayWidget();
-                                    },
-                                  ),
-                                  const Icon(Icons.directions_car, size: 350),
+                                  Tab(text: "Videos".tr),
+                                  Tab(text: "PDF".tr),
                                 ],
                               ),
-                            ),
-                          ],
-                        ),
-                      )
-                      //! TABS WIDGET END HERE ------------------------------->
-                      //!=======================================================>
-                    ],
-                  ),
-                )
-              ]),
-            ),
-            //? IMAGE AND TITLE WIDGET START ----------------------------------->
-            Positioned(
-              top: Get.height * 0.16,
-              child: Container(
-                  padding: EdgeInsets.only(left: 30.w),
-                  width: Get.width,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Card(
-                        elevation: 5.0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12.r),
-                          child: Image.asset(
-                              fit: BoxFit.fitHeight,
-                              height: 180.h,
-                              width: 120.w,
-                              AppAssets.bookCover),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20.w,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                "Title will be here",
-                                style: Get.textTheme.titleSmall!
-                                    .copyWith(color: Colors.white),
+                              SizedBox(
+                                height: 8.h,
                               ),
-                              Text(
-                                "Subtitle will be here",
-                                style: Get.textTheme.bodySmall!
-                                    .copyWith(color: Colors.white),
+                              SizedBox(
+                                height: Get.height * 0.35,
+                                child: TabBarView(
+                                  children: [
+                                    //* Audio Widget =============================
+                                    ListView.builder(
+                                      itemCount: 8,
+                                      itemBuilder: (context, index) {
+                                        return const AudioPlayWidget();
+                                      },
+                                    ),
+                                    //* Video Widget =============================
+                                    ListView.builder(
+                                      itemCount: 8,
+                                      itemBuilder: (context, index) {
+                                        return const VideoPlayWidget();
+                                      },
+                                    ),
+                                    const Icon(Icons.directions_car, size: 350),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
-                          actionButton()
-                        ],
-                      )
-                    ],
-                  )),
-            )
-          ],
-          //? IMAGE AND TITLE WIDGET END ----------------------------------->
+                        )
+                        //! TABS WIDGET END HERE ------------------------------->
+                        //!=======================================================>
+                      ],
+                    ),
+                  )
+                ]),
+              ),
+              //? IMAGE AND TITLE WIDGET START ----------------------------------->
+              Positioned(
+                top: Get.height * 0.16,
+                child: Container(
+                    padding: EdgeInsets.only(left: 30.w),
+                    width: Get.width,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Card(
+                          elevation: 5.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12.r),
+                            child: Image.asset(
+                                fit: BoxFit.fitHeight,
+                                height: 180.h,
+                                width: 120.w,
+                                AppAssets.bookCover),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 20.w,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  "Title will be here",
+                                  style: Get.textTheme.titleSmall!
+                                      .copyWith(color: Colors.white),
+                                ),
+                                Text(
+                                  "Subtitle will be here",
+                                  style: Get.textTheme.bodySmall!
+                                      .copyWith(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                            actionButton()
+                          ],
+                        )
+                      ],
+                    )),
+              )
+            ],
+            //? IMAGE AND TITLE WIDGET END ----------------------------------->
+          ),
         ));
   }
   //* WIDGETS ------------------------------------------------------------------>

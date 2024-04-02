@@ -187,42 +187,49 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Container historyCard() {
-    return Container(
-      //  height: 120.h,
-      width: Get.width * 0.85,
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.h),
-      decoration: AppTheme.roundedContainerDecorationwithLessShadows
-          .copyWith(color: Colors.white),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Today_in_history".tr,
-                style: Get.textTheme.titleSmall,
-              ),
-              Image.asset(AppAssets.historyClockPng)
-            ],
-          ),
-          SizedBox(
-            height: 7.h,
-          ),
-          Text(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-            style: Get.textTheme.bodySmall,
-          ),
-          SizedBox(
-            height: 7.h,
-          ),
-          Text(
-            "Sept 27, 1897 - Constitutional Reforms",
-            style: Get.textTheme.bodySmall!.copyWith(
-                color: Get.theme.primaryColor, fontWeight: FontWeight.bold),
-          ),
-        ],
+  Widget historyCard() {
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(
+          AppPages.todayInHistoryPage,
+        );
+      },
+      child: Container(
+        //  height: 120.h,
+        width: Get.width * 0.85,
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.h),
+        decoration: AppTheme.roundedContainerDecorationwithLessShadows
+            .copyWith(color: Colors.white),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Today_in_history".tr,
+                  style: Get.textTheme.titleSmall,
+                ),
+                Image.asset(AppAssets.historyClockPng)
+              ],
+            ),
+            SizedBox(
+              height: 7.h,
+            ),
+            Text(
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+              style: Get.textTheme.bodySmall,
+            ),
+            SizedBox(
+              height: 7.h,
+            ),
+            Text(
+              "Sept 27, 1897 - Constitutional Reforms",
+              style: Get.textTheme.bodySmall!.copyWith(
+                  color: Get.theme.primaryColor, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -378,31 +385,36 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Row homeNavBar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          height: 45.h,
-          width: 40.w,
-          decoration:
-              AppTheme.roundedContainerDecoration.copyWith(color: Colors.white),
-          child: IconButton(
-              iconSize: 55,
-              onPressed: () {},
-              icon: SvgPicture.asset(
-                width: 55.w,
-                height: 55.h,
-                AppAssets.language,
-              )),
-        ),
-        Text(
-          "Home".tr,
-          style: Get.theme.textTheme.titleMedium!.copyWith(
-              color: Get.theme.primaryColor,
-              decoration: TextDecoration.underline),
-        ),
-      ],
+  Widget homeNavBar() {
+    return Directionality(
+      textDirection: Directionality.of(context) == TextDirection.rtl
+          ? TextDirection.ltr
+          : TextDirection.rtl,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            height: 45.h,
+            width: 40.w,
+            decoration: AppTheme.roundedContainerDecoration
+                .copyWith(color: Colors.white),
+            child: IconButton(
+                iconSize: 55,
+                onPressed: () {},
+                icon: SvgPicture.asset(
+                  width: 55.w,
+                  height: 55.h,
+                  AppAssets.language,
+                )),
+          ),
+          Text(
+            "Home".tr,
+            style: Get.theme.textTheme.titleMedium!.copyWith(
+                color: Get.theme.primaryColor,
+                decoration: TextDecoration.underline),
+          ),
+        ],
+      ),
     );
   }
 

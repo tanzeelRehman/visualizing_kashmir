@@ -30,78 +30,83 @@ class SearchScreen extends StatelessWidget {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: getPreferedSizeAppbar(searchType, focusNode: searchFocusNode),
-        body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-          child: Column(children: [
-            CustomTextFormField(
-              controller: searchController,
-              focusNode: searchFocusNode,
-              hintText: "Search",
-              height: 55.h,
-              suffixIcon: const Icon(
-                Icons.search,
-              ),
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-            //* REPORT Search -------------------------------->
-            if (searchType == SearchType.Reports.name)
-              SizedBox(
-                height: Get.height * 0.72,
-                child: ListView.builder(
-                  itemCount: 9,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(top: 35.h),
-                      child: const ReportsSearchCard(),
-                    );
-                  },
+        body: Directionality(
+          textDirection: Directionality.of(context) == TextDirection.rtl
+              ? TextDirection.ltr
+              : TextDirection.rtl,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+            child: Column(children: [
+              CustomTextFormField(
+                controller: searchController,
+                focusNode: searchFocusNode,
+                hintText: "Search",
+                height: 55.h,
+                suffixIcon: const Icon(
+                  Icons.search,
                 ),
               ),
-            //* ARTICLES Search -------------------------------->
-            if (searchType == SearchType.Articles.name)
               SizedBox(
-                height: Get.height * 0.72,
-                child: ListView.builder(
-                  itemCount: 9,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(top: 55.h),
-                      child: const ArticleSearchCard(),
-                    );
-                  },
-                ),
+                height: 20.h,
               ),
-            //* HISTORY Search -------------------------------->
-            if (searchType == SearchType.History.name)
-              SizedBox(
-                height: Get.height * 0.72,
-                child: ListView.builder(
-                  itemCount: 9,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(top: 35.h),
-                      child: const HistorySearchCard(),
-                    );
-                  },
+              //* REPORT Search -------------------------------->
+              if (searchType == SearchType.Reports.name)
+                SizedBox(
+                  height: Get.height * 0.72,
+                  child: ListView.builder(
+                    itemCount: 9,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(top: 35.h),
+                        child: const ReportsSearchCard(),
+                      );
+                    },
+                  ),
                 ),
-              ),
-            //* KNOW HEROS Search -------------------------------->
-            if (searchType == SearchType.Know_Your_Heros.name)
-              SizedBox(
-                height: Get.height * 0.72,
-                child: ListView.builder(
-                  itemCount: 9,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(top: 55.h),
-                      child: const KnowHerosSearchCard(),
-                    );
-                  },
+              //* ARTICLES Search -------------------------------->
+              if (searchType == SearchType.Articles.name)
+                SizedBox(
+                  height: Get.height * 0.72,
+                  child: ListView.builder(
+                    itemCount: 9,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(top: 55.h),
+                        child: const ArticleSearchCard(),
+                      );
+                    },
+                  ),
                 ),
-              ),
-          ]),
+              //* HISTORY Search -------------------------------->
+              if (searchType == SearchType.History.name)
+                SizedBox(
+                  height: Get.height * 0.72,
+                  child: ListView.builder(
+                    itemCount: 9,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(top: 35.h),
+                        child: const HistorySearchCard(),
+                      );
+                    },
+                  ),
+                ),
+              //* KNOW HEROS Search -------------------------------->
+              if (searchType == SearchType.Know_Your_Heros.name)
+                SizedBox(
+                  height: Get.height * 0.72,
+                  child: ListView.builder(
+                    itemCount: 9,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(top: 55.h),
+                        child: const KnowHerosSearchCard(),
+                      );
+                    },
+                  ),
+                ),
+            ]),
+          ),
         ));
   }
 }

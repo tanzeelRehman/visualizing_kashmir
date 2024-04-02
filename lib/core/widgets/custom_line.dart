@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomLine extends StatelessWidget {
   const CustomLine({
@@ -9,7 +10,7 @@ class CustomLine extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 1,
-      color: Colors.grey.withOpacity(.5),
+      color: Get.theme.primaryColor.withOpacity(.5),
       width: double.infinity,
     );
   }

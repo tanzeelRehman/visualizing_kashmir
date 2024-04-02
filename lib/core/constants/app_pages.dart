@@ -8,4 +8,5 @@ class AppPages {
   static const textDetailsPage = '/textDetailsPage';
   static const headLinePage = '/headLinePage';
   static const todayInHistoryPage = '/todayInHistoryPage';
+  static const quizPage = '/quizPage';
 }
