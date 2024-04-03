@@ -29,4 +29,7 @@ class AppAssets {
   static const geelani = 'assets/images/png/gelani.png';
   static const geelani2 = 'assets/images/png/gelani2.png';
   static const headLine = 'assets/images/png/headline.png';
+  static const bloodSplash = 'assets/images/png/bloodSplash.png';
+  static const wifi = 'assets/images/png/wifi.png';
+  static const socialIcons = 'assets/images/png/socialIcons.png';
 }

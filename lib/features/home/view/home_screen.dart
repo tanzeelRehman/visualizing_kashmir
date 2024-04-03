@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:marquee/marquee.dart';
 
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
 import 'package:visualizing_kashmir/core/constants/app_pages.dart';
@@ -132,6 +133,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: Get.theme.primaryColor,
                               fontWeight: FontWeight.bold),
                         ),
+                        SizedBox(
+                          height: 7.h,
+                        ),
+                        SizedBox(
+                            height: 20.h,
+                            child: Image.asset(AppAssets.socialIcons))
                       ],
                     ),
                   ],
@@ -147,41 +154,54 @@ class _HomeScreenState extends State<HomeScreen> {
 //* <---------- WIDGETS ------------------------------------------->
 //* ================================================================
 
-  Container donateCard() {
+  Widget donateCard() {
     return Container(
       width: Get.width,
       padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 10.h),
       decoration: AppTheme.roundedContainerWithoutShadowDecoration
           .copyWith(borderRadius: BorderRadius.circular(25.r)),
-      child: Row(
+      child: Stack(
         children: [
-          SizedBox(
-            width: Get.width * 0.5,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Help_us".tr,
-                  style: Get.textTheme.titleMedium,
+          Positioned(
+              left: 0,
+              bottom: 8,
+              //  right: -6,
+              child: Image.asset(
+                height: 130,
+                AppAssets.bloodSplash,
+                fit: BoxFit.cover,
+              )),
+          Row(
+            children: [
+              SizedBox(
+                width: Get.width * 0.5,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Help_us".tr,
+                      style: Get.textTheme.titleMedium,
+                    ),
+                    SizedBox(
+                      height: 8.h,
+                    ),
+                    donateButton(),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.sp),
+                      child: Text(
+                        "subscribe".tr,
+                        style: Get.textTheme.titleSmall!.copyWith(
+                            color: Get.theme.primaryColor, fontSize: 15.sp),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: 8.h,
-                ),
-                donateButton(),
-                SizedBox(
-                  height: 15.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 20.sp),
-                  child: Text(
-                    "subscribe".tr,
-                    style: Get.textTheme.titleSmall!.copyWith(
-                        color: Get.theme.primaryColor, fontSize: 15.sp),
-                  ),
-                ),
-              ],
-            ),
-          )
+              )
+            ],
+          ),
         ],
       ),
     );
@@ -210,7 +230,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   "Today_in_history".tr,
                   style: Get.textTheme.titleSmall,
                 ),
-                Image.asset(AppAssets.historyClockPng)
+                Image.asset(
+                  AppAssets.historyClockPng,
+                  height: 40.h,
+                )
               ],
             ),
             SizedBox(
@@ -265,8 +288,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: const Color(0xffefc6c6)),
                 height: 110.h,
                 width: 110.w,
-                child: Image.asset(
-                  pngPath,
+                padding: EdgeInsets.symmetric(vertical: 10.h),
+                child: Padding(
+                  padding: EdgeInsets.only(right: 8.w, bottom: 8.h),
+                  child: Image.asset(
+                    // width: 15.w,
+                    // height: 15.h,
+                    pngPath,
+                  ),
                 ),
               ),
             ),
@@ -302,6 +331,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   Container(
                     height: 40.h,
                     width: 35.w,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
                     decoration: AppTheme.roundedContainerDecoration
                         .copyWith(color: Colors.white),
                     child: Image.asset(AppAssets.temperaturePng),
@@ -323,6 +354,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   Container(
                     height: 40.h,
                     width: 35.w,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
                     decoration: AppTheme.roundedContainerDecoration
                         .copyWith(color: Colors.white),
                     child: Image.asset(AppAssets.timePng),
@@ -426,24 +459,38 @@ class _HomeScreenState extends State<HomeScreen> {
       decoration: AppTheme.roundedContainerWithoutShadowDecoration
           .copyWith(color: const Color(0xffefc6c6)),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             height: 43.h,
             width: 40.w,
+            padding: EdgeInsets.symmetric(horizontal: 5.w),
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(8.r)),
-            child: Icon(
-              Icons.network_wifi_3_bar,
-              color: Get.theme.primaryColor,
-            ),
+            child: Image.asset(AppAssets.wifi),
           ),
           SizedBox(
             width: 8.w,
           ),
-          Text(
-            "This is demo text",
-            style: Get.textTheme.bodyMedium,
-          )
+          SizedBox(
+            height: 25.h,
+            width: Get.width * 0.7,
+            child: Marquee(
+              text:
+                  " Imran Khan got arrasted and now he is in jail eating baryani and chicken piece",
+              style: Get.textTheme.bodyMedium,
+              scrollAxis: Axis.horizontal,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              //blankSpace: 20.0,
+              velocity: 100.0,
+              pauseAfterRound: const Duration(seconds: 1),
+              startPadding: 20.0,
+              accelerationDuration: const Duration(seconds: 1),
+              accelerationCurve: Curves.linear,
+              decelerationDuration: const Duration(milliseconds: 500),
+              decelerationCurve: Curves.easeOut,
+            ),
+          ),
         ],
       ),
     );

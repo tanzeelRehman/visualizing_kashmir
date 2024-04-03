@@ -34,12 +34,12 @@ class MyApp extends StatelessWidget {
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: GetMaterialApp(
             translations: Languages(),
-            locale: const Locale('ur', 'PK'),
+            locale: const Locale('en', 'US'),
             theme: AppTheme.lightTheme,
             navigatorKey: navigatorKeyGlobal,
             debugShowCheckedModeBanner: false,
             title: 'Visualizing Kashmir',
-            initialRoute: AppPages.textDetailsPage,
+            initialRoute: AppPages.homePage,
             getPages: [
               GetPage(
                   name: AppPages.splashPage, page: () => const SplashScreen()),

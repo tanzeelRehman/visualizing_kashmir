@@ -32,7 +32,7 @@ class CustomAppBar extends StatelessWidget {
     return Directionality(
       textDirection: Directionality.of(context) == TextDirection.rtl
           ? TextDirection.ltr
-          : TextDirection.rtl,
+          : TextDirection.ltr,
       child: ColoredBox(
         color: backgroundColor ?? Colors.transparent,
         child: SizedBox(
