@@ -25,7 +25,7 @@ class SaveLanguageSettings {
     selectedLanguageCountry = languageCountry ?? 'US';
   }
 
-  static setOpenFirstTime() async {
+  static setOpendFirstTime() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     await prefs.setBool(ConstantNames.firstTimeOpened.name, true);

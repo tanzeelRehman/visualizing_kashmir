@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 
 class LanguageController extends GetxController {
-  String selectedLanguage = 'EN';
+  String selectedLanguage = 'en';
 
   void changeLanguage(String language) {
     selectedLanguage = language;

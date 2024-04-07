@@ -18,6 +18,7 @@ import 'package:visualizing_kashmir/features/search/view/widgets/history_search_
 import 'package:visualizing_kashmir/features/search/view/widgets/know_heros_search_card.dart';
 import 'package:visualizing_kashmir/features/search/view/widgets/reports_search_card.dart';
 import 'package:visualizing_kashmir/features/videoAudioDetails/views/widgets/audio_play_widget.dart';
+import 'package:visualizing_kashmir/features/videoAudioDetails/views/widgets/pdf_widget.dart';
 import 'package:visualizing_kashmir/features/videoAudioDetails/views/widgets/video_play_widget.dart';
 
 class VideoAudioDetails extends StatelessWidget {
@@ -31,7 +32,7 @@ class VideoAudioDetails extends StatelessWidget {
         body: Directionality(
           textDirection: Directionality.of(context) == TextDirection.rtl
               ? TextDirection.ltr
-              : TextDirection.rtl,
+              : TextDirection.ltr,
           child: Stack(
             children: [
               SafeArea(
@@ -110,7 +111,13 @@ class VideoAudioDetails extends StatelessWidget {
                                         return const VideoPlayWidget();
                                       },
                                     ),
-                                    const Icon(Icons.directions_car, size: 350),
+                                    //* PDF Widget =============================
+                                    ListView.builder(
+                                      itemCount: 8,
+                                      itemBuilder: (context, index) {
+                                        return const PDFWidget();
+                                      },
+                                    ),
                                   ],
                                 ),
                               ),

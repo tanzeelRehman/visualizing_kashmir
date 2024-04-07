@@ -22,7 +22,7 @@ class TextDetailsScreen extends StatelessWidget {
         body: Directionality(
           textDirection: Directionality.of(context) == TextDirection.rtl
               ? TextDirection.ltr
-              : TextDirection.rtl,
+              : TextDirection.ltr,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 5.h),
             child: SingleChildScrollView(

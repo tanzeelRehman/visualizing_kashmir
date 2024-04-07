@@ -31,7 +31,7 @@ class TodayInHistory extends StatelessWidget {
         body: Directionality(
           textDirection: Directionality.of(context) == TextDirection.rtl
               ? TextDirection.ltr
-              : TextDirection.rtl,
+              : TextDirection.ltr,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 5.h),
             child: SingleChildScrollView(

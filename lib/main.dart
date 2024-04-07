@@ -20,6 +20,7 @@ import 'dependency_container.dart' as di;
 
 void main() async {
   await di.init();
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

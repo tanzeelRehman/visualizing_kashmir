@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:visualizing_kashmir/core/constants/app_pages.dart';
+import 'package:visualizing_kashmir/core/helper/saveLanguageSettings.dart';
 import 'package:visualizing_kashmir/core/widgets/primary_continuebutton.dart';
 
 import 'package:visualizing_kashmir/features/Language/view/widgets/select_Language_card.dart';
@@ -33,8 +34,8 @@ class LanguagePage extends StatelessWidget {
             ),
             PrimaryContinueButton(
               text: "Select".tr,
-              ontap: () {
-                Get.toNamed(AppPages.homePage);
+              ontap: () async {
+                Get.offAllNamed(AppPages.homePage);
               },
               isWhite: false,
               width: Get.width * 0.85,
