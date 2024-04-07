@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
+import 'package:visualizing_kashmir/core/constants/app_pages.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 import 'package:visualizing_kashmir/core/widgets/primary_continue_small_button.dart';
 
@@ -58,7 +59,9 @@ class KnowHerosSearchCard extends StatelessWidget {
                                 title: "Read_more".tr,
                                 padding: EdgeInsets.symmetric(
                                     vertical: 8.h, horizontal: 10.w),
-                                ontap: () {},
+                                ontap: () {
+                                  Get.toNamed(AppPages.knowYourHeroPage);
+                                },
                                 isNext: false),
                           ],
                         ),
@@ -86,7 +89,7 @@ class KnowHerosSearchCard extends StatelessWidget {
               child: Image.asset(
                 height: 150.h,
                 width: 150.w,
-                AppAssets.bookCover,
+                AppAssets.geelani,
                 fit: BoxFit.cover,
               ),
             ),

@@ -155,54 +155,59 @@ class _HomeScreenState extends State<HomeScreen> {
 //* ================================================================
 
   Widget donateCard() {
-    return Container(
-      width: Get.width,
-      padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 10.h),
-      decoration: AppTheme.roundedContainerWithoutShadowDecoration
-          .copyWith(borderRadius: BorderRadius.circular(25.r)),
-      child: Stack(
-        children: [
-          Positioned(
-              left: 0,
-              bottom: 8,
-              //  right: -6,
-              child: Image.asset(
-                height: 130,
-                AppAssets.bloodSplash,
-                fit: BoxFit.cover,
-              )),
-          Row(
-            children: [
-              SizedBox(
-                width: Get.width * 0.5,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Help_us".tr,
-                      style: Get.textTheme.titleMedium,
-                    ),
-                    SizedBox(
-                      height: 8.h,
-                    ),
-                    donateButton(),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.sp),
-                      child: Text(
-                        "subscribe".tr,
-                        style: Get.textTheme.titleSmall!.copyWith(
-                            color: Get.theme.primaryColor, fontSize: 15.sp),
+    return Directionality(
+      textDirection: Directionality.of(context) == TextDirection.rtl
+          ? TextDirection.ltr
+          : TextDirection.ltr,
+      child: Container(
+        width: Get.width,
+        padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 10.h),
+        decoration: AppTheme.roundedContainerWithoutShadowDecoration
+            .copyWith(borderRadius: BorderRadius.circular(25.r)),
+        child: Stack(
+          children: [
+            Positioned(
+                left: 0,
+                bottom: 8,
+                //  right: -6,
+                child: Image.asset(
+                  height: 130,
+                  AppAssets.bloodSplash,
+                  fit: BoxFit.cover,
+                )),
+            Row(
+              children: [
+                SizedBox(
+                  width: Get.width * 0.5,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Help_us".tr,
+                        style: Get.textTheme.titleMedium,
                       ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ],
+                      SizedBox(
+                        height: 8.h,
+                      ),
+                      donateButton(),
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 20.sp),
+                        child: Text(
+                          "subscribe".tr,
+                          style: Get.textTheme.titleSmall!.copyWith(
+                              color: Get.theme.primaryColor, fontSize: 15.sp),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -432,8 +437,11 @@ class _HomeScreenState extends State<HomeScreen> {
             decoration: AppTheme.roundedContainerDecoration
                 .copyWith(color: Colors.white),
             child: IconButton(
+                splashColor: Colors.transparent,
                 iconSize: 55,
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(AppPages.languagePage);
+                },
                 icon: SvgPicture.asset(
                   width: 55.w,
                   height: 55.h,
@@ -451,47 +459,53 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Container newsBanner(BuildContext context) {
-    return Container(
-      height: 55.h,
-      padding: EdgeInsets.symmetric(horizontal: 8.w),
-      width: MediaQuery.of(context).size.width,
-      decoration: AppTheme.roundedContainerWithoutShadowDecoration
-          .copyWith(color: const Color(0xffefc6c6)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            height: 43.h,
-            width: 40.w,
-            padding: EdgeInsets.symmetric(horizontal: 5.w),
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(8.r)),
-            child: Image.asset(AppAssets.wifi),
-          ),
-          SizedBox(
-            width: 8.w,
-          ),
-          SizedBox(
-            height: 25.h,
-            width: Get.width * 0.7,
-            child: Marquee(
-              text:
-                  " Imran Khan got arrasted and now he is in jail eating baryani and chicken piece",
-              style: Get.textTheme.bodyMedium,
-              scrollAxis: Axis.horizontal,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              //blankSpace: 20.0,
-              velocity: 100.0,
-              pauseAfterRound: const Duration(seconds: 1),
-              startPadding: 20.0,
-              accelerationDuration: const Duration(seconds: 1),
-              accelerationCurve: Curves.linear,
-              decelerationDuration: const Duration(milliseconds: 500),
-              decelerationCurve: Curves.easeOut,
+  Widget newsBanner(BuildContext context) {
+    return Directionality(
+      textDirection: Directionality.of(context) == TextDirection.rtl
+          ? TextDirection.ltr
+          : TextDirection.ltr,
+      child: Container(
+        height: 55.h,
+        padding: EdgeInsets.symmetric(horizontal: 8.w),
+        width: MediaQuery.of(context).size.width,
+        decoration: AppTheme.roundedContainerWithoutShadowDecoration
+            .copyWith(color: const Color(0xffefc6c6)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              height: 43.h,
+              width: 40.w,
+              padding: EdgeInsets.symmetric(horizontal: 5.w),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8.r)),
+              child: Image.asset(AppAssets.wifi),
             ),
-          ),
-        ],
+            SizedBox(
+              width: 8.w,
+            ),
+            SizedBox(
+              height: 25.h,
+              width: Get.width * 0.7,
+              child: Marquee(
+                text:
+                    " Imran Khan got arrasted and now he is in jail eating baryani and chicken piece",
+                style: Get.textTheme.bodyMedium,
+                scrollAxis: Axis.horizontal,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                //blankSpace: 20.0,
+                velocity: 100.0,
+                pauseAfterRound: const Duration(seconds: 1),
+                startPadding: 0.0,
+                accelerationDuration: const Duration(seconds: 1),
+                accelerationCurve: Curves.linear,
+                decelerationDuration: const Duration(milliseconds: 500),
+                decelerationCurve: Curves.easeOut,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

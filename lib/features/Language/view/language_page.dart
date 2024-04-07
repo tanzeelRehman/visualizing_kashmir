@@ -11,32 +11,37 @@ class LanguagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Text(
-            "Select_Language".tr,
-            style: Get.theme.textTheme.titleMedium,
-          ),
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              selectLanguageCard(value: "EN", name: "English"),
-              selectLanguageCard(value: "UR", name: "اردو"),
-              selectLanguageCard(value: "AR", name: "عربي"),
-            ],
-          ),
-          PrimaryContinueButton(
-            text: "Conform",
-            ontap: () {
-              Get.toNamed(AppPages.homePage);
-            },
-            isWhite: false,
-            width: Get.width * 0.85,
-          )
-        ],
-      )),
+      body: Directionality(
+        textDirection: Directionality.of(context) == TextDirection.rtl
+            ? TextDirection.ltr
+            : TextDirection.ltr,
+        child: SafeArea(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              "Select_Language".tr,
+              style: Get.theme.textTheme.titleMedium,
+            ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SelectLanguageCard(value: "en", name: "English"),
+                SelectLanguageCard(value: "ur", name: "اردو"),
+                SelectLanguageCard(value: "ar", name: "عربي"),
+              ],
+            ),
+            PrimaryContinueButton(
+              text: "Select".tr,
+              ontap: () {
+                Get.toNamed(AppPages.homePage);
+              },
+              isWhite: false,
+              width: Get.width * 0.85,
+            )
+          ],
+        )),
+      ),
     );
   }
 }

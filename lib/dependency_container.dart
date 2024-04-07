@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:visualizing_kashmir/core/helper/saveLanguageSettings.dart';
 import 'package:visualizing_kashmir/core/network/network_info.dart';
 import 'package:visualizing_kashmir/features/Language/controller/language_controller.dart';
 
@@ -30,4 +31,8 @@ Future<void> init() async {
   //! Core ------------------------>
   Get.lazyPut<NetworkInfo>(
       () => NetworkInfoImpl(Get.find<InternetConnectionChecker>()));
+
+  //! Getting Language Data ------------------------------>
+  SaveLanguageSettings.getLanguageCode();
+  SaveLanguageSettings.getLanguageCountry();
 }

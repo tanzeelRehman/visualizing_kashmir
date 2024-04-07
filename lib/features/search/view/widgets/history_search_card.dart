@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
+import 'package:visualizing_kashmir/core/constants/app_pages.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 import 'package:visualizing_kashmir/core/widgets/primary_continue_small_button.dart';
 
@@ -55,7 +56,9 @@ class HistorySearchCard extends StatelessWidget {
                   PrimaryContinueSmallButton(
                     title: "Open".tr,
                     isNext: false,
-                    ontap: () {},
+                    ontap: () {
+                      Get.toNamed(AppPages.textDetailsPage);
+                    },
                   )
                 ],
               )

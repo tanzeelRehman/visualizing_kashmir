@@ -36,6 +36,7 @@ class Languages extends Translations {
           'Take_Quiz': 'Take Quiz',
           'Skip': 'Skip for Now',
           'Proceed': 'Proceed',
+          'Select': 'Select'
         },
         'ar_UAE': {
           'Select_Language': 'اختار اللغة',
@@ -69,7 +70,8 @@ class Languages extends Translations {
           'Solve_quiz': 'حل الاختبار لتعزيز معرفتك التاريخية',
           'Take_Quiz': 'تقدم للإختبار',
           'Skip': 'تخطي في الوقت الراهن',
-          'Proceed': 'يتابع'
+          'Proceed': 'يتابع',
+          'Select': 'يختار',
         },
         'ur_PK': {
           'Select_Language': 'زبان منتخب کریں',
@@ -103,7 +105,8 @@ class Languages extends Translations {
           'Solve_quiz': 'اپنے تاریخی علم کو بہتر بنانے کے لیے کوئز حل کریں',
           'Take_Quiz': 'کوئز لیں',
           'Skip': 'اب کے لئے چھوڑ دیں',
-          'Proceed': 'آگے بڑھو'
+          'Proceed': 'آگے بڑھو',
+          'Select': 'منتخب کریں',
         }
       };
 }

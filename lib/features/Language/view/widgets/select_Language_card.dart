@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:visualizing_kashmir/core/globle/globle.dart';
+import 'package:visualizing_kashmir/core/helper/saveLanguageSettings.dart';
 import 'package:visualizing_kashmir/features/Language/controller/language_controller.dart';
 
-class selectLanguageCard extends StatelessWidget {
+class SelectLanguageCard extends StatelessWidget {
   final String value;
   final String name;
-  const selectLanguageCard(
+  const SelectLanguageCard(
       {super.key, required this.value, required this.name});
 
   @override
@@ -31,11 +33,23 @@ class selectLanguageCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Radio.adaptive(
+                      activeColor: Get.theme.primaryColor,
                       focusColor: Get.theme.primaryColor,
                       value: value,
                       groupValue: controller.selectedLanguage,
                       onChanged: (val) {
                         controller.changeLanguage(value);
+                        if (value == 'ar') {
+                          Get.updateLocale(const Locale('ar', 'UAE'));
+                          SaveLanguageSettings.saveLanguage('ar', 'UAE');
+                        } else if (value == 'ur') {
+                          Get.updateLocale(const Locale('ur', 'PK'));
+                          SaveLanguageSettings.saveLanguage('ur', 'PK');
+                        } else {
+                          Get.updateLocale(const Locale('en', 'US'));
+                          SaveLanguageSettings.saveLanguage('en', 'US');
+                        }
+                        print(value);
                       }),
                   Text(
                     name,

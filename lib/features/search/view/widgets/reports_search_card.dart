@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
+import 'package:visualizing_kashmir/core/constants/app_pages.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 
 class ReportsSearchCard extends StatelessWidget {
@@ -54,12 +56,17 @@ class ReportsSearchCard extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Text(
-                                  "Read_more".tr,
-                                  style: Get.textTheme.bodySmall!.copyWith(
-                                      color: Get.theme.primaryColor,
-                                      fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.underline),
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(AppPages.videoAudioPage);
+                                  },
+                                  child: Text(
+                                    "Read_more".tr,
+                                    style: Get.textTheme.bodySmall!.copyWith(
+                                        color: Get.theme.primaryColor,
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.underline),
+                                  ),
                                 ),
                               ],
                             ),
