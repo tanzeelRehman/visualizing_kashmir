@@ -35,6 +35,11 @@ class LanguagePage extends StatelessWidget {
             PrimaryContinueButton(
               text: "Select".tr,
               ontap: () async {
+                bool isOpended = await SaveLanguageSettings.isOpenedFirstTime();
+
+                if (isOpended == false) {
+                  SaveLanguageSettings.setOpendFirstTime();
+                }
                 Get.offAllNamed(AppPages.homePage);
               },
               isWhite: false,

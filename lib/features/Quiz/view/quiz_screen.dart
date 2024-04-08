@@ -25,7 +25,7 @@ class QuizScreen extends StatelessWidget {
         body: Directionality(
           textDirection: Directionality.of(context) == TextDirection.rtl
               ? TextDirection.ltr
-              : TextDirection.rtl,
+              : TextDirection.ltr,
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 5.h),
             child: Column(

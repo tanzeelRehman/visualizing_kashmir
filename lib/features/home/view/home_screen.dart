@@ -510,23 +510,28 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Container donateButton() {
-    return Container(
-      height: 42.h,
-      width: 120.w,
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(55.r)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Text(
-            "donate".tr,
-            style: Get.textTheme.bodyMedium!.copyWith(color: Colors.black),
-          ),
-          const Icon(
-            Icons.arrow_forward,
-          )
-        ],
+  Widget donateButton() {
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(AppPages.quizPage);
+      },
+      child: Container(
+        height: 42.h,
+        width: 120.w,
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(55.r)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              "donate".tr,
+              style: Get.textTheme.bodyMedium!.copyWith(color: Colors.black),
+            ),
+            const Icon(
+              Icons.arrow_forward,
+            )
+          ],
+        ),
       ),
     );
   }

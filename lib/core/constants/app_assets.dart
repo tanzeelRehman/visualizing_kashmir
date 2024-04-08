@@ -32,4 +32,5 @@ class AppAssets {
   static const bloodSplash = 'assets/images/png/bloodSplash.png';
   static const wifi = 'assets/images/png/wifi.png';
   static const socialIcons = 'assets/images/png/socialIcons.png';
+  static const splash = 'assets/images/png/Splash.png';
 }

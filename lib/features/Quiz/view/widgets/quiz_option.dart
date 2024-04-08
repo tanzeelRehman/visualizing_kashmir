@@ -75,10 +75,12 @@ class _QuizOptionState extends State<QuizOption> {
               style: Get.textTheme.bodySmall,
             ),
             showValues
-                ? Icon(
-                    mainIcon,
-                    color: mainColor,
-                  )
+                ? widget.state == 'simple'
+                    ? const SizedBox.shrink()
+                    : Icon(
+                        mainIcon,
+                        color: mainColor,
+                      )
                 : const SizedBox.shrink()
           ],
         ),

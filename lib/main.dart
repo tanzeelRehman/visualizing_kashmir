@@ -19,8 +19,9 @@ import 'package:visualizing_kashmir/splash_screen.dart';
 import 'dependency_container.dart' as di;
 
 void main() async {
-  await di.init();
   WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
+
   runApp(const MyApp());
 }
 
@@ -35,7 +36,8 @@ class MyApp extends StatelessWidget {
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: GetMaterialApp(
             translations: Languages(),
-            locale: Locale(selectedLanguageCode, selectedLanguageCountry),
+            locale:
+                Locale(selectedLanguageCode ?? 'en', selectedLanguageCountry),
             theme: AppTheme.lightTheme,
             navigatorKey: navigatorKeyGlobal,
             debugShowCheckedModeBanner: false,
