@@ -36,12 +36,15 @@ class Languages extends Translations {
           'Take_Quiz': 'Take Quiz',
           'Skip': 'Skip for Now',
           'Proceed': 'Proceed',
-          'Select': 'Select'
+          'Select': 'Select',
+          'Books': 'Books',
+          'Images': 'Images',
+          'Infographics': 'Infographics',
         },
         'ar_UAE': {
           'Select_Language': 'اختار اللغة',
           'Continue': 'يكمل',
-          'Home': 'بيت',
+          'Home': 'الصفحة الرئيسية',
           'Help_us': 'ساعدونا في قضيتنا',
           'donate': 'يتبرع',
           'subscribe': 'يشترك',
@@ -72,11 +75,14 @@ class Languages extends Translations {
           'Skip': 'تخطي في الوقت الراهن',
           'Proceed': 'يتابع',
           'Select': 'يختار',
+          'Books': 'كتب',
+          'Images': 'الصور',
+          'Infographics': 'الرسوم البيانية',
         },
         'ur_PK': {
           'Select_Language': 'زبان منتخب کریں',
           'Continue': 'جاری رہے',
-          'Home': 'گھر',
+          'Home': 'مرکزی صفحہ',
           'Help_us': 'ہمارے مقصد میں ہماری مدد کریں',
           'donate': 'عطیہ کریں',
           'subscribe': 'سبسکرائب',
@@ -107,6 +113,9 @@ class Languages extends Translations {
           'Skip': 'اب کے لئے چھوڑ دیں',
           'Proceed': 'آگے بڑھو',
           'Select': 'منتخب کریں',
+          'Books': 'کتابیں',
+          'Images': 'تصاویر',
+          'Infographics': 'انفوگرافکس',
         }
       };
 }

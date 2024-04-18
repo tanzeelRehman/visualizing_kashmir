@@ -73,8 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             title: "History".tr,
                             pngPath: AppAssets.historyPng,
                             ontap: () {
-                              Get.toNamed(AppPages.searchPage,
-                                  arguments: SearchType.History.name);
+                              Get.toNamed(AppPages.historySubPage,
+                                  arguments: "History");
                             },
                           ),
                           optionCard(

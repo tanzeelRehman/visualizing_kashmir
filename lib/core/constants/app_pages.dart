@@ -9,4 +9,6 @@ class AppPages {
   static const headLinePage = '/headLinePage';
   static const todayInHistoryPage = '/todayInHistoryPage';
   static const quizPage = '/quizPage';
+  static const historySubPage = '/historySubPage';
+  static const multiMediaSearchDisplayPage = '/multiMediaSearchDisplaySPage';
 }

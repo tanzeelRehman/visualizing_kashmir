@@ -8,12 +8,14 @@ import 'package:visualizing_kashmir/core/language/languages.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 import 'package:visualizing_kashmir/features/Headline/views/headline_screen.dart';
 import 'package:visualizing_kashmir/features/Hero/view/know_your_hero_detail.dart';
+import 'package:visualizing_kashmir/features/History/view/history_sub_screen.dart';
 import 'package:visualizing_kashmir/features/Language/view/language_page.dart';
 import 'package:visualizing_kashmir/features/Quiz/view/quiz_screen.dart';
 import 'package:visualizing_kashmir/features/home/view/home_screen.dart';
 import 'package:visualizing_kashmir/features/search/view/search_screens.dart';
 import 'package:visualizing_kashmir/features/textDetails/view/text_details_screen.dart';
 import 'package:visualizing_kashmir/features/todayHistory/views/today_in_history_screen.dart';
+import 'package:visualizing_kashmir/features/videoAudioDetails/views/multimedia_display_screen.dart';
 import 'package:visualizing_kashmir/features/videoAudioDetails/views/video_audio_details.dart';
 import 'package:visualizing_kashmir/splash_screen.dart';
 import 'dependency_container.dart' as di;
@@ -42,7 +44,7 @@ class MyApp extends StatelessWidget {
             navigatorKey: navigatorKeyGlobal,
             debugShowCheckedModeBanner: false,
             title: 'Visualizing Kashmir',
-            initialRoute: AppPages.splashPage,
+            initialRoute: AppPages.historySubPage,
             getPages: [
               GetPage(
                   name: AppPages.splashPage, page: () => const SplashScreen()),
@@ -81,6 +83,14 @@ class MyApp extends StatelessWidget {
               GetPage(
                 name: AppPages.quizPage,
                 page: () => const QuizScreen(),
+              ),
+              GetPage(
+                name: AppPages.historySubPage,
+                page: () => HistorySubScreen(),
+              ),
+              GetPage(
+                name: AppPages.multiMediaSearchDisplayPage,
+                page: () => MultiMediaDisplayScreen(),
               ),
             ],
             home: const HomeScreen(),

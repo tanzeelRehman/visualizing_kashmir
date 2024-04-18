@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
+import 'package:visualizing_kashmir/core/constants/multimedia_enum.dart';
 import 'package:visualizing_kashmir/core/constants/search_enum.dart';
 import 'package:visualizing_kashmir/core/helper/getPreferedSizeAppbar.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
@@ -17,9 +19,11 @@ import 'package:visualizing_kashmir/features/search/view/widgets/article_search_
 import 'package:visualizing_kashmir/features/search/view/widgets/history_search_card.dart';
 import 'package:visualizing_kashmir/features/search/view/widgets/know_heros_search_card.dart';
 import 'package:visualizing_kashmir/features/search/view/widgets/reports_search_card.dart';
+import 'package:visualizing_kashmir/features/videoAudioDetails/views/widgets/audio_play_widget.dart';
+import 'package:visualizing_kashmir/features/videoAudioDetails/views/widgets/video_play_widget.dart';
 
-class SearchScreen extends StatelessWidget {
-  SearchScreen({super.key});
+class MultiMediaDisplayScreen extends StatelessWidget {
+  MultiMediaDisplayScreen({super.key});
 
   final FocusNode searchFocusNode = FocusNode();
   final TextEditingController searchController = TextEditingController();
@@ -47,38 +51,38 @@ class SearchScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 20.h,
+                height: 15.h,
               ),
-              //* REPORT Search -------------------------------->
-              if (searchType == SearchType.Reports.name)
+              //* Audio Search -------------------------------->
+              if (searchType == MultiMediaType.Audios.name)
                 SizedBox(
                   height: Get.height * 0.72,
                   child: ListView.builder(
                     itemCount: 9,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: EdgeInsets.only(top: 35.h),
-                        child: const ReportsSearchCard(),
+                        padding: EdgeInsets.only(top: 15.h),
+                        child: const AudioPlayWidget(),
                       );
                     },
                   ),
                 ),
               //* ARTICLES Search -------------------------------->
-              if (searchType == SearchType.Articles.name)
+              if (searchType == MultiMediaType.Videos.name)
                 SizedBox(
                   height: Get.height * 0.72,
                   child: ListView.builder(
                     itemCount: 9,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: EdgeInsets.only(top: 55.h),
-                        child: const ArticleSearchCard(),
+                        padding: EdgeInsets.only(top: 15.h),
+                        child: const VideoPlayWidget(),
                       );
                     },
                   ),
                 ),
               // //* HISTORY Search -------------------------------->
-              if (searchType == SearchType.Books.name)
+              if (searchType == MultiMediaType.Images.name)
                 SizedBox(
                   height: Get.height * 0.72,
                   child: ListView.builder(

@@ -33,4 +33,11 @@ class AppAssets {
   static const wifi = 'assets/images/png/wifi.png';
   static const socialIcons = 'assets/images/png/socialIcons.png';
   static const splash = 'assets/images/png/Splash.png';
+  static const articleSubscreen = 'assets/images/png/article_subscreen.png';
+  static const audiosSubscreen = 'assets/images/png/audios_subscreen.png';
+  static const booksSubscreen = 'assets/images/png/books_subscreen.png';
+  static const imagesSubscreen = 'assets/images/png/images_subscreen.png';
+  static const infographicsSubscreen =
+      'assets/images/png/infographics_subscreen.png';
+  static const videosSubscreen = 'assets/images/png/videos_subscreen.png';
 }

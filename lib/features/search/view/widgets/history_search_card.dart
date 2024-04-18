@@ -6,8 +6,8 @@ import 'package:visualizing_kashmir/core/constants/app_pages.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 import 'package:visualizing_kashmir/core/widgets/primary_continue_small_button.dart';
 
-class HistorySearchCard extends StatelessWidget {
-  const HistorySearchCard({
+class BooksSearchCard extends StatelessWidget {
+  const BooksSearchCard({
     super.key,
   });
 
