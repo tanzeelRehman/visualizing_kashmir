@@ -13,6 +13,7 @@ import 'package:visualizing_kashmir/core/constants/app_assets.dart';
 import 'package:visualizing_kashmir/core/constants/app_pages.dart';
 import 'package:visualizing_kashmir/core/constants/search_enum.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
+import 'package:visualizing_kashmir/features/home/controller/home_controller.dart';
 import 'package:visualizing_kashmir/features/home/view/widgets/image_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,12 +24,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController seatController = TextEditingController();
+  HomeController employeeListController =
+      Get.put(HomeController()); // Register the controller here
 
-  // EmployeeListController employeeListController =
-  //     Get.put(EmployeeListController()); // Register the controller here
-  // AuthController authController = Get.find<AuthController>();
   @override
   void initState() {
     super.initState();
@@ -290,7 +288,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: AppTheme.roundedContainerWithoutShadowDecoration
                     .copyWith(
                         borderRadius: BorderRadius.circular(25.r),
-                        color: const Color(0xffefc6c6)),
+                        color: AppTheme.cardColorDark),
                 height: 110.h,
                 width: 110.w,
                 padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -310,72 +308,91 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Row temperatureAndMap() {
+  Widget temperatureAndMap() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Padding(
-          padding: EdgeInsets.only(right: 6.sp),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Kashmir".tr,
-                style: Get.textTheme.titleMedium,
-              ),
-              Text(
-                "Saturday, 17 July",
-                style: Get.textTheme.titleSmall!
-                    .copyWith(color: Get.theme.primaryColor, fontSize: 15.sp),
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
-              Row(
-                children: [
-                  Container(
-                    height: 40.h,
-                    width: 35.w,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                    decoration: AppTheme.roundedContainerDecoration
-                        .copyWith(color: Colors.white),
-                    child: Image.asset(AppAssets.temperaturePng),
-                  ),
-                  SizedBox(
-                    width: 8.w,
-                  ),
-                  Text(
-                    '12 Celsius',
-                    style: Get.textTheme.bodyMedium,
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 12.h,
-              ),
-              Row(
-                children: [
-                  Container(
-                    height: 40.h,
-                    width: 35.w,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                    decoration: AppTheme.roundedContainerDecoration
-                        .copyWith(color: Colors.white),
-                    child: Image.asset(AppAssets.timePng),
-                  ),
-                  SizedBox(
-                    width: 8.w,
-                  ),
-                  Text(
-                    '02:23 PM',
-                    style: Get.textTheme.bodyMedium,
-                  )
-                ],
-              ),
-            ],
-          ),
+        GetBuilder<HomeController>(
+          init: Get.find<HomeController>(),
+          builder: (controller) {
+            if (controller.fetchingData) {
+              return SizedBox(
+                width: Get.width * 0.4,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(
+                      color: Get.theme.primaryColor,
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              return Padding(
+                padding: EdgeInsets.only(right: 6.sp),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Srinagar".tr,
+                      style: Get.textTheme.titleMedium,
+                    ),
+                    Text(
+                      controller.getTodayDate(),
+                      style: Get.textTheme.titleSmall!.copyWith(
+                          color: Get.theme.primaryColor, fontSize: 15.sp),
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          height: 40.h,
+                          width: 35.w,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 5.w, vertical: 5.h),
+                          decoration: AppTheme.roundedContainerDecoration
+                              .copyWith(color: Colors.white),
+                          child: Image.asset(AppAssets.temperaturePng),
+                        ),
+                        SizedBox(
+                          width: 8.w,
+                        ),
+                        Text(
+                          '${controller.getKashmirTermperature().ceil().toStringAsFixed(0)} Celsius',
+                          style: Get.textTheme.bodyMedium,
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 12.h,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          height: 40.h,
+                          width: 35.w,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 5.w, vertical: 5.h),
+                          decoration: AppTheme.roundedContainerDecoration
+                              .copyWith(color: Colors.white),
+                          child: Image.asset(AppAssets.timePng),
+                        ),
+                        SizedBox(
+                          width: 8.w,
+                        ),
+                        Text(
+                          controller.getKashmirTime(),
+                          style: Get.textTheme.bodyMedium,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            }
+          },
         ),
         Stack(
           children: [
@@ -469,14 +486,14 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.symmetric(horizontal: 8.w),
         width: MediaQuery.of(context).size.width,
         decoration: AppTheme.roundedContainerWithoutShadowDecoration
-            .copyWith(color: const Color(0xffefc6c6)),
+            .copyWith(color: const Color(0xffaed4d4)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
               height: 43.h,
               width: 40.w,
-              padding: EdgeInsets.symmetric(horizontal: 5.w),
+              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8.r)),

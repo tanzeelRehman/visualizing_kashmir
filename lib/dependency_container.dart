@@ -5,12 +5,12 @@ import 'package:visualizing_kashmir/core/helper/saveLanguageSettings.dart';
 import 'package:visualizing_kashmir/core/network/network_info.dart';
 import 'package:visualizing_kashmir/features/Language/controller/language_controller.dart';
 
-import 'package:visualizing_kashmir/features/home/controller/employee_list_controller.dart';
+import 'package:visualizing_kashmir/features/home/controller/home_controller.dart';
 import 'package:visualizing_kashmir/features/home/data/home_datasource.dart';
 
 Future<void> init() async {
   //! GETX CONTROLLERS --------------->
-  Get.lazyPut(() => EmployeeListController());
+  Get.lazyPut(() => HomeController());
   Get.lazyPut<LanguageController>(() => LanguageController(), fenix: true);
 
   //! Data Sources

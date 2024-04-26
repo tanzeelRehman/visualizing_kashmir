@@ -5,11 +5,13 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
   //* Light Theme ========================================================>
   //*<!-------------------------------------------------------------------->
+  static const cardColorLight = Color(0xffd3e6e6);
+  static const cardColorDark = Color(0xffaed4d4);
+
   static final lightTheme = ThemeData.light().copyWith(
       scaffoldBackgroundColor: const Color(0xffF8F8F8),
       canvasColor: Colors.white,
-      cardColor: const Color(0xfff5e0e0),
-      primaryColor: const Color(0xffcf0000),
+      primaryColor: const Color(0xff008080),
       primaryColorDark: const Color(0xff282a41),
       dividerColor: Colors.transparent,
       textTheme: TextTheme(
@@ -34,17 +36,20 @@ class AppTheme {
   //?<!------------------------------------------------------------------------>
   static BoxDecoration roundedContainerDecoration = BoxDecoration(
       boxShadow: const [
-        BoxShadow(color: Color(0xffefc6c6), blurRadius: 5, offset: Offset(5, 5))
+        BoxShadow(
+            color: AppTheme.cardColorLight, blurRadius: 5, offset: Offset(5, 5))
       ],
       borderRadius: BorderRadius.circular(15),
       color: Colors.white);
   static BoxDecoration roundedContainerWithoutShadowDecoration = BoxDecoration(
-      borderRadius: BorderRadius.circular(10), color: const Color(0xfff5e0e0));
+      borderRadius: BorderRadius.circular(10),
+      color: AppTheme.cardColorLight,
+      border: Border.all(width: 1, color: AppTheme.cardColorDark));
 
   static BoxDecoration roundedContainerDecorationwithLessShadows =
       BoxDecoration(boxShadow: [
     BoxShadow(
-        color: const Color(0xffefc6c6).withOpacity(.3),
+        color: AppTheme.cardColorLight.withOpacity(.3),
         blurRadius: 5,
         offset: const Offset(1, 1))
   ], borderRadius: BorderRadius.circular(15), color: Colors.white);

@@ -40,6 +40,7 @@ class Languages extends Translations {
           'Books': 'Books',
           'Images': 'Images',
           'Infographics': 'Infographics',
+          'Srinagar': 'Srinagar',
         },
         'ar_UAE': {
           'Select_Language': 'اختار اللغة',
@@ -78,6 +79,7 @@ class Languages extends Translations {
           'Books': 'كتب',
           'Images': 'الصور',
           'Infographics': 'الرسوم البيانية',
+          'Srinagar': 'سری نگر',
         },
         'ur_PK': {
           'Select_Language': 'زبان منتخب کریں',
@@ -116,6 +118,7 @@ class Languages extends Translations {
           'Books': 'کتابیں',
           'Images': 'تصاویر',
           'Infographics': 'انفوگرافکس',
+          'Srinagar': 'سری نگر',
         }
       };
 }

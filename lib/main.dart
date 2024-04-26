@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
             navigatorKey: navigatorKeyGlobal,
             debugShowCheckedModeBanner: false,
             title: 'Visualizing Kashmir',
-            initialRoute: AppPages.historySubPage,
+            initialRoute: AppPages.splashPage,
             getPages: [
               GetPage(
                   name: AppPages.splashPage, page: () => const SplashScreen()),
