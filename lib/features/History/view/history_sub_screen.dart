@@ -8,6 +8,7 @@ import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
 import 'package:visualizing_kashmir/core/constants/app_pages.dart';
+import 'package:visualizing_kashmir/core/constants/data_type_enum.dart';
 import 'package:visualizing_kashmir/core/constants/multimedia_enum.dart';
 import 'package:visualizing_kashmir/core/constants/search_enum.dart';
 import 'package:visualizing_kashmir/core/helper/getPreferedSizeAppbar.dart';
@@ -46,7 +47,7 @@ class HistorySubScreen extends StatelessWidget {
                     imagePath: AppAssets.booksSubscreen,
                     ontap: () {
                       Get.toNamed(AppPages.searchPage,
-                          arguments: SearchType.Books.name);
+                          arguments: DataType.book.name);
                     },
                   ),
                   SubMenuCard(
@@ -54,7 +55,7 @@ class HistorySubScreen extends StatelessWidget {
                     imagePath: AppAssets.articleSubscreen,
                     ontap: () {
                       Get.toNamed(AppPages.searchPage,
-                          arguments: SearchType.Articles.name);
+                          arguments: DataType.article.name);
                     },
                   ),
                   SubMenuCard(

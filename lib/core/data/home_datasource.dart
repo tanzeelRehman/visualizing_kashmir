@@ -14,24 +14,6 @@ class HomeDataSource {
 
   //* API CALLS ------------------------------------------------------------------->
 
-  //- GET EMPLOYEES
-  Future<dynamic> getAllEmployees() async {
-    String url = AppUrl.baseUrl + AppUrl.getAllEmployees;
-    Logger().i("get All employees url $url");
-    try {
-      final response = await dio.get(url);
-      Logger().i(response.statusCode);
-      if (response.statusCode == 200) {
-        var object = GetAllEmployeesResponseModel.fromJson(response.data);
-        return object;
-      }
-
-      return const Failure('Something went wrong');
-    } on Exception catch (e) {
-      return Failure(e.toString());
-    }
-  }
-
   //?- GET WEATHER INFO
   Future<dynamic> getWeather() async {
     String url =

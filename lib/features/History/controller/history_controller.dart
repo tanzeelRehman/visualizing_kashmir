@@ -1,70 +1,30 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
+import 'package:visualizing_kashmir/core/constants/data_type_enum.dart';
+import 'package:visualizing_kashmir/core/data/app_data_source.dart';
 import 'package:visualizing_kashmir/core/error/failures.dart';
+import 'package:visualizing_kashmir/core/model/get_books_response_model.dart';
 import 'package:visualizing_kashmir/core/network/network_info.dart';
-import 'package:visualizing_kashmir/core/data/home_datasource.dart';
-import 'package:visualizing_kashmir/features/home/model/get_all_employees.dart';
-import 'package:visualizing_kashmir/features/home/model/get_weather_response.dart';
 
-class HomeController extends GetxController {
+class HistoryController extends GetxController {
   //! External variables
   NetworkInfo networkInfo = Get.find<NetworkInfo>();
-  HomeDataSource homeDataSource = Get.find<HomeDataSource>();
+  AppDataSource appDataSource = Get.find<AppDataSource>();
 
   //! Model variables
-  late GetWeatherResponse getWeatherResponseModel;
 
   //! Class variables
+
   bool fetchingData = false;
 
   //? API CALLS STARTS --------------------------------------------------------------------------->
   //?=============================================================================================>
-  //- GET ALL EMPLOYEES
-  Future<void> getWeather() async {
-    startMainScreenLoader();
-    var response = await homeDataSource.getWeather();
-    if (response is Failure) {
-      handleError(response);
-      startMainScreenLoader();
-    } else {
-      getWeatherResponseModel = response;
-      startMainScreenLoader();
-    }
-  }
+
   //? API CALLS END --------------------------------------------------------------------------->
   //?===========================================================================================>
 
   //! Business Logic ---------------------------------------------------------->
-
-  double getKashmirTermperature() {
-    if (getWeatherResponseModel.main.temp != 0.0) {
-      getKashmirTime();
-      return getWeatherResponseModel.main.temp! - 273.15;
-    } else {
-      return 0.0;
-    }
-  }
-
-  String getKashmirTime() {
-    DateTime now = DateTime.now();
-
-    Duration offset = const Duration(minutes: 30);
-
-    DateTime gmt530Time = now.add(offset);
-
-    String formattedTime = DateFormat.Hm().format(gmt530Time);
-
-    Logger().e('Current time in GMT+5:30: $formattedTime');
-    return formattedTime;
-  }
-
-  String getTodayDate() {
-    return DateFormat.MMMMEEEEd().format(DateTime.now()).toString();
-  }
 
   //* Util functions ------------------------------------------------------------>
   void handleError(Failure failure) {
@@ -95,7 +55,6 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     // Get called when controller is created
-    getWeather();
 
     super.onInit();
   }

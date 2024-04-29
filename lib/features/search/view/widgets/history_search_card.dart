@@ -1,16 +1,25 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
 import 'package:visualizing_kashmir/core/constants/app_pages.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 import 'package:visualizing_kashmir/core/widgets/primary_continue_small_button.dart';
 
 class BooksSearchCard extends StatelessWidget {
+  final String title;
+  final String authar;
+  final String imagePath;
+  final Function() open;
   const BooksSearchCard({
     super.key,
+    required this.title,
+    required this.authar,
+    required this.imagePath,
+    required this.open,
   });
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -23,12 +32,12 @@ class BooksSearchCard extends StatelessWidget {
         ),
         Container(
           width: 220.w,
-          height: 120.w,
+          //height: 120.w,
           decoration: AppTheme.searchCardDecoration.copyWith(
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(12.r),
                   bottomRight: Radius.circular(12.r))),
-          padding: EdgeInsets.symmetric(horizontal: 8.w),
+          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 20.h),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -36,16 +45,19 @@ class BooksSearchCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Secret of getting your job",
-                    style: Get.textTheme.bodyMedium!.copyWith(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                  SizedBox(
+                    width: Get.width * 0.5,
+                    child: Text(
+                      title,
+                      style: Get.textTheme.bodyMedium!.copyWith(
+                          color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
                   ),
                   SizedBox(
                     height: 8.h,
                   ),
                   Text(
-                    "By: James Harton",
+                    "By: $authar",
                     style: Get.textTheme.bodySmall!.copyWith(
                       color: Get.theme.primaryColor,
                     ),
@@ -54,12 +66,7 @@ class BooksSearchCard extends StatelessWidget {
                     height: 8.h,
                   ),
                   PrimaryContinueSmallButton(
-                    title: "Open".tr,
-                    isNext: false,
-                    ontap: () {
-                      Get.toNamed(AppPages.textDetailsPage);
-                    },
-                  )
+                      title: "Open".tr, isNext: false, ontap: open)
                 ],
               )
             ],

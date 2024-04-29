@@ -90,7 +90,7 @@ class MultiMediaDisplayScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: EdgeInsets.only(top: 35.h),
-                        child: const BooksSearchCard(),
+                        //child: const BooksSearchCard(),
                       );
                     },
                   ),
