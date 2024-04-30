@@ -7,12 +7,18 @@ import 'package:visualizing_kashmir/core/error/failures.dart';
 import 'package:visualizing_kashmir/core/model/get_articles_response_model.dart';
 import 'package:visualizing_kashmir/core/model/get_books_response_model.dart';
 import 'package:visualizing_kashmir/core/model/get_reports_response_model.dart';
+import 'package:visualizing_kashmir/core/network/network_info.dart';
 
 class AppDataSource {
   //! Instenses
   Dio dio = Get.find<Dio>();
+  NetworkInfo networkInfo = Get.find<NetworkInfo>();
 
   Future<dynamic> getData(DataType dataType) async {
+    bool netAvaliblity = await isInternetAvalible();
+    if (!netAvaliblity) {
+      return const Failure('No internet connection found');
+    }
     String url =
         '${AppUrl.baseUrl}${AppUrl.getData}page=null&type=${dataType.name}&search=null';
     Logger().i("get data url $url");
@@ -53,5 +59,19 @@ class AppDataSource {
     } on Exception catch (e) {
       return Failure(e.toString());
     }
+  }
+
+  //* UTALITY FUNCTIONS ------------------------------------------------->
+  //*====================================================================>
+  Future<bool> isInternetAvalible() async {
+    return await networkInfo.isConnected;
+  }
+
+  void handleNoIntenrtError() {
+    Get.snackbar(
+      "No Internet Connection",
+      "Please check your connection and try again",
+      snackPosition: SnackPosition.TOP,
+    );
   }
 }

@@ -18,7 +18,7 @@ import 'package:visualizing_kashmir/core/widgets/primary_continue_small_button.d
 import 'package:visualizing_kashmir/core/widgets/primary_continuebutton.dart';
 import 'package:visualizing_kashmir/features/search/controller/search_controller.dart';
 import 'package:visualizing_kashmir/features/search/view/widgets/article_search_card.dart';
-import 'package:visualizing_kashmir/features/search/view/widgets/history_search_card.dart';
+import 'package:visualizing_kashmir/features/search/view/widgets/books_search_card.dart';
 import 'package:visualizing_kashmir/features/search/view/widgets/know_heros_search_card.dart';
 import 'package:visualizing_kashmir/features/search/view/widgets/reports_search_card.dart';
 
@@ -117,28 +117,37 @@ class _SearchScreenState extends State<SearchScreen> {
                             children: [CircularProgressIndicator.adaptive()],
                           ));
                     } else {
-                      return SizedBox(
-                        height: Get.height * 0.72,
-                        child: ListView.builder(
-                          itemCount: datSearchController
-                              .getBooksResponseModel.data.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: EdgeInsets.only(top: 35.h),
-                              child: BooksSearchCard(
-                                title: datSearchController
-                                    .getBooksResponseModel.data[index].heading,
-                                authar: datSearchController
-                                    .getBooksResponseModel
-                                    .data[index]
-                                    .publishBy,
-                                imagePath: '',
-                                open: () {},
-                              ),
-                            );
-                          },
-                        ),
-                      );
+                      if (datSearchController.getBooksResponseModel == null) {
+                        return const SizedBox.shrink();
+                      } else {
+                        return SizedBox(
+                          height: Get.height * 0.72,
+                          child: ListView.builder(
+                            itemCount: datSearchController
+                                .getBooksResponseModel!.data.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.only(top: 35.h),
+                                child: BooksSearchCard(
+                                  title: datSearchController
+                                      .getBooksResponseModel!
+                                      .data[index]
+                                      .heading,
+                                  authar: datSearchController
+                                      .getBooksResponseModel!
+                                      .data[index]
+                                      .publishBy,
+                                  imagePath: datSearchController
+                                      .getBooksResponseModel!
+                                      .data[index]
+                                      .thumbnail,
+                                  open: () {},
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      }
                     }
                   },
                 ),

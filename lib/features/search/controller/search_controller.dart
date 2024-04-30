@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
@@ -14,13 +16,13 @@ import 'package:visualizing_kashmir/core/network/network_info.dart';
 
 class DataSearchController extends GetxController {
   //! External variables
-  //NetworkInfo networkInfo = Get.find<NetworkInfo>();
+
   AppDataSource appDataSource = Get.find<AppDataSource>();
 
   //! Model variables
-  late GetBooksResponseModel getBooksResponseModel;
-  late GetArticlesResponseModel getArticlesResponseModel;
-  late GetReportsResponseModel getReportsResponseModel;
+  GetBooksResponseModel? getBooksResponseModel;
+  GetArticlesResponseModel? getArticlesResponseModel;
+  GetReportsResponseModel? getReportsResponseModel;
 
   //! Class variables
   bool fetchingData = false;
@@ -31,7 +33,6 @@ class DataSearchController extends GetxController {
   //?=============================================================================================>
   //- GET BOOKS
   Future<void> getBooks() async {
-    Logger().e('caling books');
     startMainScreenLoader();
     var response = await appDataSource.getData(DataType.book);
     if (response is Failure) {
@@ -39,7 +40,7 @@ class DataSearchController extends GetxController {
       startMainScreenLoader();
     } else {
       getBooksResponseModel = response;
-      Logger().i(getBooksResponseModel.toJson());
+      Logger().i(getBooksResponseModel!.toJson());
       startMainScreenLoader();
     }
   }
@@ -54,7 +55,7 @@ class DataSearchController extends GetxController {
       startMainScreenLoader();
     } else {
       getArticlesResponseModel = response;
-      Logger().i(getArticlesResponseModel.toJson());
+      Logger().i(getArticlesResponseModel!.toJson());
       startMainScreenLoader();
     }
   }
@@ -69,7 +70,7 @@ class DataSearchController extends GetxController {
       startMainScreenLoader();
     } else {
       getReportsResponseModel = response;
-      Logger().i(getReportsResponseModel.toJson());
+      Logger().i(getReportsResponseModel!.toJson());
       startMainScreenLoader();
     }
   }

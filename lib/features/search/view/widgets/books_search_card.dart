@@ -1,10 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
 import 'package:visualizing_kashmir/core/constants/app_pages.dart';
+import 'package:visualizing_kashmir/core/constants/app_url.dart';
+import 'package:visualizing_kashmir/core/globle/globle.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 import 'package:visualizing_kashmir/core/widgets/primary_continue_small_button.dart';
 
@@ -24,12 +27,17 @@ class BooksSearchCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Image.asset(
-          height: 160.h,
-          width: 100.w,
-          AppAssets.bookCover,
-          fit: BoxFit.fitHeight,
-        ),
+        CachedNetworkImage(
+            imageUrl: '${AppUrl.bunnyBaseUrl}$imagePath',
+            placeholder: (context, url) => const CircularProgressIndicator(),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+            httpHeaders: {'AccessKey': bunnyAcessKey}),
+        // Image.asset(
+        //   height: 160.h,
+        //   width: 100.w,
+        //   AppAssets.bookCover,
+        //   fit: BoxFit.fitHeight,
+        // ),
         Container(
           width: 220.w,
           //height: 120.w,
@@ -46,11 +54,13 @@ class BooksSearchCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: Get.width * 0.5,
+                    width: Get.width * 0.45,
+                    height: 40.sp,
                     child: Text(
                       title,
                       style: Get.textTheme.bodyMedium!.copyWith(
                           color: Colors.black, fontWeight: FontWeight.bold),
+                      //  overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   SizedBox(

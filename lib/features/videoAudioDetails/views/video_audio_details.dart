@@ -14,7 +14,7 @@ import 'package:visualizing_kashmir/core/widgets/custom_text_formfield.dart';
 import 'package:visualizing_kashmir/core/widgets/primary_continue_small_button.dart';
 import 'package:visualizing_kashmir/core/widgets/primary_continuebutton.dart';
 import 'package:visualizing_kashmir/features/search/view/widgets/article_search_card.dart';
-import 'package:visualizing_kashmir/features/search/view/widgets/history_search_card.dart';
+import 'package:visualizing_kashmir/features/search/view/widgets/books_search_card.dart';
 import 'package:visualizing_kashmir/features/search/view/widgets/know_heros_search_card.dart';
 import 'package:visualizing_kashmir/features/search/view/widgets/reports_search_card.dart';
 import 'package:visualizing_kashmir/features/videoAudioDetails/views/widgets/audio_play_widget.dart';
