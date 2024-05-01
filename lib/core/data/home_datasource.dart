@@ -18,10 +18,10 @@ class HomeDataSource {
   Future<dynamic> getWeather() async {
     String url =
         '${AppUrl.weatherBaseUrl}/weather?lat=$kashmirLat&lon=$kashmirLong&appid=$weatheAppId';
-    Logger().i("get All employees url $url");
+
     try {
       final response = await dio.get(url);
-      Logger().i(response.statusCode);
+
       if (response.statusCode == 200) {
         var object = GetWeatherResponse.fromJson(response.data);
         return object;

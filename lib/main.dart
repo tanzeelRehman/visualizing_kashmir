@@ -11,6 +11,7 @@ import 'package:visualizing_kashmir/features/Hero/view/know_your_hero_detail.dar
 import 'package:visualizing_kashmir/features/History/view/history_sub_screen.dart';
 import 'package:visualizing_kashmir/features/Language/view/language_page.dart';
 import 'package:visualizing_kashmir/features/Quiz/view/quiz_screen.dart';
+import 'package:visualizing_kashmir/features/detail/view/pdf_detail_page.dart';
 import 'package:visualizing_kashmir/features/home/view/home_screen.dart';
 import 'package:visualizing_kashmir/features/search/view/search_screens.dart';
 import 'package:visualizing_kashmir/features/textDetails/view/text_details_screen.dart';
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
               ),
               GetPage(
                 name: AppPages.searchPage,
-                page: () => SearchScreen(),
+                page: () => const SearchScreen(),
               ),
               GetPage(
                 name: AppPages.videoAudioPage,
@@ -91,6 +92,10 @@ class MyApp extends StatelessWidget {
               GetPage(
                 name: AppPages.multiMediaSearchDisplayPage,
                 page: () => MultiMediaDisplayScreen(),
+              ),
+              GetPage(
+                name: AppPages.pdfDetailPage,
+                page: () => const PDFDetailPage(),
               ),
             ],
             home: const HomeScreen(),

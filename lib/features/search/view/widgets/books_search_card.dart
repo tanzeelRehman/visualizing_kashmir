@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
 import 'package:visualizing_kashmir/core/constants/app_pages.dart';
@@ -28,16 +29,24 @@ class BooksSearchCard extends StatelessWidget {
     return Row(
       children: [
         CachedNetworkImage(
+            height: 160.h,
+            width: 100.w,
+            fit: BoxFit.fitHeight,
             imageUrl: '${AppUrl.bunnyBaseUrl}$imagePath',
-            placeholder: (context, url) => const CircularProgressIndicator(),
+            placeholder: (context, url) => Padding(
+                  padding: EdgeInsets.all(30.sp),
+                  child: SizedBox(
+                    width: 40.w,
+                    height: 60.h,
+                    child: LoadingIndicator(
+                      indicatorType: Indicator.ballPulse,
+                      colors: [Get.theme.primaryColor],
+                      strokeWidth: 2,
+                    ),
+                  ),
+                ),
             errorWidget: (context, url, error) => const Icon(Icons.error),
             httpHeaders: {'AccessKey': bunnyAcessKey}),
-        // Image.asset(
-        //   height: 160.h,
-        //   width: 100.w,
-        //   AppAssets.bookCover,
-        //   fit: BoxFit.fitHeight,
-        // ),
         Container(
           width: 220.w,
           //height: 120.w,

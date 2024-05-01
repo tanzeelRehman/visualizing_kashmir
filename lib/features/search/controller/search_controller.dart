@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
@@ -8,6 +9,7 @@ import 'package:logger/logger.dart';
 import 'package:visualizing_kashmir/core/constants/data_type_enum.dart';
 import 'package:visualizing_kashmir/core/constants/search_enum.dart';
 import 'package:visualizing_kashmir/core/data/app_data_source.dart';
+import 'package:visualizing_kashmir/core/data/media_data_source.dart';
 import 'package:visualizing_kashmir/core/error/failures.dart';
 import 'package:visualizing_kashmir/core/model/get_articles_response_model.dart';
 import 'package:visualizing_kashmir/core/model/get_books_response_model.dart';
@@ -16,8 +18,8 @@ import 'package:visualizing_kashmir/core/network/network_info.dart';
 
 class DataSearchController extends GetxController {
   //! External variables
-
   AppDataSource appDataSource = Get.find<AppDataSource>();
+  MediaDataSource mediaDataSource = Get.find<MediaDataSource>();
 
   //! Model variables
   GetBooksResponseModel? getBooksResponseModel;
@@ -26,6 +28,7 @@ class DataSearchController extends GetxController {
 
   //! Class variables
   bool fetchingData = false;
+  ByteData? openedPdfByteData;
 
   //! Constructor
 
@@ -60,7 +63,7 @@ class DataSearchController extends GetxController {
     }
   }
 
-  //- GET ARTICLES
+  //- GET REPORTS
   Future<void> getReports() async {
     startMainScreenLoader();
     Logger().e('caling reports');
@@ -74,6 +77,9 @@ class DataSearchController extends GetxController {
       startMainScreenLoader();
     }
   }
+
+  //- LOAD PDF
+
   //? API CALLS END --------------------------------------------------------------------------->
   //?===========================================================================================>
 

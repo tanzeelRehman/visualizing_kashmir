@@ -11,4 +11,5 @@ class AppPages {
   static const quizPage = '/quizPage';
   static const historySubPage = '/historySubPage';
   static const multiMediaSearchDisplayPage = '/multiMediaSearchDisplaySPage';
+  static const pdfDetailPage = '/pdfDetailPage';
 }

@@ -5,9 +5,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:logger/logger.dart';
 
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
+import 'package:visualizing_kashmir/core/constants/app_pages.dart';
 import 'package:visualizing_kashmir/core/constants/data_type_enum.dart';
 import 'package:visualizing_kashmir/core/constants/search_enum.dart';
 import 'package:visualizing_kashmir/core/helper/getPreferedSizeAppbar.dart';
@@ -16,6 +18,7 @@ import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 import 'package:visualizing_kashmir/core/widgets/custom_text_formfield.dart';
 import 'package:visualizing_kashmir/core/widgets/primary_continue_small_button.dart';
 import 'package:visualizing_kashmir/core/widgets/primary_continuebutton.dart';
+import 'package:visualizing_kashmir/features/detail/controller/media_detail_loader_controller.dart';
 import 'package:visualizing_kashmir/features/search/controller/search_controller.dart';
 import 'package:visualizing_kashmir/features/search/view/widgets/article_search_card.dart';
 import 'package:visualizing_kashmir/features/search/view/widgets/books_search_card.dart';
@@ -36,8 +39,10 @@ class _SearchScreenState extends State<SearchScreen> {
 
   final String searchType = Get.arguments ?? '';
 
-  late final DataSearchController datSearchController =
+  final DataSearchController datSearchController =
       Get.put(DataSearchController());
+  final MediaDetailLoaderController mediaDetailLoaderController =
+      Get.find<MediaDetailLoaderController>();
 
   @override
   void initState() {
@@ -112,9 +117,19 @@ class _SearchScreenState extends State<SearchScreen> {
                     if (_.fetchingData) {
                       return SizedBox(
                           height: Get.height * 0.72,
-                          child: const Column(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [CircularProgressIndicator.adaptive()],
+                            children: [
+                              SizedBox(
+                                height: 60.h,
+                                width: 60.w,
+                                child: LoadingIndicator(
+                                  indicatorType: Indicator.ballSpinFadeLoader,
+                                  colors: [Get.theme.primaryColor],
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            ],
                           ));
                     } else {
                       if (datSearchController.getBooksResponseModel == null) {
@@ -141,7 +156,18 @@ class _SearchScreenState extends State<SearchScreen> {
                                       .getBooksResponseModel!
                                       .data[index]
                                       .thumbnail,
-                                  open: () {},
+                                  open: () {
+                                    Get.toNamed(AppPages.pdfDetailPage,
+                                        arguments: datSearchController
+                                            .getBooksResponseModel!
+                                            .data[index]
+                                            .heading);
+                                    mediaDetailLoaderController.loadPDF(
+                                        datSearchController
+                                            .getBooksResponseModel!
+                                            .data[index]
+                                            .gallery);
+                                  },
                                 ),
                               );
                             },
