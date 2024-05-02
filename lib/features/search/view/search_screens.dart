@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:logger/logger.dart';
+import 'package:lottie/lottie.dart';
 
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
 import 'package:visualizing_kashmir/core/constants/app_pages.dart';
@@ -65,6 +66,9 @@ class _SearchScreenState extends State<SearchScreen> {
               CustomTextFormField(
                 controller: searchController,
                 focusNode: searchFocusNode,
+                onChanged: (value) {
+                  datSearchController.searchData(searchType, value);
+                },
                 hintText: "Search",
                 height: 55.h,
                 suffixIcon: const Icon(
@@ -110,7 +114,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     );
                   },
                 ),
-              // //* HISTORY Search -------------------------------->
+              // //* HISTORY BOOKS Search -------------------------------->
               if (searchType == DataType.book.name)
                 GetBuilder<DataSearchController>(
                   builder: (_) {
@@ -124,7 +128,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 height: 60.h,
                                 width: 60.w,
                                 child: LoadingIndicator(
-                                  indicatorType: Indicator.ballSpinFadeLoader,
+                                  indicatorType: Indicator.lineScale,
                                   colors: [Get.theme.primaryColor],
                                   strokeWidth: 2,
                                 ),
@@ -135,44 +139,70 @@ class _SearchScreenState extends State<SearchScreen> {
                       if (datSearchController.getBooksResponseModel == null) {
                         return const SizedBox.shrink();
                       } else {
-                        return SizedBox(
-                          height: Get.height * 0.72,
-                          child: ListView.builder(
-                            itemCount: datSearchController
-                                .getBooksResponseModel!.data.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: EdgeInsets.only(top: 35.h),
-                                child: BooksSearchCard(
-                                  title: datSearchController
-                                      .getBooksResponseModel!
-                                      .data[index]
-                                      .heading,
-                                  authar: datSearchController
-                                      .getBooksResponseModel!
-                                      .data[index]
-                                      .publishBy,
-                                  imagePath: datSearchController
-                                      .getBooksResponseModel!
-                                      .data[index]
-                                      .thumbnail,
-                                  open: () {
-                                    Get.toNamed(AppPages.pdfDetailPage,
-                                        arguments: datSearchController
-                                            .getBooksResponseModel!
-                                            .data[index]
-                                            .heading);
-                                    mediaDetailLoaderController.loadPDF(
-                                        datSearchController
-                                            .getBooksResponseModel!
-                                            .data[index]
-                                            .gallery);
-                                  },
+                        if (datSearchController.getBooksSearchResponseModel ==
+                                null ||
+                            datSearchController
+                                .getBooksSearchResponseModel!.isEmpty) {
+                          return SizedBox(
+                            height: Get.height * 0.72,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 20.sp),
+                                  child: Lottie.asset(
+                                    'assets/images/lottie/no_data_lottie.json',
+                                    height: 250.h,
+                                  ),
                                 ),
-                              );
-                            },
-                          ),
-                        );
+                                SizedBox(
+                                  height: 15.h,
+                                ),
+                                Text(
+                                  'No books found',
+                                  style: Get.textTheme.titleMedium,
+                                )
+                              ],
+                            ),
+                          );
+                        } else {
+                          return SizedBox(
+                            height: Get.height * 0.72,
+                            child: ListView.builder(
+                              itemCount: datSearchController
+                                  .getBooksSearchResponseModel!.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(top: 35.h),
+                                  child: BooksSearchCard(
+                                    title: datSearchController
+                                        .getBooksSearchResponseModel![index]
+                                        .heading,
+                                    authar: datSearchController
+                                        .getBooksSearchResponseModel![index]
+                                        .publishBy,
+                                    imagePath: datSearchController
+                                        .getBooksSearchResponseModel![index]
+                                        .thumbnail,
+                                    open: () {
+                                      Get.toNamed(AppPages.pdfDetailPage,
+                                          arguments: datSearchController
+                                              .getBooksSearchResponseModel![
+                                                  index]
+                                              .heading);
+                                      mediaDetailLoaderController.loadPDF(
+                                          datSearchController
+                                              .getBooksSearchResponseModel![
+                                                  index]
+                                              .gallery);
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        }
                       }
                     }
                   },

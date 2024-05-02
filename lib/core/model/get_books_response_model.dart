@@ -6,11 +6,11 @@ class GetBooksResponseModel {
     required this.data,
   });
   late final String msg;
-  late final List<Data> data;
+  late final List<BooksData> data;
 
   GetBooksResponseModel.fromJson(Map<String, dynamic> json) {
     msg = json['msg'];
-    data = List.from(json['data']).map((e) => Data.fromJson(e)).toList();
+    data = List.from(json['data']).map((e) => BooksData.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -21,8 +21,8 @@ class GetBooksResponseModel {
   }
 }
 
-class Data {
-  Data({
+class BooksData {
+  BooksData({
     required this.id,
     required this.servey,
     required this.type,
@@ -47,7 +47,7 @@ class Data {
   late final String createdDate;
   late final String updatedDate;
 
-  Data.fromJson(Map<String, dynamic> json) {
+  BooksData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     servey = json['servey'];
     type = json['type'];

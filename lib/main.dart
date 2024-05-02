@@ -95,7 +95,7 @@ class MyApp extends StatelessWidget {
               ),
               GetPage(
                 name: AppPages.pdfDetailPage,
-                page: () => const PDFDetailPage(),
+                page: () => PDFDetailPage(),
               ),
             ],
             home: const HomeScreen(),

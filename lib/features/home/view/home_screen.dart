@@ -1,18 +1,20 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
+
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
+
 import 'package:marquee/marquee.dart';
 
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
 import 'package:visualizing_kashmir/core/constants/app_pages.dart';
 import 'package:visualizing_kashmir/core/constants/search_enum.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
+import 'package:visualizing_kashmir/core/widgets/Custom%20Routes/Popups/show_pop_up.dart';
 import 'package:visualizing_kashmir/features/home/controller/home_controller.dart';
 import 'package:visualizing_kashmir/features/home/view/widgets/image_dialog.dart';
 
@@ -56,7 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      donateCard(),
                       SizedBox(
                         height: 20.h,
                       ),
@@ -69,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           optionCard(
                             title: "History".tr,
-                            pngPath: AppAssets.historyPng,
+                            pngPath: AppAssets.history,
                             ontap: () {
                               Get.toNamed(AppPages.historySubPage,
                                   arguments: "History");
@@ -78,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           optionCard(
                             title: "Articles".tr,
                             pngPath: AppAssets.articlesPng,
+                            isPng: true,
                             ontap: () {
                               Get.toNamed(AppPages.searchPage,
                                   arguments: SearchType.Articles.name);
@@ -93,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           optionCard(
                             title: "Reports".tr,
-                            pngPath: AppAssets.reportsPng,
+                            pngPath: AppAssets.reports,
                             ontap: () {
                               Get.toNamed(AppPages.searchPage,
                                   arguments: SearchType.Reports.name);
@@ -101,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           optionCard(
                             title: "Know_Your_Heros".tr,
-                            pngPath: AppAssets.heroesPng,
+                            pngPath: AppAssets.know_heros,
                             ontap: () {
                               Get.toNamed(AppPages.searchPage,
                                   arguments: SearchType.Know_Your_Heros.name);
@@ -260,10 +262,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget optionCard(
-      {required String title,
-      required String pngPath,
-      required Function() ontap}) {
+  Widget optionCard({
+    required String title,
+    required String pngPath,
+    required Function() ontap,
+    bool isPng = false,
+  }) {
     return GestureDetector(
       onTap: ontap,
       child: ClipRRect(
@@ -273,8 +277,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               decoration: AppTheme.roundedContainerWithoutShadowDecoration
                   .copyWith(borderRadius: BorderRadius.circular(25.r)),
-              height: 150.h,
-              width: 150.w,
+              height: 145.h,
+              width: 145.w,
               padding: EdgeInsets.only(top: 10.sp, left: 12.sp, right: 8.sp),
               child: Text(
                 title,
@@ -294,11 +298,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.symmetric(vertical: 10.h),
                 child: Padding(
                   padding: EdgeInsets.only(right: 8.w, bottom: 8.h),
-                  child: Image.asset(
-                    // width: 15.w,
-                    // height: 15.h,
-                    pngPath,
-                  ),
+                  child: isPng == false
+                      ? SvgPicture.asset(
+                          pngPath,
+                        )
+                      : Image.asset(
+                          pngPath,
+                          width: 15.w,
+                          height: 15.h,
+                        ),
                 ),
               ),
             ),

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 
@@ -44,7 +45,7 @@ class HistorySubScreen extends StatelessWidget {
                 children: [
                   SubMenuCard(
                     title: "Books",
-                    imagePath: AppAssets.booksSubscreen,
+                    imagePath: AppAssets.history_books,
                     ontap: () {
                       Get.toNamed(AppPages.searchPage,
                           arguments: DataType.book.name);
@@ -52,7 +53,7 @@ class HistorySubScreen extends StatelessWidget {
                   ),
                   SubMenuCard(
                     title: "Articles",
-                    imagePath: AppAssets.articleSubscreen,
+                    imagePath: AppAssets.history_article,
                     ontap: () {
                       Get.toNamed(AppPages.searchPage,
                           arguments: DataType.article.name);
@@ -60,7 +61,7 @@ class HistorySubScreen extends StatelessWidget {
                   ),
                   SubMenuCard(
                     title: "Videos",
-                    imagePath: AppAssets.videosSubscreen,
+                    imagePath: AppAssets.history_videos,
                     ontap: () {
                       Get.toNamed(AppPages.multiMediaSearchDisplayPage,
                           arguments: MultiMediaType.Videos.name);
@@ -76,7 +77,7 @@ class HistorySubScreen extends StatelessWidget {
                 children: [
                   SubMenuCard(
                     title: "Images",
-                    imagePath: AppAssets.imagesSubscreen,
+                    imagePath: AppAssets.history_images,
                     ontap: () {
                       // Get.toNamed(AppPages.multiMediaSearchDisplayPage,
                       //     arguments: MultiMediaType.Images.name);
@@ -84,7 +85,7 @@ class HistorySubScreen extends StatelessWidget {
                   ),
                   SubMenuCard(
                     title: "Audios",
-                    imagePath: AppAssets.audiosSubscreen,
+                    imagePath: AppAssets.history_audios,
                     ontap: () {
                       Get.toNamed(AppPages.multiMediaSearchDisplayPage,
                           arguments: MultiMediaType.Audios.name);
@@ -92,7 +93,7 @@ class HistorySubScreen extends StatelessWidget {
                   ),
                   SubMenuCard(
                     title: "Infographics",
-                    imagePath: AppAssets.infographicsSubscreen,
+                    imagePath: AppAssets.history_infographics,
                     ontap: () {
                       // Get.toNamed(AppPages.multiMediaSearchDisplayPage,
                       //     arguments: MultiMediaType.InfoGraphics.name);
@@ -130,7 +131,7 @@ class SubMenuCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12.r)),
             child: Padding(
               padding: EdgeInsets.all(16.sp),
-              child: Image.asset(imagePath),
+              child: SvgPicture.asset(imagePath),
             ),
           ),
         ),

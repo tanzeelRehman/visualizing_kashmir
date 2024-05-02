@@ -29,9 +29,9 @@ class BooksSearchCard extends StatelessWidget {
     return Row(
       children: [
         CachedNetworkImage(
-            height: 160.h,
-            width: 100.w,
-            fit: BoxFit.fitHeight,
+            height: 190.h,
+            width: 110.w,
+            fit: BoxFit.cover,
             imageUrl: '${AppUrl.bunnyBaseUrl}$imagePath',
             placeholder: (context, url) => Padding(
                   padding: EdgeInsets.all(30.sp),
@@ -45,11 +45,20 @@ class BooksSearchCard extends StatelessWidget {
                     ),
                   ),
                 ),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
+            errorWidget: (context, url, error) => Container(
+                  height: 190.h,
+                  width: 110.w,
+                  color: const Color(0xffe9e9e9),
+                  child: Icon(
+                    Icons.image,
+                    color: const Color(0xffd3d3d3),
+                    size: 55.sp,
+                  ),
+                ),
             httpHeaders: {'AccessKey': bunnyAcessKey}),
         Container(
           width: 220.w,
-          //height: 120.w,
+          height: 150.w,
           decoration: AppTheme.searchCardDecoration.copyWith(
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(12.r),
@@ -64,9 +73,11 @@ class BooksSearchCard extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: Get.width * 0.45,
-                    height: 40.sp,
+                    //height: 40.sp,
                     child: Text(
-                      title,
+                      title.length > 30
+                          ? '${title.substring(0, 30)}...'
+                          : title,
                       style: Get.textTheme.bodyMedium!.copyWith(
                           color: Colors.black, fontWeight: FontWeight.bold),
                       //  overflow: TextOverflow.ellipsis,

@@ -8,9 +8,13 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:visualizing_kashmir/core/widgets/Custom%20Routes/Popups/show_pop_up.dart';
 import 'package:visualizing_kashmir/core/widgets/custom_appbar.dart';
 import 'package:visualizing_kashmir/features/detail/controller/media_detail_loader_controller.dart';
+import 'package:visualizing_kashmir/features/detail/view/widgets/go_to_page_dialog.dart';
 
 class PDFDetailPage extends StatelessWidget {
-  const PDFDetailPage({super.key});
+  PDFDetailPage({super.key});
+
+  final MediaDetailLoaderController cont =
+      Get.find<MediaDetailLoaderController>();
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +39,15 @@ class PDFDetailPage extends StatelessWidget {
         actions: [
           GestureDetector(
             onTap: () {
-              // showDialog(
-              //   context: context,
-              //   builder: (context) {
-              //     return
-              //   },
-              // );
+              showDialog(
+                //  barrierDismissible: false,
+                context: context,
+                builder: (context) {
+                  return Dialog(
+                    child: GoToPageDialog(cont: cont),
+                  );
+                },
+              );
             },
             child: const Icon(
               Icons.search,
@@ -129,36 +136,12 @@ class PDFDetailPage extends StatelessWidget {
                   canShowScrollHead: true,
                   canShowScrollStatus: true,
                   canShowPaginationDialog: true,
+                  enableHyperlinkNavigation: true,
+                  onTextSelectionChanged: (details) {},
                   controller: mediaController.pdfViewerController,
-                ),
-                Positioned(
-                  bottom: 20.h,
-                  child: SizedBox(
-                    width: Get.width,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            mediaController.downloadPDF(pdfName);
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: 55.h,
-                            width: Get.width * 0.8,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8.r),
-                                color: Get.theme.primaryColor),
-                            child: Text(
-                              'Download',
-                              style: Get.textTheme.titleMedium!
-                                  .copyWith(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  onPageChanged: (details) {
+                    print(details.newPageNumber);
+                  },
                 ),
               ],
             );

@@ -25,6 +25,10 @@ class DataSearchController extends GetxController {
   GetBooksResponseModel? getBooksResponseModel;
   GetArticlesResponseModel? getArticlesResponseModel;
   GetReportsResponseModel? getReportsResponseModel;
+  //- SEARCH
+  List<BooksData>? getBooksSearchResponseModel;
+  GetArticlesResponseModel? getArticlesSearchResponseModel;
+  GetReportsResponseModel? getReportsSearchResponseModel;
 
   //! Class variables
   bool fetchingData = false;
@@ -43,6 +47,7 @@ class DataSearchController extends GetxController {
       startMainScreenLoader();
     } else {
       getBooksResponseModel = response;
+      getBooksSearchResponseModel = getBooksResponseModel!.data;
       Logger().i(getBooksResponseModel!.toJson());
       startMainScreenLoader();
     }
@@ -58,6 +63,7 @@ class DataSearchController extends GetxController {
       startMainScreenLoader();
     } else {
       getArticlesResponseModel = response;
+      getArticlesSearchResponseModel = getArticlesResponseModel;
       Logger().i(getArticlesResponseModel!.toJson());
       startMainScreenLoader();
     }
@@ -73,12 +79,30 @@ class DataSearchController extends GetxController {
       startMainScreenLoader();
     } else {
       getReportsResponseModel = response;
+      getReportsSearchResponseModel = getReportsResponseModel;
       Logger().i(getReportsResponseModel!.toJson());
       startMainScreenLoader();
     }
   }
 
-  //- LOAD PDF
+  Future<void> searchData(String searchType, String? query) async {
+    if (searchType == DataType.report.name) {
+      if (query == '' || query == null) {
+        getReportsSearchResponseModel = getReportsResponseModel;
+      } else {}
+    }
+    if (searchType == DataType.book.name) {
+      if (query == '' || query == null) {
+        getBooksSearchResponseModel = getBooksResponseModel!.data;
+      } else {
+        getBooksSearchResponseModel = getBooksResponseModel!.data
+            .where((item) => item.heading.contains(query))
+            .toList();
+      }
+    }
+
+    update();
+  }
 
   //? API CALLS END --------------------------------------------------------------------------->
   //?===========================================================================================>

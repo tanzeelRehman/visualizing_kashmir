@@ -13,9 +13,16 @@ class AppAssets {
   static const todayInHistoryClock =
       'assets/images/svgs/Today_in_history_clock.svg';
   static const todayInHistory = 'assets/images/svgs/Today_in_history.svg';
+  static const history_article = 'assets/images/svgs/history_article.svg';
+  static const history_audios = 'assets/images/svgs/history_audios.svg';
+  static const history_books = 'assets/images/svgs/history_books.svg';
+  static const history_images = 'assets/images/svgs/History_images.svg';
+  static const history_infographics =
+      'assets/images/svgs/history_infographics.svg';
+  static const history_videos = 'assets/images/svgs/history_videos.svg';
 
   //? PNG -------------------------------------------------->
-  static const mapPng = 'assets/images/png/Map.png';
+  static const mapPng = 'assets/images/png/Map.jpg';
   static const articlesPng = 'assets/images/png/Article.png';
   static const heroesPng = 'assets/images/png/Heroes.png';
   static const historyBookPng = 'assets/images/png/History_book.png';
@@ -40,4 +47,7 @@ class AppAssets {
   static const infographicsSubscreen =
       'assets/images/png/infographics_subscreen.png';
   static const videosSubscreen = 'assets/images/png/videos_subscreen.png';
+
+  //? LOTIE -------------------------------------------------------------
+  static const noDataLottie = 'assets/images/lottie/no_data_lottie.json';
 }

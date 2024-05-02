@@ -12,6 +12,7 @@ class ImageDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      key: GlobalKey(),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15.r),
         child: Stack(

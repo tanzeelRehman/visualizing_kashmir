@@ -2,32 +2,44 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import 'package:visualizing_kashmir/core/constants/app_pages.dart';
+import 'package:visualizing_kashmir/core/constants/app_url.dart';
 
 import 'package:visualizing_kashmir/core/data/media_data_source.dart';
 import 'package:visualizing_kashmir/core/error/failures.dart';
+import 'package:visualizing_kashmir/core/globle/globle.dart';
 
 class MediaDetailLoaderController extends GetxController {
   //! External variables
   MediaDataSource mediaDataSource = Get.find<MediaDataSource>();
+  final permission = Permission.storage;
+  Dio dio = Get.find<Dio>();
 
   //! Class variables
   bool fetchingPdf = false;
   Uint8List? openedPdfByteData;
   late PdfViewerController pdfViewerController;
+  TextEditingController pageNoController = TextEditingController();
+  String? pdfEndpointLocalVariable;
 
   //? API CALLS STARTS --------------------------------------------------------------------------->
   //?=============================================================================================>
 
   //- LOAD PDF
   Future<void> loadPDF(String pdfEndPoint) async {
+    pdfEndpointLocalVariable = null;
+    pdfEndpointLocalVariable = pdfEndPoint;
     openedPdfByteData = null;
     startPDFScreenLoader();
     Logger().e('caling reports');
@@ -44,9 +56,6 @@ class MediaDetailLoaderController extends GetxController {
   //?===========================================================================================>
 
   //! Business Logic ---------------------------------------------------------->
-  downloadPDF(String pdfname) {
-    downloadFile(data: openedPdfByteData, filename: pdfname);
-  }
 
   //* Util functions ------------------------------------------------------------>
   void handleError(Failure failure) {
@@ -72,6 +81,16 @@ class MediaDetailLoaderController extends GetxController {
     update();
   }
 
+  Future<void> requestStoragePermission() async {
+    if (await permission.isDenied) {
+      await permission.request();
+    }
+  }
+
+  Future<bool> checkPermissionStatus() async {
+    return await permission.status.isGranted;
+  }
+
   //* State Functions ---------------------------------------------------------->
 
   @override
@@ -95,11 +114,19 @@ class MediaDetailLoaderController extends GetxController {
   }
 
   //! FILE DOWNLAOD FUNCTION====================================
+
   Future downloadFile({
     required Uint8List? data,
     required String filename,
   }) async {
     try {
+      requestStoragePermission();
+      final bool isGranted = await checkPermissionStatus();
+      if (!isGranted) {
+        handleError(const Failure('Permission denied to download the file'));
+        return;
+      }
+
       if (data == null) {
         handleError(const Failure('File download failed'));
         return;
@@ -110,15 +137,16 @@ class MediaDetailLoaderController extends GetxController {
       if (Platform.isIOS) {
         downloadDirectory = await getApplicationDocumentsDirectory();
       } else {
-        downloadDirectory = (await getExternalStorageDirectory())!;
-        if (!await downloadDirectory.exists()) {
-          downloadDirectory = (await getExternalStorageDirectory())!;
-        }
+        downloadDirectory = (await getDownloadsDirectory())!;
+        // if (!await downloadDirectory.exists()) {
+        //   downloadDirectory = (await getExternalStorageDirectory())!;
+        // }
       }
 
-      String filePathName = "${downloadDirectory.path}/$filename";
+      String filePathName = "${downloadDirectory.path}/$filename.pdf";
       File savedFile = File(filePathName);
       savedFile.writeAsBytes(data);
+      Logger().e(savedFile.path);
       handleSuccess('File downloaded sucessfully');
     } catch (error) {
       handleError(const Failure('File download failed'));

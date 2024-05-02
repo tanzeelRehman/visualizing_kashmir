@@ -21,7 +21,7 @@ Future<void> init() async {
       fenix: true);
 
   //! Data Sources
-  Get.lazyPut(() => HomeDataSource());
+  Get.lazyPut(() => HomeDataSource(), fenix: true);
   Get.lazyPut(() => AppDataSource(), fenix: true);
   Get.lazyPut(() => MediaDataSource(), fenix: true);
 

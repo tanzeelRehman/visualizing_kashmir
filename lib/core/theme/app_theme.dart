@@ -11,6 +11,8 @@ class AppTheme {
   static final lightTheme = ThemeData.light().copyWith(
       scaffoldBackgroundColor: const Color(0xffF8F8F8),
       canvasColor: Colors.white,
+      textSelectionTheme:
+          const TextSelectionThemeData(selectionHandleColor: Color(0xff63B0B0)),
       primaryColor: const Color(0xff008080),
       primaryColorDark: const Color(0xff282a41),
       dividerColor: Colors.transparent,
