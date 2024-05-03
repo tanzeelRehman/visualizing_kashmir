@@ -18,6 +18,7 @@ import 'package:visualizing_kashmir/features/textDetails/view/text_details_scree
 import 'package:visualizing_kashmir/features/todayHistory/views/today_in_history_screen.dart';
 import 'package:visualizing_kashmir/features/videoAudioDetails/views/multimedia_display_screen.dart';
 import 'package:visualizing_kashmir/features/videoAudioDetails/views/video_audio_details.dart';
+import 'package:visualizing_kashmir/features/videoAudioDetails/views/video_player_screen.dart';
 import 'package:visualizing_kashmir/splash_screen.dart';
 import 'dependency_container.dart' as di;
 
@@ -63,7 +64,7 @@ class MyApp extends StatelessWidget {
               ),
               GetPage(
                 name: AppPages.videoAudioPage,
-                page: () => const VideoAudioDetails(),
+                page: () => const VideoAudioSearch(),
               ),
               GetPage(
                 name: AppPages.knowYourHeroPage,
@@ -91,11 +92,15 @@ class MyApp extends StatelessWidget {
               ),
               GetPage(
                 name: AppPages.multiMediaSearchDisplayPage,
-                page: () => MultiMediaDisplayScreen(),
+                page: () => const MultiMediaDisplayScreen(),
               ),
               GetPage(
                 name: AppPages.pdfDetailPage,
                 page: () => PDFDetailPage(),
+              ),
+              GetPage(
+                name: AppPages.videoPlayerPage,
+                page: () => const VideoPlayerScreen(),
               ),
             ],
             home: const HomeScreen(),

@@ -6,8 +6,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:loading_indicator/loading_indicator.dart';
+import 'package:lottie/lottie.dart';
 
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
+import 'package:visualizing_kashmir/core/constants/app_pages.dart';
 import 'package:visualizing_kashmir/core/constants/multimedia_enum.dart';
 import 'package:visualizing_kashmir/core/constants/search_enum.dart';
 import 'package:visualizing_kashmir/core/helper/getPreferedSizeAppbar.dart';
@@ -19,14 +22,31 @@ import 'package:visualizing_kashmir/features/search/view/widgets/article_search_
 import 'package:visualizing_kashmir/features/search/view/widgets/books_search_card.dart';
 import 'package:visualizing_kashmir/features/search/view/widgets/know_heros_search_card.dart';
 import 'package:visualizing_kashmir/features/search/view/widgets/reports_search_card.dart';
+import 'package:visualizing_kashmir/features/videoAudioDetails/controller/audio_video_serach_controller.dart';
 import 'package:visualizing_kashmir/features/videoAudioDetails/views/widgets/audio_play_widget.dart';
 import 'package:visualizing_kashmir/features/videoAudioDetails/views/widgets/video_play_widget.dart';
 
-class MultiMediaDisplayScreen extends StatelessWidget {
-  MultiMediaDisplayScreen({super.key});
+class MultiMediaDisplayScreen extends StatefulWidget {
+  const MultiMediaDisplayScreen({super.key});
 
+  @override
+  State<MultiMediaDisplayScreen> createState() =>
+      _MultiMediaDisplayScreenState();
+}
+
+class _MultiMediaDisplayScreenState extends State<MultiMediaDisplayScreen> {
   final FocusNode searchFocusNode = FocusNode();
+
   final TextEditingController searchController = TextEditingController();
+
+  final AudioVideoSearchController audioVideoSearchController =
+      Get.find<AudioVideoSearchController>();
+
+  @override
+  void initState() {
+    super.initState();
+    audioVideoSearchController.getVideos();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,60 +74,101 @@ class MultiMediaDisplayScreen extends StatelessWidget {
                 height: 15.h,
               ),
               //* Audio Search -------------------------------->
-              if (searchType == MultiMediaType.Audios.name)
-                SizedBox(
-                  height: Get.height * 0.72,
-                  child: ListView.builder(
-                    itemCount: 9,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.only(top: 15.h),
-                        child: const AudioPlayWidget(),
-                      );
-                    },
-                  ),
-                ),
-              //* ARTICLES Search -------------------------------->
+              // if (searchType == MultiMediaType.Audios.name)
+              //   SizedBox(
+              //     height: Get.height * 0.72,
+              //     child: ListView.builder(
+              //       itemCount: 9,
+              //       itemBuilder: (context, index) {
+              //         return Padding(
+              //           padding: EdgeInsets.only(top: 15.h),
+              //           child: const AudioPlayWidget(),
+              //         );
+              //       },
+              //     ),
+              //   ),
+              //* VIDEOS Search -------------------------------->
               if (searchType == MultiMediaType.Videos.name)
-                SizedBox(
-                  height: Get.height * 0.72,
-                  child: ListView.builder(
-                    itemCount: 9,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.only(top: 15.h),
-                        child: const VideoPlayWidget(),
-                      );
-                    },
-                  ),
-                ),
-              // //* HISTORY Search -------------------------------->
-              if (searchType == MultiMediaType.Images.name)
-                SizedBox(
-                  height: Get.height * 0.72,
-                  child: ListView.builder(
-                    itemCount: 9,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.only(top: 35.h),
-                        //child: const BooksSearchCard(),
-                      );
-                    },
-                  ),
-                ),
-              //* KNOW HEROS Search -------------------------------->
-              if (searchType == SearchType.Know_Your_Heros.name)
-                SizedBox(
-                  height: Get.height * 0.72,
-                  child: ListView.builder(
-                    itemCount: 9,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.only(top: 55.h),
-                        child: const KnowHerosSearchCard(),
-                      );
-                    },
-                  ),
+                GetBuilder<AudioVideoSearchController>(
+                  builder: (_) {
+                    if (_.fetchingData) {
+                      return SizedBox(
+                          height: Get.height * 0.72,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 60.h,
+                                width: 60.w,
+                                child: LoadingIndicator(
+                                  indicatorType: Indicator.lineScale,
+                                  colors: [Get.theme.primaryColor],
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            ],
+                          ));
+                    } else {
+                      if (audioVideoSearchController.getVideosResponseModel ==
+                          null) {
+                        return const SizedBox.shrink();
+                      } else {
+                        if (audioVideoSearchController
+                                    .getVideosSearchResponseModel ==
+                                null ||
+                            audioVideoSearchController
+                                .getVideosSearchResponseModel!.isEmpty) {
+                          return SizedBox(
+                            height: Get.height * 0.72,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 20.sp),
+                                  child: Lottie.asset(
+                                    'assets/images/lottie/no_data_lottie.json',
+                                    height: 250.h,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 15.h,
+                                ),
+                                Text(
+                                  'No books found',
+                                  style: Get.textTheme.titleMedium,
+                                )
+                              ],
+                            ),
+                          );
+                        } else {
+                          return SizedBox(
+                            height: Get.height * 0.72,
+                            child: ListView.builder(
+                              itemCount: audioVideoSearchController
+                                  .getVideosSearchResponseModel!.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                    padding: EdgeInsets.only(top: 35.h),
+                                    child: VideoPlayWidget(
+                                      ontap: () {
+                                        Get.toNamed(AppPages.videoPlayerPage,
+                                            arguments: audioVideoSearchController
+                                                .getVideosSearchResponseModel![
+                                                    index]
+                                                .file);
+                                      },
+                                      title: audioVideoSearchController
+                                          .getVideosSearchResponseModel![index]
+                                          .title,
+                                    ));
+                              },
+                            ),
+                          );
+                        }
+                      }
+                    }
+                  },
                 ),
             ]),
           ),

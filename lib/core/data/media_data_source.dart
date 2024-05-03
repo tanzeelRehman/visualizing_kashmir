@@ -11,13 +11,13 @@ class MediaDataSource {
   //! Instenses
   dioo.Dio dio = Get.find<dioo.Dio>();
 
+  //- LOAD PDF
   Future<dynamic> loadPDF(String pdfEndpoint) async {
     String url = '${AppUrl.bunnyBaseUrl}$pdfEndpoint';
 
     Map<String, String> headers = {
       'AccessKey': bunnyAcessKey,
     };
-
     try {
       dioo.Response response = await dio.get(url,
           options: dioo.Options(

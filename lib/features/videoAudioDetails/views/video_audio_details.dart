@@ -21,8 +21,8 @@ import 'package:visualizing_kashmir/features/videoAudioDetails/views/widgets/aud
 import 'package:visualizing_kashmir/features/videoAudioDetails/views/widgets/pdf_widget.dart';
 import 'package:visualizing_kashmir/features/videoAudioDetails/views/widgets/video_play_widget.dart';
 
-class VideoAudioDetails extends StatelessWidget {
-  const VideoAudioDetails({super.key});
+class VideoAudioSearch extends StatelessWidget {
+  const VideoAudioSearch({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +108,10 @@ class VideoAudioDetails extends StatelessWidget {
                                     ListView.builder(
                                       itemCount: 8,
                                       itemBuilder: (context, index) {
-                                        return const VideoPlayWidget();
+                                        return VideoPlayWidget(
+                                          ontap: () {},
+                                          title: 'title 1',
+                                        );
                                       },
                                     ),
                                     //* PDF Widget =============================

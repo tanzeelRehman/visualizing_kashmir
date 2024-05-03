@@ -11,6 +11,7 @@ import 'package:visualizing_kashmir/features/detail/controller/media_detail_load
 
 import 'package:visualizing_kashmir/features/home/controller/home_controller.dart';
 import 'package:visualizing_kashmir/core/data/home_datasource.dart';
+import 'package:visualizing_kashmir/features/videoAudioDetails/controller/audio_video_serach_controller.dart';
 
 Future<void> init() async {
   //fenix: true means controllers will remain in the memory, If you dont add this paraeter their value will get deleted automaticaly
@@ -18,6 +19,8 @@ Future<void> init() async {
   Get.lazyPut(() => HomeController());
   Get.lazyPut<LanguageController>(() => LanguageController(), fenix: true);
   Get.lazyPut<MediaDetailLoaderController>(() => MediaDetailLoaderController(),
+      fenix: true);
+  Get.lazyPut<AudioVideoSearchController>(() => AudioVideoSearchController(),
       fenix: true);
 
   //! Data Sources

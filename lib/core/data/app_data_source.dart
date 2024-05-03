@@ -7,6 +7,7 @@ import 'package:visualizing_kashmir/core/error/failures.dart';
 import 'package:visualizing_kashmir/core/model/get_articles_response_model.dart';
 import 'package:visualizing_kashmir/core/model/get_books_response_model.dart';
 import 'package:visualizing_kashmir/core/model/get_reports_response_model.dart';
+import 'package:visualizing_kashmir/core/model/get_videos_response_model.dart';
 import 'package:visualizing_kashmir/core/network/network_info.dart';
 
 class AppDataSource {
@@ -14,6 +15,7 @@ class AppDataSource {
   Dio dio = Get.find<Dio>();
   NetworkInfo networkInfo = Get.find<NetworkInfo>();
 
+  //* FOR ARTICLE / REPORTS / BOOKS DATA
   Future<dynamic> getData(DataType dataType) async {
     bool netAvaliblity = await isInternetAvalible();
     if (!netAvaliblity) {
@@ -55,6 +57,28 @@ class AppDataSource {
         }
 
         return const Failure('Something went wrong');
+      }
+    } on Exception catch (e) {
+      return Failure(e.toString());
+    }
+  }
+
+  //* FOR VIDEOS DATA
+  Future<dynamic> getVideos() async {
+    bool netAvaliblity = await isInternetAvalible();
+    if (!netAvaliblity) {
+      return const Failure('No internet connection found');
+    }
+    String url = '${AppUrl.baseUrl}${AppUrl.getVideos}';
+    Logger().i("get video url $url");
+
+    try {
+      final response = await dio.get(url);
+      Logger().i(response.statusCode);
+
+      if (response.statusCode == 200) {
+        var object = GetVideosResponseModel.fromJson(response.data);
+        return object;
       }
     } on Exception catch (e) {
       return Failure(e.toString());
