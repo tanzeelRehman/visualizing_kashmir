@@ -13,6 +13,7 @@ import 'package:visualizing_kashmir/core/data/media_data_source.dart';
 import 'package:visualizing_kashmir/core/error/failures.dart';
 import 'package:visualizing_kashmir/core/model/get_articles_response_model.dart';
 import 'package:visualizing_kashmir/core/model/get_books_response_model.dart';
+import 'package:visualizing_kashmir/core/model/get_know_your_heros_response_model.dart';
 import 'package:visualizing_kashmir/core/model/get_reports_response_model.dart';
 import 'package:visualizing_kashmir/core/network/network_info.dart';
 
@@ -25,10 +26,12 @@ class DataSearchController extends GetxController {
   GetBooksResponseModel? getBooksResponseModel;
   GetArticlesResponseModel? getArticlesResponseModel;
   GetReportsResponseModel? getReportsResponseModel;
+  GetKnowYourHerosResponseModel? getKnowYourHerosResponseModel;
   //- SEARCH
   List<BooksData>? getBooksSearchResponseModel;
-  GetArticlesResponseModel? getArticlesSearchResponseModel;
-  GetReportsResponseModel? getReportsSearchResponseModel;
+  List<HerosData>? getKnowYourHerosSearchResponseModel;
+  List<ArticlesData>? getArticlesSearchResponseModel;
+  List<ReportsData>? getReportsSearchResponseModel;
 
   //! Class variables
   bool fetchingData = false;
@@ -63,7 +66,7 @@ class DataSearchController extends GetxController {
       startMainScreenLoader();
     } else {
       getArticlesResponseModel = response;
-      getArticlesSearchResponseModel = getArticlesResponseModel;
+      getArticlesSearchResponseModel = getArticlesResponseModel!.data;
       Logger().i(getArticlesResponseModel!.toJson());
       startMainScreenLoader();
     }
@@ -79,8 +82,24 @@ class DataSearchController extends GetxController {
       startMainScreenLoader();
     } else {
       getReportsResponseModel = response;
-      getReportsSearchResponseModel = getReportsResponseModel;
+      getReportsSearchResponseModel = getReportsResponseModel!.data;
       Logger().i(getReportsResponseModel!.toJson());
+      startMainScreenLoader();
+    }
+  }
+
+  //- GET HEROS
+  Future<void> getKnowYourHeros() async {
+    startMainScreenLoader();
+    Logger().e('caling heros');
+    var response = await appDataSource.getKnowYourHeros();
+    if (response is Failure) {
+      handleError(response);
+      startMainScreenLoader();
+    } else {
+      getKnowYourHerosResponseModel = response;
+      getKnowYourHerosSearchResponseModel = getKnowYourHerosResponseModel!.data;
+
       startMainScreenLoader();
     }
   }
@@ -88,14 +107,39 @@ class DataSearchController extends GetxController {
   Future<void> searchData(String searchType, String? query) async {
     if (searchType == DataType.report.name) {
       if (query == '' || query == null) {
-        getReportsSearchResponseModel = getReportsResponseModel;
-      } else {}
+        getReportsSearchResponseModel = getReportsResponseModel!.data;
+      } else {
+        getReportsSearchResponseModel = getReportsResponseModel!.data
+            .where((item) => item.heading.contains(query))
+            .toList();
+      }
     }
     if (searchType == DataType.book.name) {
       if (query == '' || query == null) {
         getBooksSearchResponseModel = getBooksResponseModel!.data;
       } else {
         getBooksSearchResponseModel = getBooksResponseModel!.data
+            .where((item) => item.heading.contains(query))
+            .toList();
+      }
+    }
+
+    if (searchType == DataType.heros.name) {
+      if (query == '' || query == null) {
+        getKnowYourHerosSearchResponseModel =
+            getKnowYourHerosResponseModel!.data;
+      } else {
+        getKnowYourHerosSearchResponseModel = getKnowYourHerosResponseModel!
+            .data
+            .where((item) => item.name.contains(query))
+            .toList();
+      }
+    }
+    if (searchType == DataType.article.name) {
+      if (query == '' || query == null) {
+        getArticlesSearchResponseModel = getArticlesResponseModel!.data;
+      } else {
+        getArticlesSearchResponseModel = getArticlesResponseModel!.data
             .where((item) => item.heading.contains(query))
             .toList();
       }
@@ -109,12 +153,15 @@ class DataSearchController extends GetxController {
 
   //! Business Logic ---------------------------------------------------------->
   void callApis(String searchType) async {
+    Logger().i(searchType);
     if (searchType == DataType.report.name) {
       getReports();
     } else if (searchType == DataType.article.name) {
       getArticles();
     } else if (searchType == DataType.book.name) {
       getBooks();
+    } else if (searchType == DataType.heros.name) {
+      getKnowYourHeros();
     }
   }
 

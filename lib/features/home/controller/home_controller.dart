@@ -7,7 +7,6 @@ import 'package:logger/logger.dart';
 import 'package:visualizing_kashmir/core/error/failures.dart';
 import 'package:visualizing_kashmir/core/network/network_info.dart';
 import 'package:visualizing_kashmir/core/data/home_datasource.dart';
-import 'package:visualizing_kashmir/features/home/model/get_all_employees.dart';
 import 'package:visualizing_kashmir/features/home/model/get_weather_response.dart';
 
 class HomeController extends GetxController {
@@ -16,7 +15,7 @@ class HomeController extends GetxController {
   HomeDataSource homeDataSource = Get.find<HomeDataSource>();
 
   //! Model variables
-  late GetWeatherResponse getWeatherResponseModel;
+  late GetWeatherResponseModel getWeatherResponseModel;
 
   //! Class variables
   bool fetchingData = false;
@@ -32,6 +31,7 @@ class HomeController extends GetxController {
       startMainScreenLoader();
     } else {
       getWeatherResponseModel = response;
+
       startMainScreenLoader();
     }
   }
@@ -43,7 +43,7 @@ class HomeController extends GetxController {
   double getKashmirTermperature() {
     if (getWeatherResponseModel.main.temp != 0.0) {
       getKashmirTime();
-      return getWeatherResponseModel.main.temp! - 273.15;
+      return getWeatherResponseModel.main.temp - 273.15;
     } else {
       return 0.0;
     }

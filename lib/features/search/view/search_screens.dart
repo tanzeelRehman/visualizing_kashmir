@@ -78,43 +78,185 @@ class _SearchScreenState extends State<SearchScreen> {
               SizedBox(
                 height: 20.h,
               ),
-              //* REPORT Search -------------------------------->
+              //*=================================================================================>
+              //* REPORTS Search card
+              //*=================================================================================>
+
               if (searchType == DataType.report.name)
                 GetBuilder<DataSearchController>(
                   builder: (_) {
-                    return SizedBox(
-                      height: Get.height * 0.72,
-                      child: ListView.builder(
-                        itemCount: 9,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.only(top: 35.h),
-                            child: const ReportsSearchCard(),
+                    if (_.fetchingData) {
+                      return SizedBox(
+                          height: Get.height * 0.72,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 60.h,
+                                width: 60.w,
+                                child: LoadingIndicator(
+                                  indicatorType: Indicator.lineScale,
+                                  colors: [Get.theme.primaryColor],
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            ],
+                          ));
+                    } else {
+                      if (datSearchController.getReportsResponseModel == null) {
+                        return const SizedBox.shrink();
+                      } else {
+                        if (datSearchController.getReportsSearchResponseModel ==
+                                null ||
+                            datSearchController
+                                .getReportsSearchResponseModel!.isEmpty) {
+                          return SizedBox(
+                            height: Get.height * 0.72,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 20.sp),
+                                  child: Lottie.asset(
+                                    'assets/images/lottie/no_data_lottie.json',
+                                    height: 250.h,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 15.h,
+                                ),
+                                Text(
+                                  'No Reports found',
+                                  style: Get.textTheme.titleMedium,
+                                )
+                              ],
+                            ),
                           );
-                        },
-                      ),
-                    );
+                        } else {
+                          return SizedBox(
+                            height: Get.height * 0.72,
+                            child: ListView.builder(
+                              itemCount: datSearchController
+                                  .getReportsSearchResponseModel!.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                    padding: EdgeInsets.only(top: 35.h),
+                                    child: ReportsSearchCard(
+                                        heading: datSearchController
+                                            .getReportsSearchResponseModel![
+                                                index]
+                                            .heading,
+                                        description: datSearchController
+                                            .getReportsSearchResponseModel![
+                                                index]
+                                            .description,
+                                        onread: () {},
+                                        imagePath: datSearchController
+                                            .getReportsSearchResponseModel![
+                                                index]
+                                            .thumbnail));
+                              },
+                            ),
+                          );
+                        }
+                      }
+                    }
                   },
                 ),
-              //* ARTICLES Search -------------------------------->
+              //*=================================================================================>
+              //* ARTICLES Search card
+              //*=================================================================================>
+
               if (searchType == DataType.article.name)
                 GetBuilder<DataSearchController>(
                   builder: (_) {
-                    return SizedBox(
-                      height: Get.height * 0.72,
-                      child: ListView.builder(
-                        itemCount: 9,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.only(top: 35.h),
-                            child: const ArticleSearchCard(),
+                    if (_.fetchingData) {
+                      return SizedBox(
+                          height: Get.height * 0.72,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 60.h,
+                                width: 60.w,
+                                child: LoadingIndicator(
+                                  indicatorType: Indicator.lineScale,
+                                  colors: [Get.theme.primaryColor],
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            ],
+                          ));
+                    } else {
+                      if (datSearchController.getArticlesResponseModel ==
+                          null) {
+                        return const SizedBox.shrink();
+                      } else {
+                        if (datSearchController
+                                    .getArticlesSearchResponseModel ==
+                                null ||
+                            datSearchController
+                                .getArticlesSearchResponseModel!.isEmpty) {
+                          return SizedBox(
+                            height: Get.height * 0.72,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 20.sp),
+                                  child: Lottie.asset(
+                                    'assets/images/lottie/no_data_lottie.json',
+                                    height: 250.h,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 15.h,
+                                ),
+                                Text(
+                                  'No Articles found',
+                                  style: Get.textTheme.titleMedium,
+                                )
+                              ],
+                            ),
                           );
-                        },
-                      ),
-                    );
+                        } else {
+                          return SizedBox(
+                            height: Get.height * 0.72,
+                            child: ListView.builder(
+                              itemCount: datSearchController
+                                  .getArticlesSearchResponseModel!.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                    padding: EdgeInsets.only(top: 35.h),
+                                    child: ArticleSearchCard(
+                                        heading: datSearchController
+                                            .getArticlesSearchResponseModel![
+                                                index]
+                                            .heading,
+                                        publishedBy: datSearchController
+                                            .getArticlesSearchResponseModel![
+                                                index]
+                                            .publishBy,
+                                        image: datSearchController
+                                            .getArticlesSearchResponseModel![
+                                                index]
+                                            .thumbnail,
+                                        onread: (() {})));
+                              },
+                            ),
+                          );
+                        }
+                      }
+                    }
                   },
                 ),
-              // //* HISTORY BOOKS Search -------------------------------->
+
+              //*=================================================================================>
+              //* HISTORY BOOKS Search card
+              //*=================================================================================>
+
               if (searchType == DataType.book.name)
                 GetBuilder<DataSearchController>(
                   builder: (_) {
@@ -207,22 +349,113 @@ class _SearchScreenState extends State<SearchScreen> {
                     }
                   },
                 ),
-              //* KNOW HEROS Search -------------------------------->
-              if (searchType == SearchType.Know_Your_Heros.name)
+
+              //*=================================================================================>
+              //* KNOW HEROS Search card
+              //*=================================================================================>
+
+              if (searchType == DataType.heros.name)
                 GetBuilder<DataSearchController>(
                   builder: (_) {
-                    return SizedBox(
-                      height: Get.height * 0.72,
-                      child: ListView.builder(
-                        itemCount: 9,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.only(top: 35.h),
-                            child: const KnowHerosSearchCard(),
+                    if (_.fetchingData) {
+                      return SizedBox(
+                          height: Get.height * 0.72,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 60.h,
+                                width: 60.w,
+                                child: LoadingIndicator(
+                                  indicatorType: Indicator.lineScale,
+                                  colors: [Get.theme.primaryColor],
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            ],
+                          ));
+                    } else {
+                      if (datSearchController.getKnowYourHerosResponseModel ==
+                          null) {
+                        return const SizedBox.shrink();
+                      } else {
+                        if (datSearchController
+                                    .getKnowYourHerosSearchResponseModel ==
+                                null ||
+                            datSearchController
+                                .getKnowYourHerosSearchResponseModel!.isEmpty) {
+                          return SizedBox(
+                            height: Get.height * 0.72,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 20.sp),
+                                  child: Lottie.asset(
+                                    'assets/images/lottie/no_data_lottie.json',
+                                    height: 250.h,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 15.h,
+                                ),
+                                Text(
+                                  'No Heros found',
+                                  style: Get.textTheme.titleMedium,
+                                )
+                              ],
+                            ),
                           );
-                        },
-                      ),
-                    );
+                        } else {
+                          return SizedBox(
+                            height: Get.height * 0.72,
+                            child: ListView.builder(
+                              itemCount: datSearchController
+                                  .getKnowYourHerosSearchResponseModel!.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                    padding: EdgeInsets.only(top: 35.h),
+                                    child: KnowHerosSearchCard(
+                                        imageUrl: datSearchController
+                                            .getKnowYourHerosSearchResponseModel![
+                                                index]
+                                            .profile,
+                                        dob: datSearchController
+                                            .getKnowYourHerosSearchResponseModel![
+                                                index]
+                                            .birth,
+                                        name: datSearchController
+                                            .getKnowYourHerosSearchResponseModel![
+                                                index]
+                                            .name,
+                                        death: datSearchController
+                                            .getKnowYourHerosSearchResponseModel![
+                                                index]
+                                            .death,
+                                        ontap: () {
+                                          Get.toNamed(AppPages.heroWebViewPage,
+                                              arguments: [
+                                                {
+                                                  "url": datSearchController
+                                                      .getKnowYourHerosSearchResponseModel![
+                                                          index]
+                                                      .link
+                                                },
+                                                {
+                                                  "name": datSearchController
+                                                      .getKnowYourHerosSearchResponseModel![
+                                                          index]
+                                                      .name
+                                                },
+                                              ]);
+                                        }));
+                              },
+                            ),
+                          );
+                        }
+                      }
+                    }
                   },
                 ),
             ]),

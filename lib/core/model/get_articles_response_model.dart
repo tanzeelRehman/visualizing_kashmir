@@ -6,11 +6,12 @@ class GetArticlesResponseModel {
     required this.data,
   });
   late final String msg;
-  late final List<Data> data;
+  late final List<ArticlesData> data;
 
   GetArticlesResponseModel.fromJson(Map<String, dynamic> json) {
     msg = json['msg'];
-    data = List.from(json['data']).map((e) => Data.fromJson(e)).toList();
+    data =
+        List.from(json['data']).map((e) => ArticlesData.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -21,8 +22,8 @@ class GetArticlesResponseModel {
   }
 }
 
-class Data {
-  Data({
+class ArticlesData {
+  ArticlesData({
     required this.id,
     required this.servey,
     required this.type,
@@ -47,7 +48,7 @@ class Data {
   late final String createdDate;
   late final String updatedDate;
 
-  Data.fromJson(Map<String, dynamic> json) {
+  ArticlesData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     servey = json['servey'];
     type = json['type'];

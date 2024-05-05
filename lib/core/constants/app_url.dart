@@ -8,4 +8,7 @@ class AppUrl {
 
   //! Videos
   static const getVideos = 'gallery?page=1&search=';
+
+  //! Know your heros
+  static const getKnowYourHeros = 'hero?page=1&search=null';
 }

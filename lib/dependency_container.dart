@@ -6,6 +6,7 @@ import 'package:visualizing_kashmir/core/data/app_data_source.dart';
 import 'package:visualizing_kashmir/core/data/media_data_source.dart';
 import 'package:visualizing_kashmir/core/helper/saveLanguageSettings.dart';
 import 'package:visualizing_kashmir/core/network/network_info.dart';
+import 'package:visualizing_kashmir/features/Hero/controller/know_your_hero_controller.dart';
 import 'package:visualizing_kashmir/features/Language/controller/language_controller.dart';
 import 'package:visualizing_kashmir/features/detail/controller/media_detail_loader_controller.dart';
 
@@ -21,6 +22,8 @@ Future<void> init() async {
   Get.lazyPut<MediaDetailLoaderController>(() => MediaDetailLoaderController(),
       fenix: true);
   Get.lazyPut<AudioVideoSearchController>(() => AudioVideoSearchController(),
+      fenix: true);
+  Get.lazyPut<KnowYourHeroController>(() => KnowYourHeroController(),
       fenix: true);
 
   //! Data Sources

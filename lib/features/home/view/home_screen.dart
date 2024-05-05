@@ -12,6 +12,7 @@ import 'package:marquee/marquee.dart';
 
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
 import 'package:visualizing_kashmir/core/constants/app_pages.dart';
+import 'package:visualizing_kashmir/core/constants/data_type_enum.dart';
 import 'package:visualizing_kashmir/core/constants/search_enum.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 import 'package:visualizing_kashmir/core/widgets/Custom%20Routes/Popups/show_pop_up.dart';
@@ -82,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             isPng: true,
                             ontap: () {
                               Get.toNamed(AppPages.searchPage,
-                                  arguments: SearchType.Articles.name);
+                                  arguments: DataType.article.name);
                             },
                           ),
                         ],
@@ -98,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             pngPath: AppAssets.reports,
                             ontap: () {
                               Get.toNamed(AppPages.searchPage,
-                                  arguments: SearchType.Reports.name);
+                                  arguments: DataType.report.name);
                             },
                           ),
                           optionCard(
@@ -106,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             pngPath: AppAssets.know_heros,
                             ontap: () {
                               Get.toNamed(AppPages.searchPage,
-                                  arguments: SearchType.Know_Your_Heros.name);
+                                  arguments: DataType.heros.name);
                             },
                           ),
                         ],

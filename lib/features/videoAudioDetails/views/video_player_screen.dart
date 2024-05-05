@@ -1,3 +1,4 @@
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
@@ -28,7 +29,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   void dispose() {
     super.dispose();
-    audioVideoSearchController.controller!.dispose();
+    audioVideoSearchController.controller.dispose();
   }
 
   @override
@@ -48,8 +49,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                   },
                   child: Stack(
                     children: [
-                      audioVideoSearchController.controller!.value.isInitialized
-                          ? VideoPlayer(audioVideoSearchController.controller!)
+                      audioVideoSearchController.controller.value.isInitialized
+                          ? Chewie(
+                              controller:
+                                  audioVideoSearchController.chewieController)
                           : Container(),
                       if (audioVideoSearchController.showControls)
                         Expanded(
@@ -59,13 +62,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                               child: IconButton(
                                 onPressed: () {
                                   audioVideoSearchController
-                                          .controller!.value.isPlaying
+                                          .controller.value.isPlaying
                                       ? audioVideoSearchController.pauseVideo()
                                       : audioVideoSearchController.playVideo();
                                 },
                                 icon: Icon(
                                   audioVideoSearchController
-                                          .controller!.value.isPlaying
+                                          .controller.value.isPlaying
                                       ? Icons.pause
                                       : Icons.play_arrow,
                                   color: Colors.white,

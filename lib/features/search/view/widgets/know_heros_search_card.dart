@@ -1,15 +1,31 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:loading_indicator/loading_indicator.dart';
+
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
 import 'package:visualizing_kashmir/core/constants/app_pages.dart';
+import 'package:visualizing_kashmir/core/constants/app_url.dart';
+import 'package:visualizing_kashmir/core/globle/globle.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 import 'package:visualizing_kashmir/core/widgets/primary_continue_small_button.dart';
 
 class KnowHerosSearchCard extends StatelessWidget {
+  final String imageUrl;
+  final String dob;
+  final String name;
+  final String death;
+  final Function() ontap;
   const KnowHerosSearchCard({
     super.key,
+    required this.imageUrl,
+    required this.dob,
+    required this.name,
+    required this.death,
+    required this.ontap,
   });
 
   @override
@@ -36,7 +52,7 @@ class KnowHerosSearchCard extends StatelessWidget {
                         height: 20.h,
                       ),
                       Text(
-                        "Syed Ali Geelani",
+                        name,
                         style: Get.textTheme.titleSmall!.copyWith(
                             color: Colors.black, fontWeight: FontWeight.bold),
                       ),
@@ -44,7 +60,7 @@ class KnowHerosSearchCard extends StatelessWidget {
                         height: 8.h,
                       ),
                       Text(
-                        "1992 - 2021",
+                        "${dob.substring(0, 4)} - ${death.substring(0, 4)}",
                         style: Get.textTheme.bodySmall!,
                       ),
                       SizedBox(
@@ -59,9 +75,7 @@ class KnowHerosSearchCard extends StatelessWidget {
                                 title: "Read_more".tr,
                                 padding: EdgeInsets.symmetric(
                                     vertical: 8.h, horizontal: 10.w),
-                                ontap: () {
-                                  Get.toNamed(AppPages.knowYourHeroPage);
-                                },
+                                ontap: ontap,
                                 isNext: false),
                           ],
                         ),
@@ -86,12 +100,34 @@ class KnowHerosSearchCard extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15.r),
-              child: Image.asset(
-                height: 150.h,
-                width: 150.w,
-                AppAssets.geelani,
-                fit: BoxFit.cover,
-              ),
+              child: CachedNetworkImage(
+                  height: 150.h,
+                  width: 150.w,
+                  fit: BoxFit.cover,
+                  imageUrl: '${AppUrl.bunnyBaseUrl}$imageUrl',
+                  placeholder: (context, url) => Padding(
+                        padding: EdgeInsets.all(30.sp),
+                        child: SizedBox(
+                          width: 40.w,
+                          height: 60.h,
+                          child: LoadingIndicator(
+                            indicatorType: Indicator.ballPulse,
+                            colors: [Get.theme.primaryColor],
+                            strokeWidth: 2,
+                          ),
+                        ),
+                      ),
+                  errorWidget: (context, url, error) => Container(
+                        height: 190.h,
+                        width: 110.w,
+                        color: const Color(0xffe9e9e9),
+                        child: Icon(
+                          Icons.image,
+                          color: const Color(0xffd3d3d3),
+                          size: 55.sp,
+                        ),
+                      ),
+                  httpHeaders: {'AccessKey': bunnyAcessKey}),
             ),
           ),
         ),

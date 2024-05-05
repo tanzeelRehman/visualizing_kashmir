@@ -8,6 +8,7 @@ import 'package:visualizing_kashmir/core/language/languages.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 import 'package:visualizing_kashmir/features/Headline/views/headline_screen.dart';
 import 'package:visualizing_kashmir/features/Hero/view/know_your_hero_detail.dart';
+import 'package:visualizing_kashmir/features/Hero/view/know_your_hero_webview_page.dart';
 import 'package:visualizing_kashmir/features/History/view/history_sub_screen.dart';
 import 'package:visualizing_kashmir/features/Language/view/language_page.dart';
 import 'package:visualizing_kashmir/features/Quiz/view/quiz_screen.dart';
@@ -101,6 +102,10 @@ class MyApp extends StatelessWidget {
               GetPage(
                 name: AppPages.videoPlayerPage,
                 page: () => const VideoPlayerScreen(),
+              ),
+              GetPage(
+                name: AppPages.heroWebViewPage,
+                page: () => const KnowHeroWebViewPage(),
               ),
             ],
             home: const HomeScreen(),

@@ -16,6 +16,7 @@ class CustomAppBar extends StatelessWidget {
       this.trailing,
       this.backgroundColor,
       this.focusNode,
+      this.height = 120,
       this.onBack});
 
   MediaQueryData? screeData;
@@ -26,6 +27,7 @@ class CustomAppBar extends StatelessWidget {
   Color? backgroundColor;
   Function? onBack;
   FocusNode? focusNode;
+  double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class CustomAppBar extends StatelessWidget {
             width: screeData == null
                 ? MediaQuery.of(context).size.width
                 : screeData!.size.width,
-            height: 120.h,
+            height: height!.h,
             child: Padding(
               padding:
                   EdgeInsetsDirectional.only(start: 12.w, end: 12.w, top: 10.h),

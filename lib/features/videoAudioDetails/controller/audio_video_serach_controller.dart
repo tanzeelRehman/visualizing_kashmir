@@ -1,10 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
+import 'package:chewie/chewie.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:video_player/video_player.dart';
+
 import 'package:visualizing_kashmir/core/constants/app_url.dart';
 
 import 'package:visualizing_kashmir/core/data/app_data_source.dart';
@@ -18,6 +22,7 @@ class AudioVideoSearchController extends GetxController {
   //! External variables
   MediaDataSource mediaDataSource = Get.find<MediaDataSource>();
   AppDataSource appDataSource = Get.find<AppDataSource>();
+  Dio dio = Get.find<Dio>();
 
   //! Model variables
   GetVideosResponseModel? getVideosResponseModel;
@@ -29,7 +34,8 @@ class AudioVideoSearchController extends GetxController {
   bool fetchingData = false;
   bool loadingVideo = false;
   bool showControls = false;
-  late VideoPlayerController? controller;
+  late final VideoPlayerController controller;
+  late final ChewieController chewieController;
 
   //? API CALLS STARTS --------------------------------------------------------------------------->
   //?=============================================================================================>
@@ -81,15 +87,23 @@ class AudioVideoSearchController extends GetxController {
     //   controller!.dispose();
     // }
     startVideoLoader();
-    controller = VideoPlayerController.networkUrl(
-      Uri.parse(url),
-      httpHeaders: headers,
-    )..initialize().then((value) {
-        startMainScreenLoader();
-        controller!.play();
-      }).onError((error, stackTrace) {
-        handleError(const Failure('Video can not be loaded'));
-      });
+    // controller = VideoPlayerController.networkUrl(
+    //   Uri.parse('https://storage.bunnycdn.com/visualizekashmir/videos/14.mp4'),
+    //   httpHeaders: {
+    //     'AccessKey': 'Bearer 98b54066-8625-477b-9b484f2e6dc8-c55a-4bde'
+    //   },
+    // )..initialize().then((value) {
+    //     startMainScreenLoader();
+    //     controller!.play();
+    //   });
+
+    controller =
+        VideoPlayerController.networkUrl(Uri.parse(url), httpHeaders: headers);
+
+    await controller.initialize();
+    chewieController = ChewieController(
+      videoPlayerController: controller,
+    );
   }
 
   void showVideoControls() {
@@ -102,12 +116,12 @@ class AudioVideoSearchController extends GetxController {
   }
 
   void playVideo() {
-    controller!.play();
+    controller.play();
     update();
   }
 
   void pauseVideo() {
-    controller!.pause();
+    controller.pause();
     update();
   }
 

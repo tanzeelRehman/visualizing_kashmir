@@ -13,4 +13,5 @@ class AppPages {
   static const multiMediaSearchDisplayPage = '/multiMediaSearchDisplaySPage';
   static const pdfDetailPage = '/pdfDetailPage';
   static const videoPlayerPage = '/videoPlayerPage';
+  static const heroWebViewPage = '/heroWebViewPage';
 }

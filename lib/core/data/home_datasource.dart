@@ -5,7 +5,7 @@ import 'package:logger/logger.dart';
 import 'package:visualizing_kashmir/core/constants/app_url.dart';
 import 'package:visualizing_kashmir/core/error/failures.dart';
 import 'package:visualizing_kashmir/core/globle/globle.dart';
-import 'package:visualizing_kashmir/features/home/model/get_all_employees.dart';
+
 import 'package:visualizing_kashmir/features/home/model/get_weather_response.dart';
 
 class HomeDataSource {
@@ -23,7 +23,9 @@ class HomeDataSource {
       final response = await dio.get(url);
 
       if (response.statusCode == 200) {
-        var object = GetWeatherResponse.fromJson(response.data);
+        print(response.data);
+        var object = GetWeatherResponseModel.fromJson(response.data);
+        Logger().i(object.toJson());
         return object;
       }
 

@@ -6,6 +6,7 @@ import 'package:visualizing_kashmir/core/constants/data_type_enum.dart';
 import 'package:visualizing_kashmir/core/error/failures.dart';
 import 'package:visualizing_kashmir/core/model/get_articles_response_model.dart';
 import 'package:visualizing_kashmir/core/model/get_books_response_model.dart';
+import 'package:visualizing_kashmir/core/model/get_know_your_heros_response_model.dart';
 import 'package:visualizing_kashmir/core/model/get_reports_response_model.dart';
 import 'package:visualizing_kashmir/core/model/get_videos_response_model.dart';
 import 'package:visualizing_kashmir/core/network/network_info.dart';
@@ -78,6 +79,28 @@ class AppDataSource {
 
       if (response.statusCode == 200) {
         var object = GetVideosResponseModel.fromJson(response.data);
+        return object;
+      }
+    } on Exception catch (e) {
+      return Failure(e.toString());
+    }
+  }
+
+  //* FOR KNOW YOUR HEROS DATA
+  Future<dynamic> getKnowYourHeros() async {
+    bool netAvaliblity = await isInternetAvalible();
+    if (!netAvaliblity) {
+      return const Failure('No internet connection found');
+    }
+    String url = '${AppUrl.baseUrl}${AppUrl.getKnowYourHeros}';
+    Logger().i("get hero url $url");
+
+    try {
+      final response = await dio.get(url);
+
+      if (response.statusCode == 200) {
+        var object = GetKnowYourHerosResponseModel.fromJson(response.data);
+        Logger().e(object.toJson());
         return object;
       }
     } on Exception catch (e) {
