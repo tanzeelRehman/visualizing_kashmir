@@ -11,4 +11,7 @@ class AppUrl {
 
   //! Know your heros
   static const getKnowYourHeros = 'hero?page=1&search=null';
+
+  //!Headline
+  static const getHeadline = 'headline?page=null&search=null&';
 }

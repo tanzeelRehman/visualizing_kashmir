@@ -55,7 +55,8 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: getPreferedSizeAppbar(searchType, focusNode: searchFocusNode),
+        appBar: getPreferedSizeAppbar(searchType.capitalize!,
+            focusNode: searchFocusNode),
         body: Directionality(
           textDirection: Directionality.of(context) == TextDirection.rtl
               ? TextDirection.ltr
@@ -151,7 +152,18 @@ class _SearchScreenState extends State<SearchScreen> {
                                             .getReportsSearchResponseModel![
                                                 index]
                                             .description,
-                                        onread: () {},
+                                        onread: () {
+                                          Get.toNamed(AppPages.pdfDetailPage,
+                                              arguments: datSearchController
+                                                  .getReportsSearchResponseModel![
+                                                      index]
+                                                  .heading);
+                                          mediaDetailLoaderController.loadPDF(
+                                              datSearchController
+                                                  .getReportsSearchResponseModel![
+                                                      index]
+                                                  .gallery);
+                                        },
                                         imagePath: datSearchController
                                             .getReportsSearchResponseModel![
                                                 index]
@@ -243,7 +255,23 @@ class _SearchScreenState extends State<SearchScreen> {
                                             .getArticlesSearchResponseModel![
                                                 index]
                                             .thumbnail,
-                                        onread: (() {})));
+                                        onread: (() {
+                                          Get.toNamed(AppPages.textDetailsPage,
+                                              arguments: [
+                                                {
+                                                  "heading": datSearchController
+                                                      .getArticlesSearchResponseModel![
+                                                          index]
+                                                      .heading
+                                                },
+                                                {
+                                                  "desc": datSearchController
+                                                      .getArticlesSearchResponseModel![
+                                                          index]
+                                                      .description
+                                                },
+                                              ]);
+                                        })));
                               },
                             ),
                           );

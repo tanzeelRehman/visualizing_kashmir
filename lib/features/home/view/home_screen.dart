@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 import 'package:marquee/marquee.dart';
 
@@ -27,9 +28,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  HomeController employeeListController =
-      Get.put(HomeController()); // Register the controller here
-
   @override
   void initState() {
     super.initState();
@@ -115,7 +113,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                         height: 25.h,
                       ),
-                      historyCard()
+                      GetBuilder<HomeController>(
+                        init: Get.find<HomeController>(),
+                        builder: (controller) {
+                          if (controller.showTodayHistory) {
+                            return historyCard(
+                                controller.getTodayHistoryResponseModel!.data
+                                    .first.description,
+                                controller.getTodayHistoryResponseModel!.data
+                                    .first.longDescription,
+                                controller.getTodayHistoryResponseModel!.data
+                                    .first.heading);
+                          } else {
+                            return const SizedBox.shrink();
+                          }
+                        },
+                      )
                     ],
                   ),
                 ),
@@ -213,12 +226,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget historyCard() {
+  Widget historyCard(String shortDesc, String longdesc, String title) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(
-          AppPages.todayInHistoryPage,
-        );
+        Get.toNamed(AppPages.todayInHistoryPage, arguments: longdesc);
       },
       child: Container(
         //  height: 120.h,
@@ -246,14 +257,14 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 7.h,
             ),
             Text(
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+              shortDesc,
               style: Get.textTheme.bodySmall,
             ),
             SizedBox(
               height: 7.h,
             ),
             Text(
-              "Sept 27, 1897 - Constitutional Reforms",
+              title,
               style: Get.textTheme.bodySmall!.copyWith(
                   color: Get.theme.primaryColor, fontWeight: FontWeight.bold),
             ),
@@ -283,7 +294,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.only(top: 10.sp, left: 12.sp, right: 8.sp),
               child: Text(
                 title,
-                style: Get.textTheme.titleSmall,
+                style: Get.textTheme.titleSmall!.copyWith(fontSize: 15.sp),
               ),
             ),
             Positioned(
@@ -330,8 +341,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircularProgressIndicator(
-                      color: Get.theme.primaryColor,
+                    LoadingIndicator(
+                      indicatorType: Indicator.lineScale,
+                      colors: [Get.theme.primaryColor],
+                      strokeWidth: 2,
                     ),
                   ],
                 ),

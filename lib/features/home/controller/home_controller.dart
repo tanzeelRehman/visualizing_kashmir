@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
+import 'package:visualizing_kashmir/core/constants/data_type_enum.dart';
+import 'package:visualizing_kashmir/core/data/app_data_source.dart';
 import 'package:visualizing_kashmir/core/error/failures.dart';
+import 'package:visualizing_kashmir/core/model/get_headline_response_model.dart';
+import 'package:visualizing_kashmir/core/model/get_today_history_response_model.dart';
 import 'package:visualizing_kashmir/core/network/network_info.dart';
 import 'package:visualizing_kashmir/core/data/home_datasource.dart';
 import 'package:visualizing_kashmir/features/home/model/get_weather_response.dart';
@@ -13,16 +17,21 @@ class HomeController extends GetxController {
   //! External variables
   NetworkInfo networkInfo = Get.find<NetworkInfo>();
   HomeDataSource homeDataSource = Get.find<HomeDataSource>();
+  AppDataSource appDataSource = Get.find<AppDataSource>();
 
   //! Model variables
-  late GetWeatherResponseModel getWeatherResponseModel;
+  late GetWeatherResponseModel? getWeatherResponseModel;
+  late GetTodayHistoryResponseModel? getTodayHistoryResponseModel;
+  late GetHeadLineResponseModel? getHeadLineResponseModel;
 
   //! Class variables
   bool fetchingData = false;
+  bool showTodayHistory = false;
+  bool showTodayHeadline = false;
 
   //? API CALLS STARTS --------------------------------------------------------------------------->
   //?=============================================================================================>
-  //- GET ALL EMPLOYEES
+  //- GET TODAY WEATHER
   Future<void> getWeather() async {
     startMainScreenLoader();
     var response = await homeDataSource.getWeather();
@@ -35,15 +44,46 @@ class HomeController extends GetxController {
       startMainScreenLoader();
     }
   }
+
+  //- GET TODAY HISTORY
+  Future<void> getTodayHistory() async {
+    Logger().i(' data ni aya $showTodayHistory');
+    var response = await appDataSource.getData(DataType.today);
+    if (response is Failure) {
+    } else {
+      getTodayHistoryResponseModel = response;
+
+      if (getTodayHistoryResponseModel!.data.isNotEmpty) {
+        Logger().i('data agai $showTodayHistory');
+        showTodayHistory = true;
+        update();
+      }
+    }
+  }
+
+  //- GET TODAY HEADLINE
+  Future<void> getTodayHeadline() async {
+    var response =
+        await homeDataSource.getHeadLine(DateTime.now().toIso8601String());
+    if (response is Failure) {
+    } else {
+      getHeadLineResponseModel = response;
+
+      if (getHeadLineResponseModel!.data.isNotEmpty) {
+        showTodayHeadline = true;
+        update();
+      }
+    }
+  }
   //? API CALLS END --------------------------------------------------------------------------->
   //?===========================================================================================>
 
   //! Business Logic ---------------------------------------------------------->
 
   double getKashmirTermperature() {
-    if (getWeatherResponseModel.main.temp != 0.0) {
+    if (getWeatherResponseModel!.main.temp != 0.0) {
       getKashmirTime();
-      return getWeatherResponseModel.main.temp - 273.15;
+      return getWeatherResponseModel!.main.temp - 273.15;
     } else {
       return 0.0;
     }
@@ -96,6 +136,8 @@ class HomeController extends GetxController {
   void onInit() {
     // Get called when controller is created
     getWeather();
+
+    getTodayHistory();
 
     super.onInit();
   }

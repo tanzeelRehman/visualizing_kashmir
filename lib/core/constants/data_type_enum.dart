@@ -1,1 +1,1 @@
-enum DataType { book, article, report, heros }
+enum DataType { book, article, report, heros, today }

@@ -60,7 +60,7 @@ class KnowHerosSearchCard extends StatelessWidget {
                         height: 8.h,
                       ),
                       Text(
-                        "${dob.substring(0, 4)} - ${death.substring(0, 4)}",
+                        "${dob.substring(0, 4)} - ${death.length > 3 ? death.substring(0, 4) : 'Alive'}",
                         style: Get.textTheme.bodySmall!,
                       ),
                       SizedBox(

@@ -29,55 +29,44 @@ class _KnowHeroWebViewPageState extends State<KnowHeroWebViewPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
-
-    knowYourHeroController.webViewController = null;
+    knowYourHeroController.clearAlldata();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GetBuilder<KnowYourHeroController>(
-        builder: (controller) {
-          if (controller.loadingWebview) {
-            return SizedBox(
-              width: Get.width,
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 60.h,
-                    width: 60.w,
-                    child: LoadingIndicator(
-                      indicatorType: Indicator.lineScale,
-                      colors: [Get.theme.primaryColor],
-                      strokeWidth: 2,
-                    ),
-                  )
-                ],
+      body: GetBuilder<KnowYourHeroController>(builder: (controller) {
+        return SafeArea(
+          child: Column(
+            children: [
+              CustomAppBar(
+                title: args[1]['name'],
+                height: 80,
               ),
-            );
-          } else {
-            return SafeArea(
-              child: Column(
+              Stack(
                 children: [
-                  CustomAppBar(
-                    title: args[1]['name'],
-                    height: 80,
-                  ),
                   SizedBox(
                     height: Get.height - 110,
                     child: WebViewWidget(
-                        controller: knowYourHeroController.webViewController!),
+                      controller: knowYourHeroController.webViewController!,
+                    ),
                   ),
+                  // SizedBox(
+                  //   height: 60.h,
+                  //   width: 60.w,
+                  //   child: LoadingIndicator(
+                  //     indicatorType: Indicator.lineScale,
+                  //     colors: [Get.theme.primaryColor],
+                  //     strokeWidth: 2,
+                  //   ),
+                  // ),
                 ],
               ),
-            );
-          }
-        },
-      ),
+            ],
+          ),
+        );
+      }),
     );
   }
 }

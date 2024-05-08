@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
-
 import 'package:visualizing_kashmir/core/helper/getPreferedSizeAppbar.dart';
 
 class TextDetailsScreen extends StatelessWidget {
@@ -14,6 +13,7 @@ class TextDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    dynamic args = Get.arguments;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: getPreferedSizeAppbar(
@@ -43,26 +43,22 @@ class TextDetailsScreen extends StatelessWidget {
                     SizedBox(
                       height: 15.h,
                     ),
-                    Text(
-                      "January 1, 2023",
-                      style: Get.textTheme.bodyMedium,
-                    ),
+                    // Text(
+                    //   "January 1, 2023",
+                    //   style: Get.textTheme.bodyMedium,
+                    // ),
                     SizedBox(
                       height: 15.h,
                     ),
                     Text(
-                      "Lorem ipsum dolor sit amet consectetur. Orci nunc viverra nulla proin sit massa suscipit maecenas.",
+                      args[0]['heading'],
                       style: Get.textTheme.titleSmall,
                     ),
                     SizedBox(
                       height: 15.h,
                     ),
                     Text(
-                      "Lorem ipsum dolor sit amet consectetur. Vulputate scelerisque risus viverra vitae at amet. At pretium consequat blandit sit cras dictum non lorem. Ac turpis ornare fringilla faucibus sodales mi erat viverra odio. Nunc gravida mauris proin sed consectetur mauris orci risus ut. Porta adipiscing sit aenean turpis at. Lectus et maecenas imperdiet arcu neque ut etiam lectus sed. In semper tellus cras dolor. Consectetur sit tempor tincidunt lorem id. Fringilla hac neque dolor ut neque odio ipsum.",
-                      style: Get.textTheme.bodySmall,
-                    ),
-                    Text(
-                      "Lorem ipsum dolor sit amet consectetur. Vulputate scelerisque risus viverra vitae at amet. At pretium consequat blandit sit cras dictum non lorem. Ac turpis ornare fringilla faucibus sodales mi erat viverra odio. Nunc gravida mauris proin sed consectetur mauris orci risus ut. Porta adipiscing sit aenean turpis at. Lectus et maecenas imperdiet arcu neque ut etiam lectus sed. In semper tellus cras dolor. Consectetur sit tempor tincidunt lorem id. Fringilla hac neque dolor ut neque odio ipsum.",
+                      args[1]['desc'],
                       style: Get.textTheme.bodySmall,
                     ),
                   ]),

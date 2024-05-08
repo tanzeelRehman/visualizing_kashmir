@@ -7,7 +7,6 @@ class GetWeatherResponseModel {
     required this.wind,
     required this.clouds,
     required this.dt,
-    required this.sys,
     required this.timezone,
     required this.id,
     required this.name,
@@ -22,7 +21,7 @@ class GetWeatherResponseModel {
 
   late final Clouds clouds;
   late final int dt;
-  late final Sys sys;
+
   late final int timezone;
   late final int id;
   late final String name;
@@ -38,7 +37,7 @@ class GetWeatherResponseModel {
 
     clouds = Clouds.fromJson(json['clouds']);
     dt = json['dt'];
-    sys = Sys.fromJson(json['sys']);
+
     timezone = json['timezone'];
     id = json['id'];
     name = json['name'];
@@ -56,7 +55,7 @@ class GetWeatherResponseModel {
 
     data['clouds'] = clouds.toJson();
     data['dt'] = dt;
-    data['sys'] = sys.toJson();
+
     data['timezone'] = timezone;
     data['id'] = id;
     data['name'] = name;
@@ -169,39 +168,6 @@ class Clouds {
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['all'] = all;
-    return data;
-  }
-}
-
-class Sys {
-  Sys({
-    required this.type,
-    required this.id,
-    required this.country,
-    required this.sunrise,
-    required this.sunset,
-  });
-  late final int type;
-  late final int id;
-  late final String country;
-  late final int sunrise;
-  late final int sunset;
-
-  Sys.fromJson(Map<String, dynamic> json) {
-    type = json['type'];
-    id = json['id'];
-    country = json['country'];
-    sunrise = json['sunrise'];
-    sunset = json['sunset'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['type'] = type;
-    data['id'] = id;
-    data['country'] = country;
-    data['sunrise'] = sunrise;
-    data['sunset'] = sunset;
     return data;
   }
 }

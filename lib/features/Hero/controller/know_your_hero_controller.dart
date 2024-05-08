@@ -7,13 +7,15 @@ class KnowYourHeroController extends GetxController {
   late final WebViewController? webViewController;
 
   bool loadingWebview = false;
-  void initilizeWebView(String url) {
-    //toggleLoader();
-    webViewController ??= WebViewController();
-
+  void initilizeWebView(String url) async {
     webViewController!.setJavaScriptMode(JavaScriptMode.unrestricted);
 
     webViewController!.loadRequest(Uri.parse(url));
+  }
+
+  Future<void> clearAlldata() async {
+    await webViewController!.clearCache();
+    await webViewController!.clearLocalStorage();
   }
 
   void toggleLoader() {
@@ -27,5 +29,17 @@ class KnowYourHeroController extends GetxController {
       failure.message,
       snackPosition: SnackPosition.TOP,
     );
+  }
+
+  @override
+  void onInit() {
+    // Get called when controller is created
+    webViewController = WebViewController()
+      ..setNavigationDelegate(NavigationDelegate(
+        onPageStarted: (url) {},
+        onPageFinished: (url) {},
+      ));
+
+    super.onInit();
   }
 }

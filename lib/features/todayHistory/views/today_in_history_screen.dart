@@ -19,7 +19,9 @@ import 'package:visualizing_kashmir/features/search/view/widgets/know_heros_sear
 import 'package:visualizing_kashmir/features/search/view/widgets/reports_search_card.dart';
 
 class TodayInHistory extends StatelessWidget {
-  const TodayInHistory({super.key});
+  TodayInHistory({super.key});
+
+  final String arg = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -60,11 +62,7 @@ class TodayInHistory extends StatelessWidget {
                       height: 15.h,
                     ),
                     Text(
-                      "Lorem ipsum dolor sit amet consectetur. Vulputate scelerisque risus viverra vitae at amet. At pretium consequat blandit sit cras dictum non lorem. Ac turpis ornare fringilla faucibus sodales mi erat viverra odio. Nunc gravida mauris proin sed consectetur mauris orci risus ut. Porta adipiscing sit aenean turpis at. Lectus et maecenas imperdiet arcu neque ut etiam lectus sed. In semper tellus cras dolor. Consectetur sit tempor tincidunt lorem id. Fringilla hac neque dolor ut neque odio ipsum.",
-                      style: Get.textTheme.bodySmall,
-                    ),
-                    Text(
-                      "Lorem ipsum dolor sit amet consectetur. Vulputate scelerisque risus viverra vitae at amet. At pretium consequat blandit sit cras dictum non lorem. Ac turpis ornare fringilla faucibus sodales mi erat viverra odio. Nunc gravida mauris proin sed consectetur mauris orci risus ut. Porta adipiscing sit aenean turpis at. Lectus et maecenas imperdiet arcu neque ut etiam lectus sed. In semper tellus cras dolor. Consectetur sit tempor tincidunt lorem id. Fringilla hac neque dolor ut neque odio ipsum.",
+                      arg,
                       style: Get.textTheme.bodySmall,
                     ),
                   ]),

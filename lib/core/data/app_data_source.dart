@@ -8,6 +8,7 @@ import 'package:visualizing_kashmir/core/model/get_articles_response_model.dart'
 import 'package:visualizing_kashmir/core/model/get_books_response_model.dart';
 import 'package:visualizing_kashmir/core/model/get_know_your_heros_response_model.dart';
 import 'package:visualizing_kashmir/core/model/get_reports_response_model.dart';
+import 'package:visualizing_kashmir/core/model/get_today_history_response_model.dart';
 import 'package:visualizing_kashmir/core/model/get_videos_response_model.dart';
 import 'package:visualizing_kashmir/core/network/network_info.dart';
 
@@ -54,6 +55,16 @@ class AppDataSource {
       if (dataType.name == DataType.report.name) {
         if (response.statusCode == 200) {
           var object = GetReportsResponseModel.fromJson(response.data);
+          return object;
+        }
+
+        return const Failure('Something went wrong');
+      }
+
+      //? GET  DATA
+      if (dataType.name == DataType.today.name) {
+        if (response.statusCode == 200) {
+          var object = GetTodayHistoryResponseModel.fromJson(response.data);
           return object;
         }
 

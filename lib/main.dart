@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
               ),
               GetPage(
                 name: AppPages.todayInHistoryPage,
-                page: () => const TodayInHistory(),
+                page: () => TodayInHistory(),
               ),
               GetPage(
                 name: AppPages.quizPage,

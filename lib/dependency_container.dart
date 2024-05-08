@@ -17,7 +17,7 @@ import 'package:visualizing_kashmir/features/videoAudioDetails/controller/audio_
 Future<void> init() async {
   //fenix: true means controllers will remain in the memory, If you dont add this paraeter their value will get deleted automaticaly
   //! GETX CONTROLLERS --------------->
-  Get.lazyPut(() => HomeController());
+  Get.lazyPut(() => HomeController(), fenix: true);
   Get.lazyPut<LanguageController>(() => LanguageController(), fenix: true);
   Get.lazyPut<MediaDetailLoaderController>(() => MediaDetailLoaderController(),
       fenix: true);
