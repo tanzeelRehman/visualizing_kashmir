@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -5,6 +7,7 @@ import 'package:visualizing_kashmir/core/constants/app_pages.dart';
 
 import 'package:visualizing_kashmir/core/globle/globle.dart';
 import 'package:visualizing_kashmir/core/language/languages.dart';
+import 'package:visualizing_kashmir/core/services/push_notification_service.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 import 'package:visualizing_kashmir/features/Headline/views/headline_screen.dart';
 import 'package:visualizing_kashmir/features/Hero/view/know_your_hero_detail.dart';
@@ -20,14 +23,28 @@ import 'package:visualizing_kashmir/features/todayHistory/views/today_in_history
 import 'package:visualizing_kashmir/features/videoAudioDetails/views/multimedia_display_screen.dart';
 import 'package:visualizing_kashmir/features/videoAudioDetails/views/video_audio_details.dart';
 import 'package:visualizing_kashmir/features/videoAudioDetails/views/video_player_screen.dart';
+import 'package:visualizing_kashmir/firebase_options.dart';
 import 'package:visualizing_kashmir/splash_screen.dart';
 import 'dependency_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FirebasePushNotificationService.subscribeToTopic();
+  FirebasePushNotificationService.localNotiInit();
+  FirebasePushNotificationService.requestPermission();
+
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+
   await di.init();
 
   runApp(const MyApp());
+}
+
+Future<void> backgroundHandler(RemoteMessage message) async {
+  print("Handling a background message ${message.messageId}");
 }
 
 class MyApp extends StatelessWidget {

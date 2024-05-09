@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "886182737606",
+    "project_id": "visualizing-kashmir-368de",
+    "storage_bucket": "visualizing-kashmir-368de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:886182737606:android:b4c0f15938cd77c02c09c7",
+        "android_client_info": {
+          "package_name": "com.company.visualizing_kashmir"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKDO1Ih0w-ODTfTe1NsGZlmkOjgtKhznU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

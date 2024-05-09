@@ -24,7 +24,6 @@ class HomeDataSource {
       final response = await dio.get(url);
 
       if (response.statusCode == 200) {
-        print(response.data);
         var object = GetWeatherResponseModel.fromJson(response.data);
         Logger().i(object.toJson());
         return object;
@@ -44,7 +43,6 @@ class HomeDataSource {
       final response = await dio.get(url);
 
       if (response.statusCode == 200) {
-        print(response.data);
         var object = GetHeadLineResponseModel.fromJson(response.data);
         Logger().i(object.toJson());
         return object;

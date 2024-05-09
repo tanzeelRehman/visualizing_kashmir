@@ -47,14 +47,12 @@ class HomeController extends GetxController {
 
   //- GET TODAY HISTORY
   Future<void> getTodayHistory() async {
-    Logger().i(' data ni aya $showTodayHistory');
     var response = await appDataSource.getData(DataType.today);
     if (response is Failure) {
     } else {
       getTodayHistoryResponseModel = response;
 
       if (getTodayHistoryResponseModel!.data.isNotEmpty) {
-        Logger().i('data agai $showTodayHistory');
         showTodayHistory = true;
         update();
       }
@@ -63,11 +61,13 @@ class HomeController extends GetxController {
 
   //- GET TODAY HEADLINE
   Future<void> getTodayHeadline() async {
-    var response =
-        await homeDataSource.getHeadLine(DateTime.now().toIso8601String());
+    String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    Logger().e(formattedDate);
+    var response = await homeDataSource.getHeadLine(formattedDate);
     if (response is Failure) {
     } else {
       getHeadLineResponseModel = response;
+      Logger().i(getHeadLineResponseModel!.toJson());
 
       if (getHeadLineResponseModel!.data.isNotEmpty) {
         showTodayHeadline = true;
@@ -98,7 +98,6 @@ class HomeController extends GetxController {
 
     String formattedTime = DateFormat.Hm().format(gmt530Time);
 
-    Logger().e('Current time in GMT+5:30: $formattedTime');
     return formattedTime;
   }
 
@@ -138,6 +137,8 @@ class HomeController extends GetxController {
     getWeather();
 
     getTodayHistory();
+
+    getTodayHeadline();
 
     super.onInit();
   }
