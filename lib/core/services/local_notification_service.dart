@@ -3,6 +3,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:logger/logger.dart';
 
 class LocalNotificationService {
   static final FlutterLocalNotificationsPlugin _notificationsPlugin =
@@ -22,9 +23,12 @@ class LocalNotificationService {
         //! NOTE: This {{(onDidReceiveNotificationResponse:)}} method will only be triggered when app is on foreground state
         //* When user click on notification this method will be triggred
         //* Paylod is the data which will be passed from the message
+
         //? We can send 1 data in the paylod
         String? data = details.payload;
-        Navigator.pushNamed(context, data!);
+        print('Fore-ground state user pressed on notification paylod:  $data');
+
+        //Navigator.pushNamed(context, data!);
       },
     );
   }
@@ -37,8 +41,8 @@ class LocalNotificationService {
         android: AndroidNotificationDetails(
           //! To show popup notifications when app is in background state channel id is very important
           //* This must be same in AndroidManifext.xml , here and in the firebase messaging console
-          "pushnotificationapp", //? <-- Channel ID
-          "pushnotificationapp-channel", //? <-- Channel Name
+          "kashmir", //? <-- Channel ID
+          "kashmir", //? <-- Channel Name
           importance: Importance.max,
           priority: Priority.high,
         ),
@@ -51,7 +55,7 @@ class LocalNotificationService {
         notificationDetails,
         //! {[route]} is the Map type data send from the firebase backend
         //* ie {'route':'red'}
-        payload: message.data['route'],
+        payload: message.data['type'],
       );
     } on Exception catch (e) {
       print(e);

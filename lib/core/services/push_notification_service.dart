@@ -2,11 +2,30 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:logger/logger.dart';
 import 'package:visualizing_kashmir/core/services/local_notification_service.dart';
 
 class FirebasePushNotificationService {
-  static final FlutterLocalNotificationsPlugin
-      _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  static requestPermission() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+        alert: true,
+        announcement: true,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true);
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print("User Granted the permission");
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print("User Granted provisional permission");
+    } else {
+      print("User denied permission");
+    }
+  }
 
   //! 1. This method call when app in terminated state and you get a notification
   //* when you click on notification, App open from terminated state and you can get notification data in this method
@@ -16,8 +35,8 @@ class FirebasePushNotificationService {
         print("FirebaseMessaging.instance.getInitialMessage");
         print("+++++ App Started running from terminated state +++++");
         if (message != null) {
-          print("id is");
-          print(message.data['_id']);
+          print("type is");
+          print(message.data['type']);
           // if (message.data['_id'] != null) {
           //   Navigator.of(context).push(
           //     MaterialPageRoute(
@@ -69,12 +88,12 @@ class FirebasePushNotificationService {
         if (message.notification != null) {
           print(message.notification!.title);
           print(message.notification!.body);
-          print("message.data ${message.data['_id']}");
-          print("message.data ${message.data['route']}");
-          Navigator.pushNamed(
-            context,
-            message.data['route'],
-          );
+          print("type is");
+          print(message.data['type']);
+          // Navigator.pushNamed(
+          //   context,
+          //   message.data['route'],
+          // );
 
           //! By default firebase show the pop up notifications when app is in background {{Only when the channel names match everywhere}}
           //* So we dont need to set local notifications here
@@ -89,63 +108,44 @@ class FirebasePushNotificationService {
   //! 1. Ask permission from user to take device token
   //* Tokens are very importent, Inorder to send a push notification to a specific device we need that device token
   //? Its best practice to save all device token in the database, So we can send notification to that device any time we want
-  static requestPermission() async {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-    NotificationSettings settings = await messaging.requestPermission(
-        alert: true,
-        announcement: false,
-        badge: true,
-        carPlay: false,
-        criticalAlert: false,
-        provisional: false,
-        sound: true);
-    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print("User Granted the permission");
-    } else if (settings.authorizationStatus ==
-        AuthorizationStatus.provisional) {
-      print("User Granted provisional permission");
-    } else {
-      print("User denied permission");
-    }
-  }
 
   //! 2. Get the device token
-  static Future<String> getToken() async {
+  static Future<void> getToken() async {
     String mytoken;
     mytoken = (await FirebaseMessaging.instance.getToken())!;
-    return mytoken;
+    Logger().i(mytoken);
+    //return mytoken;
   }
 
   // initalize local notifications
-  static Future localNotiInit() async {
-    // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings(
-      '@mipmap/ic_launcher',
-    );
-    final DarwinInitializationSettings initializationSettingsDarwin =
-        DarwinInitializationSettings(
-      onDidReceiveLocalNotification: (id, title, body, payload) {},
-    );
-    const LinuxInitializationSettings initializationSettingsLinux =
-        LinuxInitializationSettings(defaultActionName: 'Open notification');
-    final InitializationSettings initializationSettings =
-        InitializationSettings(
-            android: initializationSettingsAndroid,
-            iOS: initializationSettingsDarwin,
-            linux: initializationSettingsLinux);
+  // static Future localNotiInit() async {
+  //   // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
+  //   const AndroidInitializationSettings initializationSettingsAndroid =
+  //       AndroidInitializationSettings(
+  //     '@mipmap/ic_launcher',
+  //   );
+  //   final DarwinInitializationSettings initializationSettingsDarwin =
+  //       DarwinInitializationSettings(
+  //     onDidReceiveLocalNotification: (id, title, body, payload) {},
+  //   );
+  //   const LinuxInitializationSettings initializationSettingsLinux =
+  //       LinuxInitializationSettings(defaultActionName: 'Open notification');
+  //   final InitializationSettings initializationSettings =
+  //       InitializationSettings(
+  //           android: initializationSettingsAndroid,
+  //           iOS: initializationSettingsDarwin,
+  //           linux: initializationSettingsLinux);
 
-    // request notification permissions for android 13 or above
-    _flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()!
-        .requestNotificationsPermission();
+  //   // request notification permissions for android 13 or above
+  //   _flutterLocalNotificationsPlugin
+  //       .resolvePlatformSpecificImplementation<
+  //           AndroidFlutterLocalNotificationsPlugin>()!
+  //       .requestNotificationsPermission();
 
-    _flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse: onNotificationTap,
-        onDidReceiveBackgroundNotificationResponse: onNotificationTap);
-  }
+  //   _flutterLocalNotificationsPlugin.initialize(initializationSettings,
+  //       onDidReceiveNotificationResponse: onNotificationTap,
+  //       onDidReceiveBackgroundNotificationResponse: onNotificationTap);
+  // }
 
-  static void onNotificationTap(NotificationResponse notificationResponse) {}
+  // static void onNotificationTap(NotificationResponse notificationResponse) {}
 }

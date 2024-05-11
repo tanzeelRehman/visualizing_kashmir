@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,6 +17,8 @@ import 'package:visualizing_kashmir/core/constants/app_assets.dart';
 import 'package:visualizing_kashmir/core/constants/app_pages.dart';
 import 'package:visualizing_kashmir/core/constants/data_type_enum.dart';
 import 'package:visualizing_kashmir/core/constants/search_enum.dart';
+import 'package:visualizing_kashmir/core/services/local_notification_service.dart';
+import 'package:visualizing_kashmir/core/services/push_notification_service.dart';
 import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 import 'package:visualizing_kashmir/core/widgets/Custom%20Routes/Popups/show_pop_up.dart';
 import 'package:visualizing_kashmir/features/home/controller/home_controller.dart';
@@ -30,6 +34,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
+    FirebasePushNotificationService.messageOnBackgroundState(context);
+    LocalNotificationService.initialize(context);
+    FirebasePushNotificationService.messageOnForegroundState();
+    FirebasePushNotificationService.messageOnTerminatedState();
     super.initState();
   }
 
@@ -47,10 +55,27 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 20.h,
               ),
-              newsBanner(context),
-              SizedBox(
-                height: 15.h,
+              GetBuilder<HomeController>(
+                init: Get.find<HomeController>(),
+                builder: (controller) {
+                  if (controller.showTodayHeadline) {
+                    return Column(
+                      children: [
+                        newsBanner(
+                            context,
+                            controller
+                                .getHeadLineResponseModel!.data.first.heading),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                      ],
+                    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                },
               ),
+
               //* Scrollable content start  -------------------------->
               SizedBox(
                 height: Get.height * 0.68,
@@ -134,8 +159,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               //! Scrollable content End  -------------------------->
+              const Spacer(),
               Padding(
-                padding: EdgeInsets.only(top: 10.h),
+                padding: EdgeInsets.only(top: 10.h, bottom: 8.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -498,52 +524,56 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget newsBanner(BuildContext context) {
+  Widget newsBanner(BuildContext context, String title) {
     return Directionality(
       textDirection: Directionality.of(context) == TextDirection.rtl
           ? TextDirection.ltr
           : TextDirection.ltr,
-      child: Container(
-        height: 55.h,
-        padding: EdgeInsets.symmetric(horizontal: 8.w),
-        width: MediaQuery.of(context).size.width,
-        decoration: AppTheme.roundedContainerWithoutShadowDecoration
-            .copyWith(color: const Color(0xffaed4d4)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              height: 43.h,
-              width: 40.w,
-              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8.r)),
-              child: Image.asset(AppAssets.wifi),
-            ),
-            SizedBox(
-              width: 8.w,
-            ),
-            SizedBox(
-              height: 25.h,
-              width: Get.width * 0.7,
-              child: Marquee(
-                text:
-                    " Imran Khan got arrasted and now he is in jail eating baryani and chicken piece",
-                style: Get.textTheme.bodyMedium,
-                scrollAxis: Axis.horizontal,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                //blankSpace: 20.0,
-                velocity: 100.0,
-                pauseAfterRound: const Duration(seconds: 1),
-                startPadding: 0.0,
-                accelerationDuration: const Duration(seconds: 1),
-                accelerationCurve: Curves.linear,
-                decelerationDuration: const Duration(milliseconds: 500),
-                decelerationCurve: Curves.easeOut,
+      child: GestureDetector(
+        onTap: () {
+          Get.toNamed(AppPages.headLinePage);
+        },
+        child: Container(
+          height: 55.h,
+          padding: EdgeInsets.symmetric(horizontal: 8.w),
+          width: MediaQuery.of(context).size.width,
+          decoration: AppTheme.roundedContainerWithoutShadowDecoration
+              .copyWith(color: const Color(0xffaed4d4)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                height: 43.h,
+                width: 40.w,
+                padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8.r)),
+                child: Image.asset(AppAssets.wifi),
               ),
-            ),
-          ],
+              SizedBox(
+                width: 8.w,
+              ),
+              SizedBox(
+                height: 25.h,
+                width: Get.width * 0.7,
+                child: Marquee(
+                  text: " $title",
+                  style: Get.textTheme.bodyMedium,
+                  scrollAxis: Axis.horizontal,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  //blankSpace: 20.0,
+                  velocity: 100.0,
+                  pauseAfterRound: const Duration(seconds: 1),
+                  startPadding: 0.0,
+                  accelerationDuration: const Duration(seconds: 1),
+                  accelerationCurve: Curves.linear,
+                  decelerationDuration: const Duration(milliseconds: 500),
+                  decelerationCurve: Curves.easeOut,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -33,9 +33,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FirebasePushNotificationService.subscribeToTopic();
-  FirebasePushNotificationService.localNotiInit();
+  FirebasePushNotificationService.getToken();
   FirebasePushNotificationService.requestPermission();
-
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
 
   await di.init();
