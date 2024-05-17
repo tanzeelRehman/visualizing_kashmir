@@ -15,6 +15,7 @@ import 'package:marquee/marquee.dart';
 
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
 import 'package:visualizing_kashmir/core/constants/app_pages.dart';
+import 'package:visualizing_kashmir/core/constants/app_url.dart';
 import 'package:visualizing_kashmir/core/constants/data_type_enum.dart';
 import 'package:visualizing_kashmir/core/constants/search_enum.dart';
 import 'package:visualizing_kashmir/core/services/local_notification_service.dart';
@@ -176,9 +177,37 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(
                           height: 7.h,
                         ),
-                        SizedBox(
-                            height: 20.h,
-                            child: Image.asset(AppAssets.socialIcons))
+                        Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Get.find<HomeController>()
+                                    .launchTheUrl(AppUrl.fblink);
+                              },
+                              child: SizedBox(
+                                  height: 30.h,
+                                  child: SvgPicture.asset(AppAssets.fb_icon)),
+                            ),
+                            SizedBox(
+                              width: 8.w,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Get.find<HomeController>()
+                                    .launchTheUrl(AppUrl.iglink);
+                              },
+                              child: SizedBox(
+                                  height: 30.h,
+                                  child: SvgPicture.asset(AppAssets.ig_icon)),
+                            ),
+                            SizedBox(
+                              width: 8.w,
+                            ),
+                            SizedBox(
+                                height: 30.h,
+                                child: SvgPicture.asset(AppAssets.twt_icon)),
+                          ],
+                        )
                       ],
                     ),
                   ],

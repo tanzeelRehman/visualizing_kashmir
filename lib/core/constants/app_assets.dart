@@ -20,6 +20,11 @@ class AppAssets {
   static const history_infographics =
       'assets/images/svgs/history_infographics.svg';
   static const history_videos = 'assets/images/svgs/history_videos.svg';
+  static const ig_icon = 'assets/images/svgs/ig_icon.svg';
+  static const fb_icon = 'assets/images/svgs/fb_icon.svg';
+  static const lnkd_icon = 'assets/images/svgs/lnkd_icon.svg';
+  static const twt_icon = 'assets/images/svgs/twt_icon.svg';
+  static const yt_icon = 'assets/images/svgs/yt_icon.svg';
 
   //? PNG -------------------------------------------------->
   static const mapPng = 'assets/images/png/Map.jpg';

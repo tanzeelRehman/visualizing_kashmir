@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:visualizing_kashmir/core/constants/data_type_enum.dart';
 import 'package:visualizing_kashmir/core/data/app_data_source.dart';
 import 'package:visualizing_kashmir/core/error/failures.dart';
@@ -129,6 +130,13 @@ class HomeController extends GetxController {
   void startMainScreenLoader() {
     fetchingData = !fetchingData;
     update();
+  }
+
+  void launchTheUrl(String mediaLink) async {
+    final Uri url = Uri.parse(mediaLink);
+    if (!await launchUrl(url)) {
+      handleError(const Failure('Canot open the link'));
+    }
   }
 
   //* State Functions ---------------------------------------------------------->

@@ -14,4 +14,12 @@ class AppUrl {
 
   //!Headline
   static const getHeadline = 'headline?page=null&search=null&';
+
+  //! Social meida
+  static const fblink =
+      'https://www.facebook.com/visualizingkashmir?mibextid=LQQJ4d';
+  static const iglink =
+      'https://www.instagram.com/visualizing_kashmir/?igsh=eWg2aXNyNTM4azAy&utm_source=qr';
+  static const ytlink =
+      'https://www.instagram.com/visualizing_kashmir/?igsh=eWg2aXNyNTM4azAy&utm_source=qr';
 }
