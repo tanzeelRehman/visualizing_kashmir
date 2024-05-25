@@ -1,6 +1,8 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visualizing_kashmir/core/widgets/custom_appbar.dart';
 import 'package:visualizing_kashmir/features/videoAudioDetails/controller/audio_video_serach_controller.dart';
@@ -37,49 +39,30 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     return Scaffold(
       body: Column(
         children: [
-          CustomAppBar(title: ''),
+        //  CustomAppBar(title: '', ),
           GetBuilder<AudioVideoSearchController>(
             builder: (controller) {
               if (audioVideoSearchController.loadingVideo) {
-                return const SizedBox.shrink();
-              } else {
-                return GestureDetector(
-                  onTap: () {
-                    audioVideoSearchController.showVideoControls();
-                  },
-                  child: Stack(
-                    children: [
-                      audioVideoSearchController.controller.value.isInitialized
-                          ? Chewie(
-                              controller:
-                                  audioVideoSearchController.chewieController)
-                          : Container(),
-                      if (audioVideoSearchController.showControls)
-                        Expanded(
-                          child: Container(
-                            color: Colors.black54,
-                            child: Center(
-                              child: IconButton(
-                                onPressed: () {
-                                  audioVideoSearchController
-                                          .controller.value.isPlaying
-                                      ? audioVideoSearchController.pauseVideo()
-                                      : audioVideoSearchController.playVideo();
-                                },
-                                icon: Icon(
-                                  audioVideoSearchController
-                                          .controller.value.isPlaying
-                                      ? Icons.pause
-                                      : Icons.play_arrow,
-                                  color: Colors.white,
-                                  size: 50,
+                return  Padding(
+                  padding:  EdgeInsets.only(top: 30.h),
+                  child: SizedBox(
+                                  height: 60.h,
+                                  width: 60.w,
+                                  child: LoadingIndicator(
+                                    indicatorType: Indicator.lineScale,
+                                    colors: [Get.theme.primaryColor],
+                                    strokeWidth: 2,
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
+                );
+              } else {
+                return SizedBox(
+                  height: Get.height*0.6,
+                  child: Chewie(
+                  
+                  
+                                controller:
+                                    audioVideoSearchController.chewieController),
                 );
               }
             },

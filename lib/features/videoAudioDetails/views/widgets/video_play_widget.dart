@@ -23,7 +23,7 @@ class VideoPlayWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w),
         decoration: AppTheme.roundedContainerDecorationwithLessShadows,
-        margin: EdgeInsets.symmetric(vertical: 5.h),
+      //  margin: EdgeInsets.symmetric(vertical: 5.h),
         height: 120.h,
         width: Get.width * 0.8,
         child: Row(

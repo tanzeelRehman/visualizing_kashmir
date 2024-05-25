@@ -396,11 +396,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    LoadingIndicator(
-                      indicatorType: Indicator.lineScale,
-                      colors: [Get.theme.primaryColor],
-                      strokeWidth: 2,
-                    ),
+                     SizedBox(
+                width: Get.width * 0.4,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(color: Get.theme.primaryColor,)
+                  ],
+                ),
+              )
                   ],
                 ),
               );

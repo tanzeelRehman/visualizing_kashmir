@@ -1,7 +1,7 @@
 class AppUrl {
   static const baseUrl = 'https://node.app.visualizingkashmir.com/api/';
   static const weatherBaseUrl = 'https://api.openweathermap.org/data/2.5';
-  static const bunnyBaseUrl = 'https://storage.bunnycdn.com/visualizekashmir';
+  static const bunnyBaseUrl = 'https://visualizekashmirasia.b-cdn.net';
 
   //! Books , Articles, Reports
   static const getData = 'history?';
@@ -21,5 +21,7 @@ class AppUrl {
   static const iglink =
       'https://www.instagram.com/visualizing_kashmir/?igsh=eWg2aXNyNTM4azAy&utm_source=qr';
   static const ytlink =
-      'https://www.instagram.com/visualizing_kashmir/?igsh=eWg2aXNyNTM4azAy&utm_source=qr';
+      'https://www.youtube.com/@visualizingkashmir';
+  static const tiktoklink =
+      'https://www.tiktok.com/@visualizingkashmir';
 }

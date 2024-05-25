@@ -80,9 +80,7 @@ class AudioVideoSearchController extends GetxController {
   void initilizeVideplayer(String endUrl) async {
     String url = AppUrl.bunnyBaseUrl + endUrl;
     Logger().e(url);
-    Map<String, String> headers = {
-      'AccessKey': bunnyAcessKey,
-    };
+   
     // if (controller != null) {
     //   controller!.dispose();
     // }
@@ -98,12 +96,19 @@ class AudioVideoSearchController extends GetxController {
     //   });
 
     controller =
-        VideoPlayerController.networkUrl(Uri.parse(url), httpHeaders: headers);
+        VideoPlayerController.networkUrl(Uri.parse(url),);
 
     await controller.initialize();
     chewieController = ChewieController(
       videoPlayerController: controller,
+      allowFullScreen: true,
+      materialProgressColors: ChewieProgressColors(handleColor: Get.theme.primaryColor),
+      cupertinoProgressColors: ChewieProgressColors(handleColor: Get.theme.primaryColor),
+      
+      allowMuting: true,
+
     );
+     startVideoLoader();
   }
 
   void showVideoControls() {
