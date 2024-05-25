@@ -23,7 +23,7 @@ class VideoPlayWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w),
         decoration: AppTheme.roundedContainerDecorationwithLessShadows,
-      //  margin: EdgeInsets.symmetric(vertical: 5.h),
+      
         height: 120.h,
         width: Get.width * 0.8,
         child: Row(
@@ -71,8 +71,8 @@ class VideoPlayWidget extends StatelessWidget {
                           decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               gradient: LinearGradient(colors: [
-                                Color(0xfffd7575),
-                                Color(0xfff64849)
+                                Color(0xffd3e6e6),
+                                Color(0xff63b0b0)
                               ])),
                           child: Icon(
                             size: 15.sp,

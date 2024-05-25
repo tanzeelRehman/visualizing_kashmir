@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:chewie/chewie.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
@@ -17,12 +18,14 @@ import 'package:visualizing_kashmir/core/error/failures.dart';
 import 'package:visualizing_kashmir/core/globle/globle.dart';
 
 import 'package:visualizing_kashmir/core/model/get_videos_response_model.dart';
+import 'package:visualizing_kashmir/core/network/network_info.dart';
 
 class AudioVideoSearchController extends GetxController {
   //! External variables
   MediaDataSource mediaDataSource = Get.find<MediaDataSource>();
   AppDataSource appDataSource = Get.find<AppDataSource>();
   Dio dio = Get.find<Dio>();
+  NetworkInfo networkInfo = Get.find<NetworkInfo>();
 
   //! Model variables
   GetVideosResponseModel? getVideosResponseModel;
@@ -32,10 +35,10 @@ class AudioVideoSearchController extends GetxController {
 
   //! Class variables
   bool fetchingData = false;
-  bool loadingVideo = false;
-  bool showControls = false;
-  late final VideoPlayerController controller;
-  late final ChewieController chewieController;
+  bool loadingVideo = true;
+
+  VideoPlayerController? controller;
+  ChewieController? chewieController;
 
   //? API CALLS STARTS --------------------------------------------------------------------------->
   //?=============================================================================================>
@@ -54,24 +57,17 @@ class AudioVideoSearchController extends GetxController {
     }
   }
 
-  // Future<void> searchData(String searchType, String? query) async {
-  //   if (searchType == DataType.report.name) {
-  //     if (query == '' || query == null) {
-  //       getReportsSearchResponseModel = getReportsResponseModel;
-  //     } else {}
-  //   }
-  //   if (searchType == DataType.book.name) {
-  //     if (query == '' || query == null) {
-  //       getBooksSearchResponseModel = getBooksResponseModel!.data;
-  //     } else {
-  //       getBooksSearchResponseModel = getBooksResponseModel!.data
-  //           .where((item) => item.heading.contains(query))
-  //           .toList();
-  //     }
-  //   }
+  Future<void> searchVideos(String? query) async {
+    if (query == '' || query == null) {
+      getVideosSearchResponseModel = getVideosResponseModel!.data;
+    } else {
+      getVideosSearchResponseModel = getVideosResponseModel!.data
+          .where((item) => item.title.contains(query))
+          .toList();
+    }
 
-  //   update();
-  // }
+    update();
+  }
 
   //? API CALLS END --------------------------------------------------------------------------->
   //?===========================================================================================>
@@ -80,54 +76,72 @@ class AudioVideoSearchController extends GetxController {
   void initilizeVideplayer(String endUrl) async {
     String url = AppUrl.bunnyBaseUrl + endUrl;
     Logger().e(url);
-   
-    // if (controller != null) {
-    //   controller!.dispose();
-    // }
-    startVideoLoader();
-    // controller = VideoPlayerController.networkUrl(
-    //   Uri.parse('https://storage.bunnycdn.com/visualizekashmir/videos/14.mp4'),
-    //   httpHeaders: {
-    //     'AccessKey': 'Bearer 98b54066-8625-477b-9b484f2e6dc8-c55a-4bde'
-    //   },
-    // )..initialize().then((value) {
-    //     startMainScreenLoader();
-    //     controller!.play();
-    //   });
+    bool netAvaliblity = await isInternetAvalible();
+    if (!netAvaliblity) {
+      return handleError(Failure('No internet connection found'));
+    }
 
-    controller =
-        VideoPlayerController.networkUrl(Uri.parse(url),);
+    try {
+      controller = VideoPlayerController.networkUrl(
+        Uri.parse(url),
+      );
 
-    await controller.initialize();
-    chewieController = ChewieController(
-      videoPlayerController: controller,
-      allowFullScreen: true,
-      materialProgressColors: ChewieProgressColors(handleColor: Get.theme.primaryColor),
-      cupertinoProgressColors: ChewieProgressColors(handleColor: Get.theme.primaryColor),
-      
-      allowMuting: true,
+      await controller!.initialize();
+      chewieController = await ChewieController(
+        videoPlayerController: controller!,
+        allowFullScreen: true,
+        errorBuilder: (context, errorMessage) {
+          return SizedBox(
+            height: Get.height * 0.9,
+            width: Get.width * 0.9,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Error Loading video',
+                  style: Get.textTheme.bodyMedium,
+                ),
+                SizedBox(
+                  height: 8.h,
+                ),
+                GestureDetector(
+                    onTap: () {
+                      if (controller != null) {
+                        controller!.dispose();
+                      }
 
-    );
-     startVideoLoader();
+                      Get.close(2);
+                    },
+                    child: Text(
+                      'Go Back',
+                      style: Get.textTheme.titleMedium!
+                          .copyWith(color: Get.theme.primaryColor),
+                    ))
+              ],
+            ),
+          );
+        },
+        materialProgressColors: ChewieProgressColors(
+            handleColor: Get.theme.primaryColor,
+            playedColor: Get.theme.primaryColor,
+            bufferedColor: Color(0xffd3e6e6)),
+        cupertinoProgressColors:
+            ChewieProgressColors(handleColor: Get.theme.primaryColor),
+        allowMuting: true,
+      );
+      Future.delayed(Duration(seconds: 2));
+      startVideoLoader();
+    } catch (e) {
+      handleError(Failure('Video source is not avalible'));
+      startVideoLoader();
+    }
   }
 
-  void showVideoControls() {
-    showControls = true;
-    update();
-    Future.delayed(const Duration(seconds: 3), () {
-      showControls = false;
-      update();
-    });
-  }
-
-  void playVideo() {
-    controller.play();
-    update();
-  }
-
-  void pauseVideo() {
-    controller.pause();
-    update();
+  void disposeData() {
+    if (controller != null) {
+      controller!.dispose();
+    }
   }
 
   //* Util functions ------------------------------------------------------------>
@@ -158,6 +172,10 @@ class AudioVideoSearchController extends GetxController {
   void startVideoLoader() {
     loadingVideo = !loadingVideo;
     update();
+  }
+
+  Future<bool> isInternetAvalible() async {
+    return await networkInfo.isConnected;
   }
 
   //* State Functions ---------------------------------------------------------->

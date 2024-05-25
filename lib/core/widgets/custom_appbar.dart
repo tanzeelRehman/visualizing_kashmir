@@ -62,7 +62,7 @@ class CustomAppBar extends StatelessWidget {
                                 const Duration(milliseconds: 200));
                           }
 
-                          Get.back();
+                          Get.close(1);
                         },
                         icon: Icon(
                           Icons.arrow_back,

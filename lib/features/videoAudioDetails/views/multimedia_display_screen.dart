@@ -45,7 +45,19 @@ class _MultiMediaDisplayScreenState extends State<MultiMediaDisplayScreen> {
   @override
   void initState() {
     super.initState();
-    audioVideoSearchController.getVideos();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      audioVideoSearchController.getVideos();
+      // Add Your Code here.
+    });
+  }
+
+  @override
+  void dispose() {
+    if (audioVideoSearchController.chewieController != null) {
+      audioVideoSearchController.chewieController!.dispose();
+    }
+
+    super.dispose();
   }
 
   @override
@@ -64,6 +76,9 @@ class _MultiMediaDisplayScreenState extends State<MultiMediaDisplayScreen> {
               CustomTextFormField(
                 controller: searchController,
                 focusNode: searchFocusNode,
+                onChanged: (value) {
+                  audioVideoSearchController.searchVideos(value);
+                },
                 hintText: "Search",
                 height: 55.h,
                 suffixIcon: const Icon(
@@ -135,7 +150,7 @@ class _MultiMediaDisplayScreenState extends State<MultiMediaDisplayScreen> {
                                   height: 15.h,
                                 ),
                                 Text(
-                                  'No books found',
+                                  'No Videos found',
                                   style: Get.textTheme.titleMedium,
                                 )
                               ],
@@ -149,7 +164,7 @@ class _MultiMediaDisplayScreenState extends State<MultiMediaDisplayScreen> {
                                   .getVideosSearchResponseModel!.length,
                               itemBuilder: (context, index) {
                                 return Padding(
-                                    padding: EdgeInsets.only(top: 35.h),
+                                    padding: EdgeInsets.only(top: 15.h),
                                     child: VideoPlayWidget(
                                       ontap: () {
                                         Get.toNamed(AppPages.videoPlayerPage,
