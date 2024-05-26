@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:logger/logger.dart';
 import 'package:lottie/lottie.dart';
 
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
@@ -63,6 +64,7 @@ class _MultiMediaDisplayScreenState extends State<MultiMediaDisplayScreen> {
   @override
   Widget build(BuildContext context) {
     final String searchType = Get.arguments ?? '';
+    Logger().e('page rebuild');
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: getPreferedSizeAppbar(searchType, focusNode: searchFocusNode),
@@ -166,12 +168,14 @@ class _MultiMediaDisplayScreenState extends State<MultiMediaDisplayScreen> {
                                 return Padding(
                                     padding: EdgeInsets.only(top: 15.h),
                                     child: VideoPlayWidget(
-                                      ontap: () {
-                                        Get.toNamed(AppPages.videoPlayerPage,
+                                      ontap: () async {
+                                        await Get.toNamed(
+                                            AppPages.videoPlayerPage,
                                             arguments: audioVideoSearchController
                                                 .getVideosSearchResponseModel![
                                                     index]
                                                 .file);
+                                        setState(() {});
                                       },
                                       title: audioVideoSearchController
                                           .getVideosSearchResponseModel![index]

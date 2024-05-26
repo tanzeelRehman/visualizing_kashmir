@@ -87,9 +87,12 @@ class AudioVideoSearchController extends GetxController {
       );
 
       await controller!.initialize();
+
       chewieController = await ChewieController(
         videoPlayerController: controller!,
         allowFullScreen: true,
+        autoPlay: true,
+        useRootNavigator: true,
         errorBuilder: (context, errorMessage) {
           return SizedBox(
             height: Get.height * 0.9,
@@ -138,10 +141,8 @@ class AudioVideoSearchController extends GetxController {
     }
   }
 
-  void disposeData() {
-    if (controller != null) {
-      controller!.dispose();
-    }
+  void updateScreen() {
+    update();
   }
 
   //* Util functions ------------------------------------------------------------>

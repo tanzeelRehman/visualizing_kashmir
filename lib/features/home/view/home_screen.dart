@@ -106,8 +106,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             pngPath: AppAssets.articlesPng,
                             isPng: true,
                             ontap: () {
-                              Get.toNamed(AppPages.searchPage,
-                                  arguments: DataType.article.name);
+                              // Get.toNamed(AppPages.searchPage,
+                              //     arguments: DataType.article.name);
                             },
                           ),
                         ],
@@ -396,15 +396,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                     SizedBox(
-                width: Get.width * 0.4,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(color: Get.theme.primaryColor,)
-                  ],
-                ),
-              )
+                    SizedBox(
+                      width: Get.width * 0.4,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator(
+                            color: Get.theme.primaryColor,
+                          )
+                        ],
+                      ),
+                    )
                   ],
                 ),
               );

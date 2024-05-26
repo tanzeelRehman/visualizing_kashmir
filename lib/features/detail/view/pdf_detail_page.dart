@@ -57,48 +57,6 @@ class PDFDetailPage extends StatelessWidget {
           SizedBox(
             width: 10.w,
           ),
-          PopupMenuButton<int>(
-            iconColor: Colors.white,
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 1,
-                // row has two child icon and text
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.pages,
-                      color: Get.theme.primaryColor,
-                    ),
-                    const SizedBox(
-                      // sized box with width 10
-                      width: 10,
-                    ),
-                    const Text("Go to first page")
-                  ],
-                ),
-              ),
-              PopupMenuItem(
-                value: 2,
-                // row has two child icon and text
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.pages,
-                      color: Get.theme.primaryColor,
-                    ),
-                    const SizedBox(
-                      // sized box with width 10
-                      width: 10,
-                    ),
-                    const Text("Go to last page")
-                  ],
-                ),
-              ),
-            ],
-            offset: const Offset(0, 50),
-            color: Get.theme.cardColor,
-            elevation: 2,
-          ),
           SizedBox(
             width: 10.w,
           )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -15,23 +16,28 @@ class GoToPageDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.height * 0.3,
+      height: Get.height * 0.35,
       width: Get.width * 0.8,
       padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 25.h),
       decoration: BoxDecoration(
           color: Get.theme.canvasColor,
           borderRadius: BorderRadius.circular(25.r)),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const SizedBox.shrink(),
-              Icon(
-                Icons.close,
-                color: Get.theme.primaryColor,
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.close,
+                  color: Get.theme.primaryColor,
+                ),
               )
             ],
           ),
@@ -43,37 +49,33 @@ class GoToPageDialog extends StatelessWidget {
                 fontSize: 25.sp),
           ),
           SizedBox(
-            height: 20.h,
+            height: 8.h,
+          ),
+          SizedBox(
+            width: Get.width * 0.8,
+            child: TextField(
+              cursorColor: Get.theme.primaryColor,
+              keyboardType: TextInputType.number,
+              controller: cont.pageNoController,
+              style: Get.textTheme.bodySmall,
+              decoration: InputDecoration(
+                // contentPadding: EdgeInsets.only(top: 5.sp),
+
+                enabled: true,
+                enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey)),
+                focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Get.theme.primaryColor)),
+                hintText: 'Enter page number',
+                hintStyle: Get.textTheme.bodySmall,
+              ),
+            ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Enter Page Number',
-                style: Get.textTheme.bodyMedium,
-              ),
-              SizedBox(
-                width: 10.w,
-              ),
-              Container(
-                height: 35.h,
-                width: 60.w,
-                padding: EdgeInsets.only(left: 5.sp),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.r),
-                    border: Border.all(color: Colors.black, width: 1)),
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  controller: cont.pageNoController,
-                  style: Get.textTheme.bodySmall,
-                  decoration: InputDecoration(
-                    // contentPadding: EdgeInsets.only(top: 5.sp),
-                    border: InputBorder.none,
-                    hintText: 'Page',
-                    hintStyle: Get.textTheme.bodySmall,
-                  ),
-                ),
-              )
+              Text('${cont.pdfViewerController.pageNumber}'),
+              Text('/'),
+              Text('${cont.pdfViewerController.pageCount}'),
             ],
           ),
           SizedBox(

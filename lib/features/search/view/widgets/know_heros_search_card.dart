@@ -101,33 +101,33 @@ class KnowHerosSearchCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15.r),
               child: CachedNetworkImage(
-                  height: 150.h,
-                  width: 150.w,
-                  fit: BoxFit.cover,
-                  imageUrl: '${AppUrl.bunnyBaseUrl}$imageUrl',
-                  placeholder: (context, url) => Padding(
-                        padding: EdgeInsets.all(30.sp),
-                        child: SizedBox(
-                          width: 40.w,
-                          height: 60.h,
-                          child: LoadingIndicator(
-                            indicatorType: Indicator.ballPulse,
-                            colors: [Get.theme.primaryColor],
-                            strokeWidth: 2,
-                          ),
-                        ),
-                      ),
-                  errorWidget: (context, url, error) => Container(
-                        height: 190.h,
-                        width: 110.w,
-                        color: const Color(0xffe9e9e9),
-                        child: Icon(
-                          Icons.image,
-                          color: const Color(0xffd3d3d3),
-                          size: 55.sp,
-                        ),
-                      ),
-                  httpHeaders: {'AccessKey': bunnyAcessKey}),
+                height: 150.h,
+                width: 150.w,
+                fit: BoxFit.cover,
+                imageUrl: '${AppUrl.bunnyBaseUrl}$imageUrl',
+                placeholder: (context, url) => Padding(
+                  padding: EdgeInsets.all(30.sp),
+                  child: SizedBox(
+                    width: 40.w,
+                    height: 60.h,
+                    child: LoadingIndicator(
+                      indicatorType: Indicator.ballPulse,
+                      colors: [Get.theme.primaryColor],
+                      strokeWidth: 2,
+                    ),
+                  ),
+                ),
+                errorWidget: (context, url, error) => Container(
+                  height: 190.h,
+                  width: 110.w,
+                  color: const Color(0xffe9e9e9),
+                  child: Icon(
+                    Icons.image,
+                    color: const Color(0xffd3d3d3),
+                    size: 55.sp,
+                  ),
+                ),
+              ),
             ),
           ),
         ),
