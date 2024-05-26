@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:visualizing_kashmir/core/error/failures.dart';
+import 'package:visualizing_kashmir/core/network/network_info.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class KnowYourHeroController extends GetxController {
   late final WebViewController? webViewController;
+  NetworkInfo networkInfo = Get.find<NetworkInfo>();
 
   bool loadingWebview = false;
   void initilizeWebView(String url) async {
@@ -29,6 +31,10 @@ class KnowYourHeroController extends GetxController {
       failure.message,
       snackPosition: SnackPosition.TOP,
     );
+  }
+
+  Future<bool> isInternetAvalible() async {
+    return await networkInfo.isConnected;
   }
 
   @override

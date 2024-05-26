@@ -42,7 +42,7 @@ class _KnowHeroWebViewPageState extends State<KnowHeroWebViewPage> {
             children: [
               CustomAppBar(
                 title: args[1]['name'],
-                height: 80,
+                height: 70,
               ),
               Stack(
                 children: [

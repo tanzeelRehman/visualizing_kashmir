@@ -53,7 +53,9 @@ class ReportsSearchCard extends StatelessWidget {
                         children: [
                           SizedBox(
                             child: Text(
-                              heading,
+                              heading.length > 30
+                                  ? '${heading.substring(0, 30)}...'
+                                  : heading,
                               style: Get.textTheme.bodyMedium!.copyWith(
                                   color: Colors.black,
                                   fontSize: 14.sp,
@@ -64,9 +66,12 @@ class ReportsSearchCard extends StatelessWidget {
                             height: 8.h,
                           ),
                           SizedBox(
-                            width: Get.width * 0.5,
+                            //  width: Get.width * 0.5,
+                            // height: 55.h,
                             child: Text(
-                              description,
+                              description.length > 80
+                                  ? '${description.substring(0, 80)}...'
+                                  : description,
                               style: Get.textTheme.bodySmall!
                                   .copyWith(fontSize: 10.sp),
                             ),

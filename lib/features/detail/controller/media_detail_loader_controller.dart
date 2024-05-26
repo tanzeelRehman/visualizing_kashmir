@@ -42,6 +42,7 @@ class MediaDetailLoaderController extends GetxController {
     pdfEndpointLocalVariable = pdfEndPoint;
     openedPdfByteData = null;
     startPDFScreenLoader();
+
     Logger().e('caling reports');
     var response = await mediaDataSource.loadPDF(pdfEndPoint);
     if (response is Failure) {

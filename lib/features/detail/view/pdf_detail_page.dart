@@ -89,18 +89,45 @@ class PDFDetailPage extends StatelessWidget {
           } else {
             return Stack(
               children: [
-                SfPdfViewer.memory(
-                  mediaController.openedPdfByteData!,
-                  canShowScrollHead: true,
-                  canShowScrollStatus: true,
-                  canShowPaginationDialog: true,
-                  enableHyperlinkNavigation: true,
-                  onTextSelectionChanged: (details) {},
-                  controller: mediaController.pdfViewerController,
-                  onPageChanged: (details) {
-                    print(details.newPageNumber);
-                  },
-                ),
+                mediaController.openedPdfByteData == null &&
+                        mediaController.fetchingPdf == false
+                    ? SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.85,
+                        width: Get.width,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Error Loading PDF',
+                              style: Get.textTheme.bodyMedium,
+                            ),
+                            SizedBox(
+                              height: 8.h,
+                            ),
+                            GestureDetector(
+                                onTap: () {
+                                  Get.close(1);
+                                },
+                                child: Text(
+                                  'Go Back',
+                                  style: Get.textTheme.titleMedium!
+                                      .copyWith(color: Get.theme.primaryColor),
+                                ))
+                          ],
+                        ))
+                    : SfPdfViewer.memory(
+                        mediaController.openedPdfByteData!,
+                        canShowScrollHead: true,
+                        canShowScrollStatus: true,
+                        canShowPaginationDialog: true,
+                        enableHyperlinkNavigation: true,
+                        onTextSelectionChanged: (details) {},
+                        controller: mediaController.pdfViewerController,
+                        onPageChanged: (details) {
+                          print(details.newPageNumber);
+                        },
+                      ),
               ],
             );
           }
