@@ -137,6 +137,30 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       SizedBox(
+                        height: 15.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          optionCard(
+                            title: "Videos".tr,
+                            pngPath: AppAssets.videos_audios,
+                            ontap: () {
+                              Get.toNamed(AppPages.searchPage,
+                                  arguments: DataType.heros.name);
+                            },
+                          ),
+                          optionCard(
+                            title: "Audios".tr,
+                            pngPath: AppAssets.videos_audios,
+                            ontap: () {
+                              Get.toNamed(AppPages.searchPage,
+                                  arguments: DataType.heros.name);
+                            },
+                          ),
+                        ],
+                      ),
+                      SizedBox(
                         height: 25.h,
                       ),
                       GetBuilder<HomeController>(
@@ -345,7 +369,7 @@ class _HomeScreenState extends State<HomeScreen> {
               decoration: AppTheme.roundedContainerWithoutShadowDecoration
                   .copyWith(borderRadius: BorderRadius.circular(25.r)),
               height: 145.h,
-              width: 145.w,
+              width: 155.w,
               padding: EdgeInsets.only(top: 10.sp, left: 12.sp, right: 8.sp),
               child: Text(
                 title,
@@ -411,69 +435,73 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               );
             } else {
-              return Padding(
-                padding: EdgeInsets.only(right: 6.sp),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Srinagar".tr,
-                      style: Get.textTheme.titleMedium,
-                    ),
-                    Text(
-                      controller.getTodayDate(),
-                      style: Get.textTheme.titleSmall!.copyWith(
-                          color: Get.theme.primaryColor, fontSize: 15.sp),
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          height: 40.h,
-                          width: 35.w,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 5.w, vertical: 5.h),
-                          decoration: AppTheme.roundedContainerDecoration
-                              .copyWith(color: Colors.white),
-                          child: Image.asset(AppAssets.temperaturePng),
-                        ),
-                        SizedBox(
-                          width: 8.w,
-                        ),
-                        Text(
-                          '${controller.getKashmirTermperature().ceil().toStringAsFixed(0)} Celsius',
-                          style: Get.textTheme.bodyMedium,
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 12.h,
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          height: 40.h,
-                          width: 35.w,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 5.w, vertical: 5.h),
-                          decoration: AppTheme.roundedContainerDecoration
-                              .copyWith(color: Colors.white),
-                          child: Image.asset(AppAssets.timePng),
-                        ),
-                        SizedBox(
-                          width: 8.w,
-                        ),
-                        Text(
-                          controller.getKashmirTime(),
-                          style: Get.textTheme.bodyMedium,
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              );
+              if (controller.getWeatherResponseModel == null) {
+                return Text('Network Error');
+              } else {
+                return Padding(
+                  padding: EdgeInsets.only(right: 6.sp),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Srinagar".tr,
+                        style: Get.textTheme.titleMedium,
+                      ),
+                      Text(
+                        controller.getTodayDate(),
+                        style: Get.textTheme.titleSmall!.copyWith(
+                            color: Get.theme.primaryColor, fontSize: 15.sp),
+                      ),
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            height: 40.h,
+                            width: 35.w,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 5.w, vertical: 5.h),
+                            decoration: AppTheme.roundedContainerDecoration
+                                .copyWith(color: Colors.white),
+                            child: Image.asset(AppAssets.temperaturePng),
+                          ),
+                          SizedBox(
+                            width: 8.w,
+                          ),
+                          Text(
+                            '${controller.getKashmirTermperature().ceil().toStringAsFixed(0)} Celsius',
+                            style: Get.textTheme.bodyMedium,
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 12.h,
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            height: 40.h,
+                            width: 35.w,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 5.w, vertical: 5.h),
+                            decoration: AppTheme.roundedContainerDecoration
+                                .copyWith(color: Colors.white),
+                            child: Image.asset(AppAssets.timePng),
+                          ),
+                          SizedBox(
+                            width: 8.w,
+                          ),
+                          Text(
+                            controller.getKashmirTime(),
+                            style: Get.textTheme.bodyMedium,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              }
             }
           },
         ),

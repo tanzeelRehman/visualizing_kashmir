@@ -23,7 +23,7 @@ class HomeController extends GetxController {
   AppDataSource appDataSource = Get.find<AppDataSource>();
 
   //! Model variables
-  late GetWeatherResponseModel? getWeatherResponseModel;
+  GetWeatherResponseModel? getWeatherResponseModel;
   late GetTodayHistoryResponseModel? getTodayHistoryResponseModel;
   late GetHeadLineResponseModel? getHeadLineResponseModel;
 
@@ -84,6 +84,9 @@ class HomeController extends GetxController {
   //! Business Logic ---------------------------------------------------------->
 
   double getKashmirTermperature() {
+    if (getHeadLineResponseModel == null) {
+      return 0.0;
+    }
     if (getWeatherResponseModel!.main.temp != 0.0) {
       getKashmirTime();
       return getWeatherResponseModel!.main.temp - 273.15;

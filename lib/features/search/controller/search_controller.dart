@@ -21,6 +21,7 @@ class DataSearchController extends GetxController {
   //! External variables
   AppDataSource appDataSource = Get.find<AppDataSource>();
   MediaDataSource mediaDataSource = Get.find<MediaDataSource>();
+  NetworkInfo networkInfo = Get.find<NetworkInfo>();
 
   //! Model variables
   GetBooksResponseModel? getBooksResponseModel;
@@ -172,6 +173,10 @@ class DataSearchController extends GetxController {
       failure.message,
       snackPosition: SnackPosition.TOP,
     );
+  }
+
+  Future<bool> isInternetAvalible() async {
+    return await networkInfo.isConnected;
   }
 
   void handleSuccess(String sucess) {

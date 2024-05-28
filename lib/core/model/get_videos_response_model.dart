@@ -26,6 +26,7 @@ class VideosData {
     required this.id,
     required this.title,
     required this.type,
+    this.thumbnail,
     required this.file,
     required this.createdDate,
     required this.updatedDate,
@@ -33,6 +34,7 @@ class VideosData {
   late final int id;
   late final String title;
   late final String type;
+  late final String? thumbnail;
   late final String file;
   late final String createdDate;
   late final String updatedDate;
@@ -41,6 +43,7 @@ class VideosData {
     id = json['id'];
     title = json['title'];
     type = json['type'];
+    thumbnail = json['thumbnil'];
     file = json['file'];
     createdDate = json['createdDate'];
     updatedDate = json['updatedDate'];
@@ -51,6 +54,7 @@ class VideosData {
     _data['id'] = id;
     _data['title'] = title;
     _data['type'] = type;
+    _data['thumbnail'] = thumbnail;
     _data['file'] = file;
     _data['createdDate'] = createdDate;
     _data['updatedDate'] = updatedDate;

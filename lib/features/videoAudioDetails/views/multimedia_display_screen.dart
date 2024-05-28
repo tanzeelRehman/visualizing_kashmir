@@ -168,6 +168,9 @@ class _MultiMediaDisplayScreenState extends State<MultiMediaDisplayScreen> {
                                 return Padding(
                                     padding: EdgeInsets.only(top: 15.h),
                                     child: VideoPlayWidget(
+                                      videoThumbnil: audioVideoSearchController
+                                          .getVideosSearchResponseModel![index]
+                                          .thumbnail,
                                       ontap: () async {
                                         await Get.toNamed(
                                             AppPages.videoPlayerPage,

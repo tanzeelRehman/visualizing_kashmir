@@ -25,6 +25,7 @@ class AppAssets {
   static const lnkd_icon = 'assets/images/svgs/lnkd_icon.svg';
   static const twt_icon = 'assets/images/svgs/twt_icon.svg';
   static const yt_icon = 'assets/images/svgs/yt_icon.svg';
+  static const videos_audios = 'assets/images/svgs/videos_audios.svg';
 
   //? PNG -------------------------------------------------->
   static const mapPng = 'assets/images/png/Map.jpg';
