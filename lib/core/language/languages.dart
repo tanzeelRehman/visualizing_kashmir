@@ -45,6 +45,12 @@ class Languages extends Translations {
           'Done': 'Done',
           'Go_to_page': 'Go to page',
           'Enter_page_no': 'Enter page number',
+          'Network_Error': 'Network Error',
+          'No_books_found': 'No book data found',
+          'No_articles_found': 'No article data found',
+          'No_Reports_found': 'No report data found',
+          'No_Heros_found': 'No hero data found',
+          'No_Videos_found': 'No video data found',
         },
         'ar_UAE': {
           'Select_Language': 'اختار اللغة',
@@ -88,6 +94,12 @@ class Languages extends Translations {
           'Done': 'منتهي',
           'Go_to_page': 'انتقل إلى صفحة',
           'Enter_page_no': 'أدخل رقم الصفحة',
+          'Network_Error': 'خطأ في الشبكة',
+          'No_books_found': 'لم يتم العثور على بيانات الكتب',
+          'No_articles_found': 'لم يتم العثور على بيانات المقالة',
+          'No_Reports_found': 'لم يتم العثور على بيانات التقرير',
+          'No_Heros_found': 'لم يتم العثور على بيانات البطل',
+          'No_Videos_found': 'لم يتم العثور على بيانات الفيديو',
         },
         'ur_PK': {
           'Select_Language': 'زبان منتخب کریں',
@@ -131,6 +143,12 @@ class Languages extends Translations {
           'Done': 'ہو گیا',
           'Go_to_page': 'صفحے پر جائیں',
           'Enter_page_no': 'صفحہ نمبر درج کریں۔',
+          'Network_Error': 'نیٹ ورک کی خرابی',
+          'No_books_found': 'کتاب کا کوئی ڈیٹا نہیں ملا',
+          'No_articles_found': 'کوئی مضمون کا ڈیٹا نہیں ملا',
+          'No_Reports_found': 'رپورٹ کا کوئی ڈیٹا نہیں ملا',
+          'No_Heros_found': 'ہیروز کا کوئی ڈیٹا نہیں ملا',
+          'No_Videos_found': 'کوئی ویڈیوز کا ڈیٹا نہیں ملا',
         }
       };
 }

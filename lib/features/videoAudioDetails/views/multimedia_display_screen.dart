@@ -152,7 +152,7 @@ class _MultiMediaDisplayScreenState extends State<MultiMediaDisplayScreen> {
                                   height: 15.h,
                                 ),
                                 Text(
-                                  'No Videos found',
+                                  'No_Videos_found'.tr,
                                   style: Get.textTheme.titleMedium,
                                 )
                               ],

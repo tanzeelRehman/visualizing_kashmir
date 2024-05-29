@@ -133,7 +133,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   height: 15.h,
                                 ),
                                 Text(
-                                  'No Reports found',
+                                  'No_Reports_found'.tr,
                                   style: Get.textTheme.titleMedium,
                                 )
                               ],
@@ -232,7 +232,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   height: 15.h,
                                 ),
                                 Text(
-                                  'No Articles found',
+                                  'No_articles_found',
                                   style: Get.textTheme.titleMedium,
                                 )
                               ],
@@ -335,7 +335,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   height: 15.h,
                                 ),
                                 Text(
-                                  'No books found',
+                                  'No_books_found'.tr,
                                   style: Get.textTheme.titleMedium,
                                 )
                               ],
@@ -434,7 +434,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   height: 15.h,
                                 ),
                                 Text(
-                                  'No Heros found',
+                                  'No_Heros_found'.tr,
                                   style: Get.textTheme.titleMedium,
                                 )
                               ],

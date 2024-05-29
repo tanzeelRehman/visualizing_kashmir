@@ -53,10 +53,17 @@ class HomeController extends GetxController {
 
   //- GET TODAY HISTORY
   Future<void> getTodayHistory() async {
+    showTodayHistory = false;
+    update();
     var response = await appDataSource.getData(DataType.today);
     if (response is Failure) {
     } else {
       getTodayHistoryResponseModel = response;
+      Logger().i(getTodayHistoryResponseModel!.toJson());
+
+      if (getTodayHistoryResponseModel == null) {
+        return;
+      }
 
       if (getTodayHistoryResponseModel!.data.isNotEmpty) {
         showTodayHistory = true;
@@ -90,15 +97,11 @@ class HomeController extends GetxController {
   }
 
   void toggleGettingHeadline() {
-    gettingHeadline = !gettingHeadline;
+    showTodayHistory = !showTodayHistory;
+    Logger().e(showTodayHistory);
     update();
   }
 
-  void toggleShowHeadline() {
-    showTodayHeadline = !showTodayHeadline;
-    Logger().e(showTodayHeadline);
-    update();
-  }
   //? API CALLS END --------------------------------------------------------------------------->
   //?===========================================================================================>
 
@@ -167,10 +170,19 @@ class HomeController extends GetxController {
     update();
   }
 
+  Future<bool> isInternetAvalible() async {
+    return await networkInfo.isConnected;
+  }
+
   //* State Functions ---------------------------------------------------------->
 
   @override
-  void onInit() {
+  void onInit() async {
+    bool netAvaliblity = await isInternetAvalible();
+    if (!netAvaliblity) {
+      handleError(Failure('No internet connection found'));
+      return;
+    }
     // Get called when controller is created
     getWeather();
 

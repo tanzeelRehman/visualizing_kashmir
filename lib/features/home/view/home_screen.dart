@@ -18,6 +18,7 @@ import 'package:visualizing_kashmir/core/constants/app_assets.dart';
 import 'package:visualizing_kashmir/core/constants/app_pages.dart';
 import 'package:visualizing_kashmir/core/constants/app_url.dart';
 import 'package:visualizing_kashmir/core/constants/data_type_enum.dart';
+import 'package:visualizing_kashmir/core/constants/multimedia_enum.dart';
 import 'package:visualizing_kashmir/core/constants/search_enum.dart';
 import 'package:visualizing_kashmir/core/services/local_notification_service.dart';
 import 'package:visualizing_kashmir/core/services/push_notification_service.dart';
@@ -64,7 +65,6 @@ class _HomeScreenState extends State<HomeScreen> {
               GetBuilder<HomeController>(
                 init: homeController,
                 builder: (controller) {
-                  Logger().i(controller.showTodayHeadline);
                   if (controller.showTodayHeadline) {
                     return Column(
                       children: [
@@ -89,7 +89,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
               //* Scrollable content start  -------------------------->
               SizedBox(
-                height: Get.height * 0.65,
+                height: homeController.showTodayHeadline
+                    ? Get.height * 0.66
+                    : Get.height * 0.75,
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -156,13 +158,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             title: "Videos".tr,
                             pngPath: AppAssets.videos_audios,
                             ontap: () {
-                              Get.toNamed(AppPages.searchPage,
-                                  arguments: DataType.heros.name);
+                              Get.toNamed(AppPages.multiMediaSearchDisplayPage,
+                                  arguments: MultiMediaType.Videos.name);
                             },
                           ),
                           optionCard(
                             title: "Audios".tr,
-                            pngPath: AppAssets.videos_audios,
+                            pngPath: AppAssets.audio,
                             ontap: () {
                               Get.toNamed(AppPages.searchPage,
                                   arguments: DataType.heros.name);
@@ -174,16 +176,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 25.h,
                       ),
                       GetBuilder<HomeController>(
-                        init: Get.find<HomeController>(),
+                        init: homeController,
                         builder: (controller) {
-                          if (controller.showTodayHistory) {
+                          Logger().i(homeController.showTodayHistory);
+                          if (homeController.showTodayHistory) {
                             return historyCard(
-                                controller.getTodayHistoryResponseModel!.data
-                                    .first.description,
-                                controller.getTodayHistoryResponseModel!.data
-                                    .first.longDescription,
-                                controller.getTodayHistoryResponseModel!.data
-                                    .first.heading);
+                                homeController.getTodayHistoryResponseModel!
+                                        .data.first.heading ??
+                                    'Null',
+                                homeController.getTodayHistoryResponseModel!
+                                        .data.first.description ??
+                                    'Null',
+                                homeController.getTodayHistoryResponseModel!
+                                        .data.first.heading1 ??
+                                    'Null');
                           } else {
                             return const SizedBox.shrink();
                           }
@@ -245,6 +251,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: SizedBox(
                                   height: 30.h,
                                   child: SvgPicture.asset(AppAssets.yt_icon)),
+                            ),
+                            SizedBox(
+                              width: 8.w,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Get.find<HomeController>()
+                                    .launchTheUrl(AppUrl.tiktoklink);
+                              },
+                              child: SizedBox(
+                                  height: 30.h,
+                                  child: SvgPicture.asset(AppAssets.tk_icon)),
                             ),
                           ],
                         )
@@ -452,7 +470,7 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             } else {
               if (controller.getWeatherResponseModel == null) {
-                return Text('Network Error');
+                return Text('Network_Error'.tr);
               } else {
                 return Padding(
                   padding: EdgeInsets.only(right: 6.sp),
@@ -594,7 +612,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           GestureDetector(
             onTap: () {
-              homeController.toggleShowHeadline();
               homeController.onInit();
               homeController.updateScreen();
             },

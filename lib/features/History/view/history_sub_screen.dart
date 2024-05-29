@@ -55,8 +55,8 @@ class HistorySubScreen extends StatelessWidget {
                     title: "Articles",
                     imagePath: AppAssets.history_article,
                     ontap: () {
-                      Get.toNamed(AppPages.searchPage,
-                          arguments: DataType.article.name);
+                      // Get.toNamed(AppPages.searchPage,
+                      //     arguments: DataType.article.name);
                     },
                   ),
                   SubMenuCard(
@@ -87,8 +87,8 @@ class HistorySubScreen extends StatelessWidget {
                     title: "Audios",
                     imagePath: AppAssets.history_audios,
                     ontap: () {
-                      Get.toNamed(AppPages.multiMediaSearchDisplayPage,
-                          arguments: MultiMediaType.Audios.name);
+                      // Get.toNamed(AppPages.multiMediaSearchDisplayPage,
+                      //     arguments: MultiMediaType.Audios.name);
                     },
                   ),
                   SubMenuCard(

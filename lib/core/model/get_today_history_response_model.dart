@@ -39,19 +39,19 @@ class Data {
     required this.updatedDate,
   });
   late final int id;
-  late final String servey;
+  late final String? servey;
   late final String type;
-  late final String publishBy;
-  late final String heading;
-  late final String heading1;
-  late final String description;
-  late final String longDescription;
-  late final String thumbnail;
-  late final Null gallery;
-  late final String date;
-  late final int page;
-  late final String createdDate;
-  late final String updatedDate;
+  late final String? publishBy;
+  late final String? heading;
+  late final String? heading1;
+  late final String? description;
+  late final String? longDescription;
+  late final String? thumbnail;
+  late final String? gallery;
+  late final String? date;
+  late final int? page;
+  late final String? createdDate;
+  late final String? updatedDate;
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -63,7 +63,7 @@ class Data {
     description = json['description'];
     longDescription = json['long_description'];
     thumbnail = json['thumbnail'];
-    gallery = null;
+    gallery = json['gallery'];
     date = json['date'];
     page = json['page'];
     createdDate = json['createdDate'];
