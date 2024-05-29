@@ -26,7 +26,7 @@ class VideosData {
     required this.id,
     required this.title,
     required this.type,
-    this.thumbnail,
+    required this.thumbnail,
     required this.file,
     required this.createdDate,
     required this.updatedDate,
@@ -43,7 +43,7 @@ class VideosData {
     id = json['id'];
     title = json['title'];
     type = json['type'];
-    thumbnail = json['thumbnil'];
+    thumbnail = json['thumbnail'] ?? '';
     file = json['file'];
     createdDate = json['createdDate'];
     updatedDate = json['updatedDate'];

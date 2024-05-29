@@ -93,7 +93,7 @@ class MyApp extends StatelessWidget {
               ),
               GetPage(
                 name: AppPages.headLinePage,
-                page: () => const HeadLineScreen(),
+                page: () => HeadLineScreen(),
               ),
               GetPage(
                 name: AppPages.todayInHistoryPage,

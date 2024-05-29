@@ -42,7 +42,7 @@ class GoToPageDialog extends StatelessWidget {
             ],
           ),
           Text(
-            'Go to page',
+            'Go_to_page'.tr,
             style: Get.textTheme.displayMedium!.copyWith(
                 color: Get.theme.primaryColor,
                 fontWeight: FontWeight.bold,
@@ -66,7 +66,7 @@ class GoToPageDialog extends StatelessWidget {
                     borderSide: BorderSide(color: Colors.grey)),
                 focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Get.theme.primaryColor)),
-                hintText: 'Enter page number',
+                hintText: 'Enter_page_no'.tr,
                 hintStyle: Get.textTheme.bodySmall,
               ),
             ),
@@ -101,7 +101,7 @@ class GoToPageDialog extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15.r),
                       color: Get.theme.primaryColor),
                   child: Text(
-                    'Done',
+                    'Done'.tr,
                     style: Get.textTheme.bodyLarge!.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

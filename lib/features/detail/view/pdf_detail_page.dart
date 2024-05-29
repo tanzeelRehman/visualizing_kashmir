@@ -19,119 +19,124 @@ class PDFDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String pdfName = Get.arguments ?? '';
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Get.theme.primaryColor,
-        leading: GestureDetector(
-          onTap: () {
-            Get.back();
-          },
-          child: const Icon(
-            Icons.close,
-            color: Colors.white,
-          ),
-        ),
-        title: Text(
-          pdfName,
-          style: Get.textTheme.bodySmall!.copyWith(color: Colors.white),
-          overflow: TextOverflow.ellipsis,
-        ),
-        actions: [
-          GestureDetector(
+    return Directionality(
+      textDirection: Directionality.of(context) == TextDirection.rtl
+          ? TextDirection.ltr
+          : TextDirection.ltr,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Get.theme.primaryColor,
+          leading: GestureDetector(
             onTap: () {
-              showDialog(
-                //  barrierDismissible: false,
-                context: context,
-                builder: (context) {
-                  return Dialog(
-                    child: GoToPageDialog(cont: cont),
-                  );
-                },
-              );
+              Get.back();
             },
             child: const Icon(
-              Icons.search,
+              Icons.close,
               color: Colors.white,
             ),
           ),
-          SizedBox(
-            width: 10.w,
+          title: Text(
+            pdfName,
+            style: Get.textTheme.bodySmall!.copyWith(color: Colors.white),
+            overflow: TextOverflow.ellipsis,
           ),
-          SizedBox(
-            width: 10.w,
-          )
-        ],
-      ),
-      body: GetBuilder<MediaDetailLoaderController>(
-        builder: (mediaController) {
-          if (mediaController.fetchingPdf) {
-            return Stack(
-              children: [
-                SizedBox(
-                    height: Get.height,
-                    width: Get.width,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 60.h,
-                          width: 60.w,
-                          child: LoadingIndicator(
-                            indicatorType: Indicator.ballSpinFadeLoader,
-                            colors: [Get.theme.primaryColor],
-                            strokeWidth: 2,
+          actions: [
+            GestureDetector(
+              onTap: () {
+                showDialog(
+                  //  barrierDismissible: false,
+                  context: context,
+                  builder: (context) {
+                    return Dialog(
+                      child: GoToPageDialog(cont: cont),
+                    );
+                  },
+                );
+              },
+              child: const Icon(
+                Icons.search,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(
+              width: 10.w,
+            ),
+            SizedBox(
+              width: 10.w,
+            )
+          ],
+        ),
+        body: GetBuilder<MediaDetailLoaderController>(
+          builder: (mediaController) {
+            if (mediaController.fetchingPdf) {
+              return Stack(
+                children: [
+                  SizedBox(
+                      height: Get.height,
+                      width: Get.width,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 60.h,
+                            width: 60.w,
+                            child: LoadingIndicator(
+                              indicatorType: Indicator.ballSpinFadeLoader,
+                              colors: [Get.theme.primaryColor],
+                              strokeWidth: 2,
+                            ),
                           ),
+                        ],
+                      )),
+                ],
+              );
+            } else {
+              return Stack(
+                children: [
+                  mediaController.openedPdfByteData == null &&
+                          mediaController.fetchingPdf == false
+                      ? SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.85,
+                          width: Get.width,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Error Loading PDF',
+                                style: Get.textTheme.bodyMedium,
+                              ),
+                              SizedBox(
+                                height: 8.h,
+                              ),
+                              GestureDetector(
+                                  onTap: () {
+                                    Get.close(1);
+                                  },
+                                  child: Text(
+                                    'Go Back',
+                                    style: Get.textTheme.titleMedium!.copyWith(
+                                        color: Get.theme.primaryColor),
+                                  ))
+                            ],
+                          ))
+                      : SfPdfViewer.memory(
+                          mediaController.openedPdfByteData!,
+                          canShowScrollHead: true,
+                          canShowScrollStatus: true,
+                          canShowPaginationDialog: true,
+                          enableHyperlinkNavigation: true,
+                          onTextSelectionChanged: (details) {},
+                          controller: mediaController.pdfViewerController,
+                          onPageChanged: (details) {
+                            print(details.newPageNumber);
+                          },
                         ),
-                      ],
-                    )),
-              ],
-            );
-          } else {
-            return Stack(
-              children: [
-                mediaController.openedPdfByteData == null &&
-                        mediaController.fetchingPdf == false
-                    ? SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.85,
-                        width: Get.width,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Error Loading PDF',
-                              style: Get.textTheme.bodyMedium,
-                            ),
-                            SizedBox(
-                              height: 8.h,
-                            ),
-                            GestureDetector(
-                                onTap: () {
-                                  Get.close(1);
-                                },
-                                child: Text(
-                                  'Go Back',
-                                  style: Get.textTheme.titleMedium!
-                                      .copyWith(color: Get.theme.primaryColor),
-                                ))
-                          ],
-                        ))
-                    : SfPdfViewer.memory(
-                        mediaController.openedPdfByteData!,
-                        canShowScrollHead: true,
-                        canShowScrollStatus: true,
-                        canShowPaginationDialog: true,
-                        enableHyperlinkNavigation: true,
-                        onTextSelectionChanged: (details) {},
-                        controller: mediaController.pdfViewerController,
-                        onPageChanged: (details) {
-                          print(details.newPageNumber);
-                        },
-                      ),
-              ],
-            );
-          }
-        },
+                ],
+              );
+            }
+          },
+        ),
       ),
     );
   }

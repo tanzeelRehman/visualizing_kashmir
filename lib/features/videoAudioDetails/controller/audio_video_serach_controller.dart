@@ -52,7 +52,7 @@ class AudioVideoSearchController extends GetxController {
     } else {
       getVideosResponseModel = response;
       getVideosSearchResponseModel = getVideosResponseModel!.data;
-      Logger().i(getVideosResponseModel!.toJson());
+      // Logger().i(getVideosResponseModel!.toJson());
       startMainScreenLoader();
     }
   }

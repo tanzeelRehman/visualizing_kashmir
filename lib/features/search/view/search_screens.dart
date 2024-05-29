@@ -55,7 +55,12 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: getPreferedSizeAppbar(searchType.capitalize!,
+        appBar: getPreferedSizeAppbar(
+            searchType == DataType.book.name
+                ? 'Books'
+                : searchType == DataType.article.name
+                    ? 'Articles'
+                    : searchType.capitalize!,
             focusNode: searchFocusNode),
         body: Directionality(
           textDirection: Directionality.of(context) == TextDirection.rtl

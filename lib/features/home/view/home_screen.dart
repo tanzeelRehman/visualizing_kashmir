@@ -10,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:logger/logger.dart';
 
 import 'package:marquee/marquee.dart';
 
@@ -42,8 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  HomeController homeController = Get.find<HomeController>();
+
   @override
   Widget build(BuildContext context) {
+    Logger().e('rebuilding widget tree');
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
@@ -56,16 +60,22 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 20.h,
               ),
+
               GetBuilder<HomeController>(
-                init: Get.find<HomeController>(),
+                init: homeController,
                 builder: (controller) {
+                  Logger().i(controller.showTodayHeadline);
                   if (controller.showTodayHeadline) {
                     return Column(
                       children: [
                         newsBanner(
                             context,
                             controller
-                                .getHeadLineResponseModel!.data.first.heading),
+                                .getHeadLineResponseModel!.data.first.heading,
+                            controller.getHeadLineResponseModel!.data.first
+                                .description,
+                            controller.getHeadLineResponseModel!.data.first
+                                .gallery.first),
                         SizedBox(
                           height: 15.h,
                         ),
@@ -79,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               //* Scrollable content start  -------------------------->
               SizedBox(
-                height: Get.height * 0.68,
+                height: Get.height * 0.65,
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -227,9 +237,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             SizedBox(
                               width: 8.w,
                             ),
-                            SizedBox(
-                                height: 30.h,
-                                child: SvgPicture.asset(AppAssets.twt_icon)),
+                            GestureDetector(
+                              onTap: () {
+                                Get.find<HomeController>()
+                                    .launchTheUrl(AppUrl.ytlink);
+                              },
+                              child: SizedBox(
+                                  height: 30.h,
+                                  child: SvgPicture.asset(AppAssets.yt_icon)),
+                            ),
                           ],
                         )
                       ],
@@ -555,7 +571,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Directionality(
       textDirection: Directionality.of(context) == TextDirection.rtl
           ? TextDirection.ltr
-          : TextDirection.rtl,
+          : TextDirection.ltr,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -576,6 +592,31 @@ class _HomeScreenState extends State<HomeScreen> {
                   AppAssets.language,
                 )),
           ),
+          GestureDetector(
+            onTap: () {
+              homeController.toggleShowHeadline();
+              homeController.onInit();
+              homeController.updateScreen();
+            },
+            child: Container(
+              alignment: Alignment.center,
+              decoration: AppTheme.roundedContainerDecoration.copyWith(
+                  boxShadow: [
+                    BoxShadow(
+                        color: AppTheme.cardColorLight.withOpacity(.5),
+                        blurRadius: 5,
+                        offset: Offset(5, 5))
+                  ],
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.r)),
+              height: 30.sp,
+              width: 80.w,
+              child: Text(
+                "Refresh".tr,
+                style: TextStyle(fontSize: 13.sp),
+              ),
+            ),
+          ),
           Text(
             "Home".tr,
             style: Get.theme.textTheme.titleMedium!.copyWith(
@@ -587,14 +628,19 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget newsBanner(BuildContext context, String title) {
+  Widget newsBanner(
+      BuildContext context, String title, String desc, String? imageUrl) {
     return Directionality(
       textDirection: Directionality.of(context) == TextDirection.rtl
           ? TextDirection.ltr
           : TextDirection.ltr,
       child: GestureDetector(
         onTap: () {
-          Get.toNamed(AppPages.headLinePage);
+          Get.toNamed(AppPages.headLinePage, arguments: [
+            {"heading": title},
+            {"description": desc},
+            {"imageUrl": imageUrl},
+          ]);
         },
         child: Container(
           height: 55.h,

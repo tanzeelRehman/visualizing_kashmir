@@ -1,5 +1,7 @@
+import 'dart:ffi';
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -31,6 +33,7 @@ class HomeController extends GetxController {
   bool fetchingData = false;
   bool showTodayHistory = false;
   bool showTodayHeadline = false;
+  bool gettingHeadline = false;
 
   //? API CALLS STARTS --------------------------------------------------------------------------->
   //?=============================================================================================>
@@ -64,10 +67,15 @@ class HomeController extends GetxController {
 
   //- GET TODAY HEADLINE
   Future<void> getTodayHeadline() async {
+    showTodayHeadline = false;
+    update();
     String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
-    Logger().e(formattedDate);
+
     var response = await homeDataSource.getHeadLine(formattedDate);
+    Logger().e(showTodayHeadline);
+    Logger().e(gettingHeadline);
     if (response is Failure) {
+      handleError(Failure('Error loading headlines'));
     } else {
       getHeadLineResponseModel = response;
       Logger().i(getHeadLineResponseModel!.toJson());
@@ -75,8 +83,21 @@ class HomeController extends GetxController {
       if (getHeadLineResponseModel!.data.isNotEmpty) {
         showTodayHeadline = true;
         update();
+        Logger().e(showTodayHeadline);
+        Logger().e(gettingHeadline);
       }
     }
+  }
+
+  void toggleGettingHeadline() {
+    gettingHeadline = !gettingHeadline;
+    update();
+  }
+
+  void toggleShowHeadline() {
+    showTodayHeadline = !showTodayHeadline;
+    Logger().e(showTodayHeadline);
+    update();
   }
   //? API CALLS END --------------------------------------------------------------------------->
   //?===========================================================================================>
@@ -84,7 +105,7 @@ class HomeController extends GetxController {
   //! Business Logic ---------------------------------------------------------->
 
   double getKashmirTermperature() {
-    if (getHeadLineResponseModel == null) {
+    if (getWeatherResponseModel == null) {
       return 0.0;
     }
     if (getWeatherResponseModel!.main.temp != 0.0) {
@@ -102,7 +123,7 @@ class HomeController extends GetxController {
 
     DateTime gmt530Time = now.add(offset);
 
-    String formattedTime = DateFormat.Hm().format(gmt530Time);
+    String formattedTime = DateFormat.jm().format(gmt530Time);
 
     return formattedTime;
   }
@@ -140,6 +161,10 @@ class HomeController extends GetxController {
     if (!await launchUrl(url)) {
       handleError(const Failure('Canot open the link'));
     }
+  }
+
+  void updateScreen() {
+    update();
   }
 
   //* State Functions ---------------------------------------------------------->

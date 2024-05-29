@@ -41,6 +41,10 @@ class Languages extends Translations {
           'Images': 'Images',
           'Infographics': 'Infographics',
           'Srinagar': 'Srinagar',
+          'Refresh': 'Refresh',
+          'Done': 'Done',
+          'Go_to_page': 'Go to page',
+          'Enter_page_no': 'Enter page number',
         },
         'ar_UAE': {
           'Select_Language': 'اختار اللغة',
@@ -80,6 +84,10 @@ class Languages extends Translations {
           'Images': 'الصور',
           'Infographics': 'الرسوم البيانية',
           'Srinagar': 'سری نگر',
+          'Refresh': 'ينعش',
+          'Done': 'منتهي',
+          'Go_to_page': 'انتقل إلى صفحة',
+          'Enter_page_no': 'أدخل رقم الصفحة',
         },
         'ur_PK': {
           'Select_Language': 'زبان منتخب کریں',
@@ -119,6 +127,10 @@ class Languages extends Translations {
           'Images': 'تصاویر',
           'Infographics': 'انفوگرافکس',
           'Srinagar': 'سری نگر',
+          'Refresh': 'ریفریش',
+          'Done': 'ہو گیا',
+          'Go_to_page': 'صفحے پر جائیں',
+          'Enter_page_no': 'صفحہ نمبر درج کریں۔',
         }
       };
 }

@@ -37,7 +37,8 @@ class HomeDataSource {
 
   //?- GET TODAY HEADLINE
   Future<dynamic> getHeadLine(String date) async {
-    String url = '${AppUrl.baseUrl}${AppUrl.getHeadline}&date=$date';
+    String url = '${AppUrl.baseUrl}${AppUrl.getHeadline}date=$date';
+    Logger().e(url);
 
     try {
       final response = await dio.get(url);
