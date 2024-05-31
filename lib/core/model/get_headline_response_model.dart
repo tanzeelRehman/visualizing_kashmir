@@ -32,12 +32,12 @@ class Data {
     required this.updatedDate,
   });
   late final int id;
-  late final String heading;
-  late final String description;
-  late final List<String> gallery;
-  late final String date;
-  late final String createdDate;
-  late final String updatedDate;
+  late final String? heading;
+  late final String? description;
+  late final List<String>? gallery;
+  late final String? date;
+  late final String? createdDate;
+  late final String? updatedDate;
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];

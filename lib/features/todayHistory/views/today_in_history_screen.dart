@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 import 'package:visualizing_kashmir/core/constants/app_assets.dart';
 import 'package:visualizing_kashmir/core/constants/search_enum.dart';
@@ -13,15 +14,33 @@ import 'package:visualizing_kashmir/core/theme/app_theme.dart';
 import 'package:visualizing_kashmir/core/widgets/custom_text_formfield.dart';
 import 'package:visualizing_kashmir/core/widgets/primary_continue_small_button.dart';
 import 'package:visualizing_kashmir/core/widgets/primary_continuebutton.dart';
+import 'package:visualizing_kashmir/features/home/controller/home_controller.dart';
 import 'package:visualizing_kashmir/features/search/view/widgets/article_search_card.dart';
 import 'package:visualizing_kashmir/features/search/view/widgets/books_search_card.dart';
 import 'package:visualizing_kashmir/features/search/view/widgets/know_heros_search_card.dart';
 import 'package:visualizing_kashmir/features/search/view/widgets/reports_search_card.dart';
 
-class TodayInHistory extends StatelessWidget {
+class TodayInHistory extends StatefulWidget {
   TodayInHistory({super.key});
 
-  final String arg = Get.arguments;
+  @override
+  State<TodayInHistory> createState() => _TodayInHistoryState();
+}
+
+class _TodayInHistoryState extends State<TodayInHistory> {
+  HomeController controller = Get.find<HomeController>();
+
+  @override
+  void initState() {
+    super.initState();
+    if (controller.getTodayHistoryResponseModel == null) {
+      controller.getTodayHistory();
+      return;
+    }
+    if (controller.getTodayHistoryResponseModel!.data.isEmpty) {
+      controller.getTodayHistory();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,10 +80,41 @@ class TodayInHistory extends StatelessWidget {
                     SizedBox(
                       height: 15.h,
                     ),
-                    Text(
-                      arg,
-                      style: Get.textTheme.bodySmall,
-                    ),
+                    GetBuilder<HomeController>(
+                      init: controller,
+                      builder: (controller) {
+                        if (controller.lodaingTodayHistory) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 60.h,
+                                width: 60.w,
+                                child: LoadingIndicator(
+                                  indicatorType: Indicator.lineScale,
+                                  colors: [Get.theme.primaryColor],
+                                  strokeWidth: 2,
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          if (controller.getTodayHistoryResponseModel == null) {
+                            return Text(
+                              'Null ',
+                              style: Get.textTheme.bodySmall,
+                            );
+                          } else {
+                            return Text(
+                              controller.getTodayHistoryResponseModel?.data
+                                      .first.description ??
+                                  'Null',
+                              style: Get.textTheme.bodySmall,
+                            );
+                          }
+                        }
+                      },
+                    )
                   ]),
             ),
           ),

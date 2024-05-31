@@ -35,7 +35,13 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: SafeArea(
-            child: Transform.scale(
-                scale: 1.15, child: Image.asset(AppAssets.splash))));
+            child: SizedBox(
+          width: Get.width,
+          height: Get.height,
+          child: Image.asset(
+            AppAssets.splash,
+            fit: BoxFit.fitWidth,
+          ),
+        )));
   }
 }

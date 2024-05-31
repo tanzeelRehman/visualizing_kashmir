@@ -2,7 +2,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:visualizing_kashmir/core/constants/app_pages.dart';
 import 'package:visualizing_kashmir/core/services/local_notification_service.dart';
 
 class FirebasePushNotificationService {
@@ -37,15 +39,11 @@ class FirebasePushNotificationService {
         if (message != null) {
           print("type is");
           print(message.data['type']);
-          // if (message.data['_id'] != null) {
-          //   Navigator.of(context).push(
-          //     MaterialPageRoute(
-          //       builder: (context) => DemoScreen(
-          //         id: message.data['_id'],
-          //       ),
-          //     ),
-          //   );
-          // }
+          if (message.data['type'] != null) {
+            if (message.data['type'] == 'history') {
+              Get.toNamed(AppPages.todayInHistoryPage);
+            }
+          }
         }
       },
     );
@@ -90,11 +88,12 @@ class FirebasePushNotificationService {
           print(message.notification!.body);
           print("type is");
           print(message.data['type']);
-          // Navigator.pushNamed(
-          //   context,
-          //   message.data['route'],
-          // );
-
+          print(message.data['type']);
+          if (message.data['type'] != null) {
+            if (message.data['type'] == 'history') {
+              Get.toNamed(AppPages.todayInHistoryPage);
+            }
+          }
           //! By default firebase show the pop up notifications when app is in background {{Only when the channel names match everywhere}}
           //* So we dont need to set local notifications here
         }

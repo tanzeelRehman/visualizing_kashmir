@@ -3,7 +3,10 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:logger/logger.dart';
+import 'package:visualizing_kashmir/core/constants/app_pages.dart';
 
 class LocalNotificationService {
   static final FlutterLocalNotificationsPlugin _notificationsPlugin =
@@ -28,7 +31,9 @@ class LocalNotificationService {
         String? data = details.payload;
         print('Fore-ground state user pressed on notification paylod:  $data');
 
-        //Navigator.pushNamed(context, data!);
+        if (data == 'history') {
+          Get.toNamed(AppPages.todayInHistoryPage);
+        }
       },
     );
   }

@@ -26,14 +26,14 @@ class HomeController extends GetxController {
 
   //! Model variables
   GetWeatherResponseModel? getWeatherResponseModel;
-  late GetTodayHistoryResponseModel? getTodayHistoryResponseModel;
+  GetTodayHistoryResponseModel? getTodayHistoryResponseModel;
   late GetHeadLineResponseModel? getHeadLineResponseModel;
 
   //! Class variables
   bool fetchingData = false;
   bool showTodayHistory = false;
   bool showTodayHeadline = false;
-  bool gettingHeadline = false;
+  bool lodaingTodayHistory = false;
 
   //? API CALLS STARTS --------------------------------------------------------------------------->
   //?=============================================================================================>
@@ -54,6 +54,7 @@ class HomeController extends GetxController {
   //- GET TODAY HISTORY
   Future<void> getTodayHistory() async {
     showTodayHistory = false;
+    lodaingTodayHistory = true;
     update();
     var response = await appDataSource.getData(DataType.today);
     if (response is Failure) {
@@ -67,6 +68,7 @@ class HomeController extends GetxController {
 
       if (getTodayHistoryResponseModel!.data.isNotEmpty) {
         showTodayHistory = true;
+        lodaingTodayHistory = false;
         update();
       }
     }
@@ -80,7 +82,7 @@ class HomeController extends GetxController {
 
     var response = await homeDataSource.getHeadLine(formattedDate);
     Logger().e(showTodayHeadline);
-    Logger().e(gettingHeadline);
+
     if (response is Failure) {
       handleError(Failure('Error loading headlines'));
     } else {
@@ -91,7 +93,6 @@ class HomeController extends GetxController {
         showTodayHeadline = true;
         update();
         Logger().e(showTodayHeadline);
-        Logger().e(gettingHeadline);
       }
     }
   }
@@ -136,6 +137,10 @@ class HomeController extends GetxController {
   }
 
   //* Util functions ------------------------------------------------------------>
+  void updateScreenListViewWithId5() {
+    update([5]);
+  }
+
   void handleError(Failure failure) {
     Get.snackbar(
       "Error",
@@ -167,6 +172,7 @@ class HomeController extends GetxController {
   }
 
   void updateScreen() {
+    showTodayHeadline = !showTodayHeadline;
     update();
   }
 

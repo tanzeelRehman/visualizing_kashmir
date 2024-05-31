@@ -70,12 +70,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         newsBanner(
                             context,
+                            controller.getHeadLineResponseModel?.data.first
+                                    .heading ??
+                                '',
+                            controller.getHeadLineResponseModel?.data.first
+                                    .description ??
+                                '',
                             controller
-                                .getHeadLineResponseModel!.data.first.heading,
-                            controller.getHeadLineResponseModel!.data.first
-                                .description,
-                            controller.getHeadLineResponseModel!.data.first
-                                .gallery.first),
+                                .getHeadLineResponseModel?.data.first.gallery),
                         SizedBox(
                           height: 15.h,
                         ),
@@ -88,117 +90,126 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
 
               //* Scrollable content start  -------------------------->
-              SizedBox(
-                height: homeController.showTodayHeadline
-                    ? Get.height * 0.66
-                    : Get.height * 0.75,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      temperatureAndMap(),
-                      SizedBox(
-                        height: 25.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //* a method in controller to only update this builder with the id 5
+              GetBuilder(
+                id: 5,
+                init: homeController,
+                builder: (controller) {
+                  return SizedBox(
+                    height: homeController.showTodayHeadline
+                        ? Get.height * 0.72 - 55.h
+                        : Get.height * 0.75,
+                    child: SingleChildScrollView(
+                      child: Column(
                         children: [
-                          optionCard(
-                            title: "History".tr,
-                            pngPath: AppAssets.history,
-                            ontap: () {
-                              Get.toNamed(AppPages.historySubPage,
-                                  arguments: "History");
-                            },
+                          SizedBox(
+                            height: 20.h,
                           ),
-                          optionCard(
-                            title: "Articles".tr,
-                            pngPath: AppAssets.articlesPng,
-                            isPng: true,
-                            ontap: () {
-                              // Get.toNamed(AppPages.searchPage,
-                              //     arguments: DataType.article.name);
-                            },
+                          temperatureAndMap(),
+                          SizedBox(
+                            height: 25.h,
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              optionCard(
+                                title: "History".tr,
+                                pngPath: AppAssets.history,
+                                ontap: () {
+                                  Get.toNamed(AppPages.historySubPage,
+                                      arguments: "History");
+                                },
+                              ),
+                              optionCard(
+                                title: "Articles".tr,
+                                pngPath: AppAssets.articlesPng,
+                                isPng: true,
+                                ontap: () {
+                                  // Get.toNamed(AppPages.searchPage,
+                                  //     arguments: DataType.article.name);
+                                },
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              optionCard(
+                                title: "Reports".tr,
+                                pngPath: AppAssets.reports,
+                                ontap: () {
+                                  Get.toNamed(AppPages.searchPage,
+                                      arguments: DataType.report.name);
+                                },
+                              ),
+                              optionCard(
+                                title: "Know_Your_Heros".tr,
+                                pngPath: AppAssets.know_heros,
+                                ontap: () {
+                                  Get.toNamed(AppPages.searchPage,
+                                      arguments: DataType.heros.name);
+                                },
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              optionCard(
+                                title: "Videos".tr,
+                                pngPath: AppAssets.videos_audios,
+                                ontap: () {
+                                  Get.toNamed(
+                                      AppPages.multiMediaSearchDisplayPage,
+                                      arguments: MultiMediaType.Videos.name);
+                                },
+                              ),
+                              optionCard(
+                                title: "Audios".tr,
+                                pngPath: AppAssets.audio,
+                                ontap: () {
+                                  Get.toNamed(AppPages.searchPage,
+                                      arguments: DataType.heros.name);
+                                },
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 25.h,
+                          ),
+                          GetBuilder<HomeController>(
+                            init: homeController,
+                            builder: (controller) {
+                              Logger().i(homeController.showTodayHistory);
+                              if (homeController.showTodayHistory) {
+                                return historyCard(
+                                    homeController.getTodayHistoryResponseModel!
+                                            .data.first.heading ??
+                                        'Null',
+                                    homeController.getTodayHistoryResponseModel!
+                                            .data.first.description ??
+                                        'Null',
+                                    homeController.getTodayHistoryResponseModel!
+                                            .data.first.heading1 ??
+                                        'Null');
+                              } else {
+                                return const SizedBox.shrink();
+                              }
+                            },
+                          )
                         ],
                       ),
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          optionCard(
-                            title: "Reports".tr,
-                            pngPath: AppAssets.reports,
-                            ontap: () {
-                              Get.toNamed(AppPages.searchPage,
-                                  arguments: DataType.report.name);
-                            },
-                          ),
-                          optionCard(
-                            title: "Know_Your_Heros".tr,
-                            pngPath: AppAssets.know_heros,
-                            ontap: () {
-                              Get.toNamed(AppPages.searchPage,
-                                  arguments: DataType.heros.name);
-                            },
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          optionCard(
-                            title: "Videos".tr,
-                            pngPath: AppAssets.videos_audios,
-                            ontap: () {
-                              Get.toNamed(AppPages.multiMediaSearchDisplayPage,
-                                  arguments: MultiMediaType.Videos.name);
-                            },
-                          ),
-                          optionCard(
-                            title: "Audios".tr,
-                            pngPath: AppAssets.audio,
-                            ontap: () {
-                              Get.toNamed(AppPages.searchPage,
-                                  arguments: DataType.heros.name);
-                            },
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 25.h,
-                      ),
-                      GetBuilder<HomeController>(
-                        init: homeController,
-                        builder: (controller) {
-                          Logger().i(homeController.showTodayHistory);
-                          if (homeController.showTodayHistory) {
-                            return historyCard(
-                                homeController.getTodayHistoryResponseModel!
-                                        .data.first.heading ??
-                                    'Null',
-                                homeController.getTodayHistoryResponseModel!
-                                        .data.first.description ??
-                                    'Null',
-                                homeController.getTodayHistoryResponseModel!
-                                        .data.first.heading1 ??
-                                    'Null');
-                          } else {
-                            return const SizedBox.shrink();
-                          }
-                        },
-                      )
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                },
               ),
+
               //! Scrollable content End  -------------------------->
               const Spacer(),
               Padding(
@@ -342,7 +353,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget historyCard(String shortDesc, String longdesc, String title) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppPages.todayInHistoryPage, arguments: longdesc);
+        Get.toNamed(
+          AppPages.todayInHistoryPage,
+        );
       },
       child: Container(
         //  height: 120.h,
@@ -614,6 +627,9 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: () {
               homeController.onInit();
               homeController.updateScreen();
+
+              //* When headline news come and go main listview height chnages, This function will update the changes
+              homeController.updateScreenListViewWithId5();
             },
             child: Container(
               alignment: Alignment.center,
@@ -645,19 +661,35 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget newsBanner(
-      BuildContext context, String title, String desc, String? imageUrl) {
+  Widget newsBanner(BuildContext context, String title, String desc,
+      List<String?>? imageUrl) {
     return Directionality(
       textDirection: Directionality.of(context) == TextDirection.rtl
           ? TextDirection.ltr
           : TextDirection.ltr,
       child: GestureDetector(
         onTap: () {
-          Get.toNamed(AppPages.headLinePage, arguments: [
-            {"heading": title},
-            {"description": desc},
-            {"imageUrl": imageUrl},
-          ]);
+          if (imageUrl == null) {
+            Get.toNamed(AppPages.headLinePage, arguments: [
+              {"heading": title},
+              {"description": desc},
+              {"imageUrl": null},
+            ]);
+            return;
+          }
+          if (imageUrl.isEmpty) {
+            Get.toNamed(AppPages.headLinePage, arguments: [
+              {"heading": title},
+              {"description": desc},
+              {"imageUrl": null},
+            ]);
+          } else {
+            Get.toNamed(AppPages.headLinePage, arguments: [
+              {"heading": title},
+              {"description": desc},
+              {"imageUrl": imageUrl?.first},
+            ]);
+          }
         },
         child: Container(
           height: 55.h,
