@@ -26,6 +26,7 @@ class AppAssets {
   static const twt_icon = 'assets/images/svgs/twt_icon.svg';
   static const yt_icon = 'assets/images/svgs/yt_icon.svg';
   static const tk_icon = 'assets/images/svgs/tk_icon.svg';
+  static const gm_icon = 'assets/images/svgs/gm_icon.svg';
   static const videos_audios = 'assets/images/svgs/videos_audios.svg';
   static const audio = 'assets/images/svgs/audio.svg';
 

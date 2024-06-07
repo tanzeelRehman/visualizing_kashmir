@@ -171,6 +171,26 @@ class HomeController extends GetxController {
     }
   }
 
+  void sendEmail() async {
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: 'visualizingkashmir@gmail.com',
+      query: encodeQueryParameters(<String, String>{
+        'subject': 'Visualizing Kashmir mobile application!',
+      }),
+    );
+    if (!await launchUrl(emailUri)) {
+      handleError(const Failure('Canot send email'));
+    }
+  }
+
+  String? encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map((MapEntry<String, String> e) =>
+            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+        .join('&');
+  }
+
   void updateScreen() {
     showTodayHeadline = !showTodayHeadline;
     update();

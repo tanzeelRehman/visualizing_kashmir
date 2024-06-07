@@ -173,10 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               optionCard(
                                 title: "Audios".tr,
                                 pngPath: AppAssets.audio,
-                                ontap: () {
-                                  Get.toNamed(AppPages.searchPage,
-                                      arguments: DataType.heros.name);
-                                },
+                                ontap: () {},
                               ),
                             ],
                           ),
@@ -274,6 +271,17 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: SizedBox(
                                   height: 30.h,
                                   child: SvgPicture.asset(AppAssets.tk_icon)),
+                            ),
+                            SizedBox(
+                              width: 8.w,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Get.find<HomeController>().sendEmail();
+                              },
+                              child: SizedBox(
+                                  height: 30.h,
+                                  child: SvgPicture.asset(AppAssets.gm_icon)),
                             ),
                           ],
                         )
