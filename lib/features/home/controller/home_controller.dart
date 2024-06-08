@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
+import 'package:logger/web.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:visualizing_kashmir/core/constants/data_type_enum.dart';
 import 'package:visualizing_kashmir/core/data/app_data_source.dart';
@@ -121,13 +122,21 @@ class HomeController extends GetxController {
   }
 
   String getKashmirTime() {
-    DateTime now = DateTime.now();
+    DateTime now = DateTime.now().toUtc();
+    if (getWeatherResponseModel == null) {
+      return 'Network error';
+    }
 
-    Duration offset = const Duration(minutes: 30);
+    Logger().e(getWeatherResponseModel!.timezone);
+    // Calculate the target time in milliseconds
+    DateTime targetDate =
+        now.add(Duration(seconds: getWeatherResponseModel!.timezone));
 
-    DateTime gmt530Time = now.add(offset);
-
-    String formattedTime = DateFormat.jm().format(gmt530Time);
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
+    String formattedDateTime = dateFormat.format(targetDate);
+    ;
+    DateTime newtime = DateTime.parse(formattedDateTime);
+    String formattedTime = DateFormat.jm().format(newtime);
 
     return formattedTime;
   }
