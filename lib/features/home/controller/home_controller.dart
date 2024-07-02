@@ -72,6 +72,7 @@ class HomeController extends GetxController {
         lodaingTodayHistory = false;
         update();
       }
+      update();
     }
   }
 
@@ -147,7 +148,7 @@ class HomeController extends GetxController {
 
   //* Util functions ------------------------------------------------------------>
   void updateScreenListViewWithId5() {
-    update([5]);
+    update();
   }
 
   void handleError(Failure failure) {

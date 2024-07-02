@@ -68,16 +68,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   if (controller.showTodayHeadline) {
                     return Column(
                       children: [
-                        newsBanner(
-                            context,
-                            controller.getHeadLineResponseModel?.data.first
-                                    .heading ??
-                                '',
-                            controller.getHeadLineResponseModel?.data.first
-                                    .description ??
-                                '',
-                            controller
-                                .getHeadLineResponseModel?.data.first.gallery),
+                        if (controller.getHeadLineResponseModel?.data.isNotEmpty ??
+                            false)
+                          newsBanner(
+                              context,
+                              controller.getHeadLineResponseModel?.data.first
+                                      .heading ??
+                                  '',
+                              controller.getHeadLineResponseModel?.data.first
+                                      .description ??
+                                  '',
+                              controller.getHeadLineResponseModel?.data.first
+                                  .gallery),
                         SizedBox(
                           height: 15.h,
                         ),
@@ -90,14 +92,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
 
               //* Scrollable content start  -------------------------->
-              //* a method in controller to only update this builder with the id 5
+
               GetBuilder(
-                id: 5,
                 init: homeController,
                 builder: (controller) {
                   return SizedBox(
                     height: homeController.showTodayHeadline
-                        ? Get.height * 0.72 - 55.h
+                        ? Get.height * 0.71 - 55.h
                         : Get.height * 0.75,
                     child: SingleChildScrollView(
                       child: Column(
