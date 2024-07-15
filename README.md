@@ -37,4 +37,9 @@ API endpoints are removed because database access is restricted
 - This project is licensed under the MIT License - see the [LICENSE](https://github.com/tanzeelRehman/visualizing_kashmir/blob/main/LICENSE.md) file for details
 
 # Contact
-Tanzeel Ur Rehman - [tanzeel.rehman481@gmail.com](tanzeel.rehman481@gmail.com)
+Tanzeel Ur Rehman - [tanzeel.rehman481@gmail.com](tanzeel.rehman481@gmail.com) - [Linkedin](https://www.linkedin.com/in/tanzeel-rehman-dev)
+
+If you liked the repo then kindly support it by giving it a star ⭐!
+
+Copyright (c) 2024 TANZEEL UR REHMAN
+
