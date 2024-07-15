@@ -9,7 +9,23 @@ We strive to capture not just stories of struggle, but of solidarity, steadfastn
   
 Open CMD where you want to clone the project & run the following commands
 ```bash
-   git clone https://github.com/tanzeelRehman/visualizing_kashmir.git
-    cd visualizing_kashmir
-    flutter pub get
-    flutter run
+git clone https://github.com/tanzeelRehman/visualizing_kashmir.git
+cd visualizing_kashmir
+flutter pub get
+flutter run
+``` 
+# API Information
+The backend is developed in Node js.
+API endpoints are removed because database access is restricted
+
+# Features
+- Multi-language support (English/Urdu/Arabic)
+- Multimedia content (Videos/Images/Audios)
+- Read and bookmark PDF Books
+- Push Notifications
+- Daily History lesson
+- Headline News
+- MCQs type quiz
+
+# License
+- This project is licensed under the MIT License - see the [LICENSE](https://github.com/tanzeelRehman/visualizing_kashmir/blob/main/LICENSE.md) file for details
