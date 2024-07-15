@@ -14,9 +14,6 @@ cd visualizing_kashmir
 flutter pub get
 flutter run
 ``` 
-# API Information
-The backend is developed in Node js.
-API endpoints are removed because database access is restricted
 
 # Features
 - Multi-language support (English/Urdu/Arabic)
@@ -27,5 +24,17 @@ API endpoints are removed because database access is restricted
 - Headline News
 - MCQs type quiz
 
+# Technologies 
+- Flutter with MVC Architecture for frontend
+- Node js for backend
+- Firebase for push notifications
+
+# API Information
+Used OpenWeatherMap API to show Kashmir's current time and temperature
+API endpoints are removed because database access is restricted
+
 # License
 - This project is licensed under the MIT License - see the [LICENSE](https://github.com/tanzeelRehman/visualizing_kashmir/blob/main/LICENSE.md) file for details
+
+# Contact
+Tanzeel Ur Rehman - [tanzeel.rehman481@gmail.com](tanzeel.rehman481@gmail.com)
