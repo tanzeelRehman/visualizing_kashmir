@@ -1,19 +1,19 @@
 class AppUrl {
-  static const baseUrl = 'https://node.app.visualizingkashmir.com/api/';
+  static const baseUrl = '';
   static const weatherBaseUrl = 'https://api.openweathermap.org/data/2.5';
-  static const bunnyBaseUrl = 'https://visualizekashmirasia.b-cdn.net';
+  static const bunnyBaseUrl = '';
 
   //! Books , Articles, Reports
-  static const getData = 'history?';
+  static const getData = '';
 
   //! Videos
-  static const getVideos = 'gallery?page=1&search=';
+  static const getVideos = '';
 
   //! Know your heros
-  static const getKnowYourHeros = 'hero?page=1&search=null';
+  static const getKnowYourHeros = '';
 
   //!Headline
-  static const getHeadline = 'headline?page=null&search=null&';
+  static const getHeadline = '';
 
   //! Social meida
   static const fblink =
